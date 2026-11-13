@@ -4,8 +4,6 @@
 
 用户可以描述“升级调制方式后错误帧增加”等问题，也可以直接修改链路条件。Agent 根据当前证据选择工具，比较不同解释，结合误块率、有效吞吐和置信区间形成结论。完整调查记录保存模型消息、工具参数、计算结果、证据编号及专业 Skill 的版本哈希。
 
-本项目源于《人工智能的网络应用》课程综合项目，提供 8 类公开案例、72 次在线对照实验记录、19 项测试及完整报告，便于学习 Agent 工具调用、通信系统建模与实验评测。
-
 ## 主要功能
 
 - 在网页中编辑当前调制编码、信道类型、信噪比指标定义、指标数值和 BLER 上限，按新条件开展调查。
@@ -23,7 +21,6 @@ C02 工单给出 AWGN、Es/N0=8 dB、BLER 上限 10% 的链路。当前 64-QAM 3
 ## 阅读入口
 
 - 了解系统结构与工具之间的关系。[系统架构图](docs/architecture.png) · [调查流程图](docs/workflow.png)
-- 阅读包含模型条件、调查案例、对照实验和失败分析的完整报告。[PDF 报告](report.pdf) · [Word 报告](report.docx)
 - 查看专业调查步骤和停止条件。[专业 Skill](skills/wireless-mcs-investigation/SKILL.md)
 - 核查评分规则、实验汇总和原始记录。[评测协议](tests/evaluation_protocol.md) · [结果汇总](results/summary.csv) · [72 次运行记录](results/runs)
 
@@ -39,7 +36,7 @@ C02 工单给出 AWGN、Es/N0=8 dB、BLER 上限 10% 的链路。当前 64-QAM 3
 | 专业 Skill | `skills/wireless-mcs-investigation/SKILL.md` | 指标核对、反证、样本充分性与调查步骤 |
 | 公开案例 | `data/cases.json` | 八类工单、原始观测与业务要求 |
 | 测试与评测 | `tests/` | 单元验证、参考生成、正式对照及离线重评分 |
-| 提交材料 | `report.docx`、`report.pdf`、`docs/`、`results/` | Word 报告、图表、截图、正式结果和完整 Trace |
+| 调查与评测记录 | `results/` | 候选性能、评测汇总及完整工具调用记录 |
 
 四个实际工具为 `get_link_case`、`calculate_link_limits`、`simulate_mcs`、`compare_mcs_results`。工具返回带编号的结构化证据。C 组实际读取 Skill 内容，调用记录保存其 SHA256。架构及流程图见 `docs/architecture.png` 和 `docs/workflow.png`。
 
@@ -53,7 +50,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip check
 ```
 
-`requirements.txt` 固定主要直接依赖，`requirements-lock.txt` 保存本次环境的完整版本快照。主程序依赖 PydanticAI、NumPy、SciPy、Pandas、Matplotlib 和 Streamlit，报告生成另使用 ReportLab、Pillow 和 pypdf。
+`requirements.txt` 固定主要直接依赖，`requirements-lock.txt` 保存本次环境的完整版本快照。主程序依赖 PydanticAI、NumPy、SciPy、Pandas、Matplotlib 和 Streamlit。
 
 首次使用时复制配置模板，并在本地填写密钥。
 
@@ -152,26 +149,6 @@ notepad .env
 - 一次界面调查把两种配置的名义信息比特能量差写为 10.8 dB，正确值约 6.532 dB。原始输出见 `results/semantic_review_example.json`，仿真计算采用正确的物理条件。
 - 仿真假设包含理想同步、已知信道、独立帧及单次传输。真实设备应用需要信道估计、相关衰落、重传机制及现场测量校准。
 - 本次结果来自八个自建案例、三次重复。更广泛的 Skill 效果需要扩展案例和重复实验。
-
-## 报告与提交
-
-报告提供可编辑的 Word 及对应 PDF，正文采用小四号黑色文字，表格与图表使用辅助配色。报告正文 3613 个汉字，各章字数统计见 `results/report_word_count.json`。姓名和学号采用提交者提供的信息，成员分工按两人各约 50% 填写。程序、测试执行、界面和报告初稿由 AI 辅助完成，选题与技术路线由使用者确定。
-
-重新生成 Word 报告使用 `docs/report_content.json` 中的统一内容，正文和表格可直接编辑，图表使用原始图片。版式使用宋体、黑体和 Times New Roman。安装文档依赖后运行以下命令。
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-docs.txt
-.\.venv\Scripts\python.exe -X utf8 scripts/build_word_report.py
-.\.venv\Scripts\python.exe -X utf8 scripts/package_submission.py
-```
-
-如修改报告内容生成脚本，可先运行 `python scripts/build_report.py --format content` 更新统一内容，再生成 Word 并检查分页。最终 PDF 使用 Microsoft Word 的导出功能从定稿 Word 生成。
-
-ZIP 输出到 `submission/无线链路调制编码调查Agent.zip`。打包采用明确的文件清单，包含 Word 和 PDF 报告、代码、Skill、依赖、案例、截图、正式结果和文件哈希清单。`.env`、虚拟环境及独立开发目录由清单排除。可按课程要求设置提交文件名。
-
-报告的证据索引为 `results/evidence_index.json`，逐项列出论据、包内文件和 SHA256。单元测试、Skill 校验与页面检查记录在 `results/verification/`，截图对应的实际运行在 `results/ui_runs/`。课程指导书和五项网页参考资料的离线副本位于 `docs/references/`，网页原始地址及抓取哈希见其中的 `sources.json`。
-
-开发进度及历史证据保存在项目同级的开发记录目录。`results/` 提供复核本次实验所需的正式材料，其中 72 次 Trace 均可追溯至公开案例。
 
 ## 接口与理论资料
 
