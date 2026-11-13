@@ -1,0 +1,291 @@
+[
+  {
+    "report_subject": "报告范围及课程要求",
+    "files": [
+      {
+        "path": "docs/references/course_guide.pdf",
+        "sha256": "93f7b0517c7378d6ee538c72efef36fbbcac066525baa4bb6f41015d746f2537"
+      }
+    ]
+  },
+  {
+    "report_subject": "原始工单及链路条件",
+    "files": [
+      {
+        "path": "data/cases.json",
+        "sha256": "2a82ee994763162343384a40a8c18d40b285b4480f848bce2868c8c31e5bd59f"
+      }
+    ]
+  },
+  {
+    "report_subject": "Agent 架构、结构化输出与证据保存",
+    "files": [
+      {
+        "path": "src/agent.py",
+        "sha256": "0c1c8f3cdfdc8f19457d6c92ee2586ed5ae54c13cb823b4413656a5097c932bd"
+      },
+      {
+        "path": "src/model.py",
+        "sha256": "6970169127c724e1ad6b99620560271260f27f45cb36d773eea7a2dcfae4856f"
+      },
+      {
+        "path": "src/paths.py",
+        "sha256": "39ca027155a6f9d1029289731354936a9fa760c838b247f2b3215047cab819b9"
+      },
+      {
+        "path": "app.py",
+        "sha256": "bab46372b38f1d7e83b8b4a819d4782ff34bcfd4d3a70bade610573bc8f71eac"
+      },
+      {
+        "path": "src/main.py",
+        "sha256": "88dc242d74ab58bbfe5cda887c59e5f1097264d1679c4ed05bebe19cfe1b809c"
+      }
+    ]
+  },
+  {
+    "report_subject": "工具计算、仿真及专业 Skill",
+    "files": [
+      {
+        "path": "src/investigation_tools.py",
+        "sha256": "34e8b5666e36b7b6ec929f9977ea1b345c765271bfe7a46ed8c140795a982296"
+      },
+      {
+        "path": "src/simulation.py",
+        "sha256": "74768afe0e04dbf771d8067fba00de5a134d7c75ea00826a4ef39118687408bf"
+      },
+      {
+        "path": "src/tools.py",
+        "sha256": "6301be25326c707f746a55e5e89f5176e9d0d11bb5934081e64b43b07fc0659b"
+      },
+      {
+        "path": "skills/wireless-mcs-investigation/SKILL.md",
+        "sha256": "fc1480168c343ba3f6c004fc467515749229639462f40d63a61296700aa29873"
+      }
+    ]
+  },
+  {
+    "report_subject": "14 项单元验证及 Skill 格式校验",
+    "files": [
+      {
+        "path": "tests/test_simulation.py",
+        "sha256": "97bac36d570bb46a7fa0e6474ecf28fa44cf95a3a77a18aee994e2a951692fa2"
+      },
+      {
+        "path": "tests/test_investigation_tools.py",
+        "sha256": "b2e5e7a0ce26eb6cad7607d7739347a77e61380bd909d9018724c25cf8830da8"
+      },
+      {
+        "path": "results/verification/unit_tests.txt",
+        "sha256": "f6751ad990e53a3f097590d578cd20a14523ab7cb1c1f4489813ad88973ae76d"
+      },
+      {
+        "path": "results/verification/skill_validation.txt",
+        "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+      }
+    ]
+  },
+  {
+    "report_subject": "完整 C02 调查及表 2 数值",
+    "files": [
+      {
+        "path": "results/runs/C02_C_r1.json",
+        "sha256": "9f285cbf7ec5c3a6d7f321b20ede90bb43e5aca0a21b5c01ded7498d63dd3187"
+      }
+    ]
+  },
+  {
+    "report_subject": "72 次正式实验的配置、评分与参考",
+    "files": [
+      {
+        "path": "results/experiment_config.json",
+        "sha256": "af37122362ab307b39daa9cdee81a0ec809a46634d473a63d4aa24f29c9b38b8"
+      },
+      {
+        "path": "tests/evaluation_protocol.md",
+        "sha256": "618eba8698440a41688c4c2d623fca2ef00f9316770aefdcf2ea210c55d11088"
+      },
+      {
+        "path": "tests/evaluate.py",
+        "sha256": "23fa3451b3b3d24144a1afb564f0885ad1b6b7211a5104e77e47fb42004b728b"
+      },
+      {
+        "path": "tests/build_reference.py",
+        "sha256": "276100e625b58f2010bc6e98d96c54593b6f300ab451f112bf13967d565b62df"
+      },
+      {
+        "path": "results/reference.json",
+        "sha256": "87163f08b3694d518b46c156589f619191039a5a32435f5f4e78b2ee0304c046"
+      },
+      {
+        "path": "results/evaluation.csv",
+        "sha256": "f68b73e1f2d6e9b65f8caa9839a4e906f9e57833bf473dcc83990823be5bb6eb"
+      },
+      {
+        "path": "results/summary.csv",
+        "sha256": "792cdf06c9afe534234d586a2ef3942b76fa96568619055dd9e3fe6f46f0002e"
+      },
+      {
+        "path": "results/case_successes.csv",
+        "sha256": "f843e748f4578d4b04cffd2853300b902bd7cc06cfef98ffe8fb5482bbe8f57e"
+      },
+      {
+        "path": "results/comparison.png",
+        "sha256": "59fb3ec55038ca69af95abb45b6c3934c0bc75c8e928d60e3bc14f3f3f1ced44"
+      }
+    ]
+  },
+  {
+    "report_subject": "C04 追加调查及提前停止案例",
+    "files": [
+      {
+        "path": "results/runs/C04_B_r3.json",
+        "sha256": "15eaa395e4c0fd23be09f38741fa4786cec1ca01844faf7225289c91bc50c19a"
+      },
+      {
+        "path": "results/runs/C04_C_r3.json",
+        "sha256": "1d7d62f3779451381d719e97445a4138fe208a39db5c3197a6a95f74f35c9144"
+      },
+      {
+        "path": "results/runs/C04_C_r1.json",
+        "sha256": "c071584ff2fcab2a9f99c2cf492e1660548c1bb2d387878730b7f67bf599dff1"
+      }
+    ]
+  },
+  {
+    "report_subject": "自由文本算术错误及原始上下文",
+    "files": [
+      {
+        "path": "results/semantic_review_example.json",
+        "sha256": "15807edddcdf1b84708f5a47761a8feaba86bc03e9e486791da86de58e401dcd"
+      }
+    ]
+  },
+  {
+    "report_subject": "真实界面截图、同会话复跑和页面错误检查",
+    "files": [
+      {
+        "path": "docs/screenshots/investigation.png",
+        "sha256": "0a45f11ec7dc37923f56d11d1bed8843609f155b93432cd3542859f0f80b5ad4"
+      },
+      {
+        "path": "docs/screenshots/evidence.png",
+        "sha256": "3f283c641975777ccd6d63d7db82d9b1ce54172258f9bfed6dd6063fc16a987e"
+      },
+      {
+        "path": "results/ui_runs/screenshot_investigation.json",
+        "sha256": "600a6b6ebb61717c451dc7ab5826f2e1b357262b035e3d4d88bb86bcae946923"
+      },
+      {
+        "path": "results/ui_runs/repeated_investigation.json",
+        "sha256": "707212709ba5390f348b6ed837f6a0718e40ae64ef8a41b0abc4c00400e63496"
+      },
+      {
+        "path": "results/verification/ui_check.json",
+        "sha256": "dacffdc9c4b0d22cb9f59008d7230caef06659b94280150e1bc003f959943f3d"
+      },
+      {
+        "path": "results/verification/report_ui_refresh.json",
+        "sha256": "fd528ec7a67d7cdd0e3572f9793d83bc752b161869f21000a2b0c8fc217d9735"
+      }
+    ]
+  },
+  {
+    "report_subject": "依赖版本和运行入口",
+    "files": [
+      {
+        "path": "requirements.txt",
+        "sha256": "0348044e5d048ab998aa1a0d818872aea76425e8ce5b0c5ae82ee969c42b4692"
+      },
+      {
+        "path": "requirements-lock.txt",
+        "sha256": "f35cbe73b187ad386fae9b560ea3c7f45b55c17f756bb0f4bd959450f7f1ecdc"
+      },
+      {
+        "path": "requirements-docs.txt",
+        "sha256": "5968b4e0563926c5d777d2e059e360b355df071626e3c68e6510fffb2278279d"
+      },
+      {
+        "path": "README.md",
+        "sha256": "6b5242b2ca0eb665fb73478fe90be14f92be0bd1da92d04a72c60b589bf5368b"
+      }
+    ]
+  },
+  {
+    "report_subject": "在线参考资料的离线全文与来源",
+    "files": [
+      {
+        "path": "docs/references/sources.json",
+        "sha256": "fdc4f5c9e88c9fbaa0ea347a51086480e35cccc80c19b3a0646a043291cd5db4"
+      },
+      {
+        "path": "docs/references/deepseek_api.html",
+        "sha256": "2753c4e803b3be1943e8bbc9ad661f13e447b6293fbc92908b0a1af7781f8de8"
+      },
+      {
+        "path": "docs/references/deepseek_api.txt",
+        "sha256": "f72bd9f0d4db0da5cc164d9fe9488b0d54e48a4c7cc83d2ff96d6b395385ccee"
+      },
+      {
+        "path": "docs/references/pydanticai_deepseek.html",
+        "sha256": "eb73e225654cafa656172e1101969d30429f048f0ddcf30d55d0b8fa744d27d1"
+      },
+      {
+        "path": "docs/references/pydanticai_deepseek.txt",
+        "sha256": "d121f8f84c1e2346b8465730b8fc9ffb18c5feeb13e00915bc2282af45edc456"
+      },
+      {
+        "path": "docs/references/snr_conversion.html",
+        "sha256": "c7686c6fa495614b84550a8991fd1b879a444bc9993262169fdf90a6b3f85564"
+      },
+      {
+        "path": "docs/references/snr_conversion.txt",
+        "sha256": "f6b17cc0f2e73aca9699ecec18b275585fd3671fc67d125855981f3fa86f3029"
+      },
+      {
+        "path": "docs/references/convolutional_codes.html",
+        "sha256": "b674db0215954d1fadab7ae6d836f0488fcde18d50a9be1bda3930799b730190"
+      },
+      {
+        "path": "docs/references/convolutional_codes.txt",
+        "sha256": "7a88692f9be583cf4124779e70484bb07cfe542d4d78dca1bde6a0f0167c88a8"
+      },
+      {
+        "path": "docs/references/binomial_interval.html",
+        "sha256": "74d64ffec8f739b2143808057507a3023b9797ab0459f24b40f341831e4ab499"
+      },
+      {
+        "path": "docs/references/binomial_interval.txt",
+        "sha256": "68737e2e1f947eb7baac8639e4821519f313918ba97807484064b7d72c0dab20"
+      }
+    ]
+  },
+  {
+    "report_subject": "自定义链路参数输入及验证",
+    "files": [
+      {
+        "path": "src/ui_inputs.py",
+        "sha256": "2aebbf173ccd2fc496cee1046feb56c6c7d91b19e1eda688ecf93c497d334515"
+      },
+      {
+        "path": "tests/test_ui_inputs.py",
+        "sha256": "1f2bd26c459cf796737e718763e0911c4d152c8549c4a14721f91e5ffdc475e7"
+      },
+      {
+        "path": "results/verification/editable_conditions.json",
+        "sha256": "f7883ce9a9cd610858c52821464062e4c260446c53753e9d1030231f6be560c4"
+      },
+      {
+        "path": "results/verification/unit_tests_editable.txt",
+        "sha256": "16192960aba1cabbce3225de02bb5a81a333c01290980dc3287657757e2a30d8"
+      },
+      {
+        "path": "results/ui_runs/custom_conditions.json",
+        "sha256": "c3694d6c8b5e4b7d8479ba7d41ef1c64552ce5b2cd4f40880ac38ed35cbd4b79"
+      },
+      {
+        "path": "docs/screenshots/custom_conditions.png",
+        "sha256": "fdeb431729f9a8fc484e1682d30fdeeb1a200f0735ec5108381fc89670ae97e2"
+      }
+    ]
+  }
+]

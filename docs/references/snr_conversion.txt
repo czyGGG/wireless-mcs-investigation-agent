@@ -1,0 +1,653 @@
+Source URL
+https://www.mathworks.com/help/comm/ref/convertsnr.html
+
+convertSNR
+R
+2026
+b
+Convert SNR values
+Since R2022a
+collapse all in page
+Syntax
+y = convertSNR(x,inputmode)
+y = convertSNR(x,inputmode,outputmode)
+y = convertSNR(x,inputmode,Name=Value)
+Description
+y
+= convertSNR(
+x
+,
+inputmode
+)
+converts the input signal-to-noise ratio value
+x
+to an SNR.
+example
+y
+= convertSNR(
+x
+,
+inputmode
+,
+outputmode
+)
+converts the input signal-to-noise ratio value
+x
+to the ratio specified by
+outputmode
+. For more information, see
+Algorithms
+.
+y
+= convertSNR(
+x
+,
+inputmode
+,
+Name=Value
+)
+specifies additional name-value arguments.
+example
+Examples
+collapse all
+Add Noise to 8-PSK Modulated Signal for Eb/No Value
+Open Live Script
+Generate random data symbols and the 8-PSK modulated signal.
+d = randi([0 7],100,1); M = 8;
+% 8-PSK
+k = log2(M);
+% bits per symbol
+psk = pskmod(d,M);
+Add the noise equivalent of a 6 dB Eb/No value to the modulated signal. To do so, first convert the Eb/No value to an SNR.
+EbNo = 6; SNR = convertSNR(EbNo,
+'ebno'
+,BitsPerSymbol=k)
+SNR = 10.7712
+y = awgn(psk,SNR);
+Plot the signal with and without the noise component.
+figure plot(real(psk)); hold
+on
+plot(real(y)) legend(
+"Perfect Signal"
+,
+"Noisy Signal"
+)
+Convert Eb/N0 Value to SNR Value
+Open Live Script
+Set the simulation parameters
+M = 16;
+% Modulation order
+k = log2(M);
+% bits per symbol
+nSamp = 4;
+% Number of samples
+Create the raised cosine transmit and receive filters
+txfilter = comm.RaisedCosineTransmitFilter(
+...
+OutputSamplesPerSymbol=nSamp); rxfilter = comm.RaisedCosineReceiveFilter(
+...
+InputSamplesPerSymbol=nSamp,
+...
+DecimationFactor=nSamp);
+Generate random data symbols and the filtered 16-QAM modulated signal.
+d = randi([0 1],1000,1); modsig = qammod(d,M,InputType=
+"bit"
+); txsig = txfilter(modsig);
+Add the noise equivalent of 10 dB
+E
+b
+/
+N
+0
+to the modulated signal. To do so, first convert the
+E
+b
+/
+N
+0
+value to SNR.
+EbN0 = 10; snr = convertSNR(EbN0,
+"ebno"
+,
+...
+BitsPerSymbol=k,
+...
+SamplesPerSymbol=nSamp,
+...
+CodingRate=1/3)
+snr = 5.2288
+[sig2,var] = awgn(txsig,snr); rxsig = rxfilter(sig2); demodsig = qamdemod(rxsig,M,
+...
+OutputType=
+"llr"
+,
+...
+NoiseVariance=var);
+Plot the demodulated QAM signal.
+plot(demodsig,
+'.'
+) xlabel(
+'Bit Number'
+) ylabel(
+'LLR'
+)
+Convert SNR Per Subcarrier to SNR
+Open Live Script
+Convert the SNR per subcarrier to an SNR value for an OFDM symbol with unused subcarriers.
+Define QPSK and OFDM modulation related variables.
+M = 4;
+% Modulation order for QPSK
+SNRsc = 15;
+% SNR per subcarrier
+nfft = 128;
+% Total number of subcarriers
+cplen = 16;
+% Cyclic prefix length
+nnull = 30;
+% Number of null subcarriers
+nullidx =
+...
+% Null indices
+[1:nnull nfft/2+1 nfft-nnull+1:nfft]'; nsc = nfft-(2*nnull)-1;
+% Number of active subcarriers
+QPSK-modulate random data.
+data = randi([0 3],nsc,100); x = qammod(data,M,UnitAveragePower=true);
+OFDM-modulate and normalize the signal to unity power.
+txscale = nfft/sqrt(nsc); y = txscale * ofdmmod(x,nfft,cplen,nullidx);
+Compute the SNR equivalent value of the SNR per subcarrier and filter the OFDM-modulated signal through an AWGN channel.
+SNR = convertSNR(SNRsc,
+'snrsc'
+,
+...
+FFTLength=nfft,NumActiveSubcarriers=nsc); r = awgn(y,SNR);
+Compute and display SNR values.
+n = r - y; fprintf(
+'SNR of OFDM symbols = %1.1f dB\n'
+, 10*log10(var(y)/var(n)));
+SNR of OFDM symbols = 12.3 dB
+Ssc = var(y) / nsc; Nsc = var(n) / nfft; fprintf(
+'SNR per subcarrier = %1.1f dB\n'
+, 10*log10(Ssc/Nsc));
+SNR per subcarrier = 15.1 dB
+Input Arguments
+collapse all
+x
+—
+Input value
+numeric row vector
+Input value in dB, specified as a numeric row vector.
+Data Types:
+double
+inputmode
+—
+Input mode
+"ebno"
+|
+"esno"
+|
+"snr"
+|
+"snrsc"
+Input mode for
+x
+, specified as
+"ebno"
+,
+"esno"
+,
+"snr"
+, or
+"snrsc"
+.
+"ebno"
+—
+x
+is the energy per bit to noise power spectral density ratio (Eb/N0).
+"esno"
+—
+x
+is the energy per symbol to noise power spectral density ratio (Es/N0).
+"snr"
+—
+x
+is the SNR.
+"snrsc"
+—
+x
+is the SNR per subcarrier in a multicarrier modulation scheme.
+For more information, see
+Algorithms
+.
+outputmode
+—
+Output mode
+"ebno"
+|
+"esno"
+|
+"snr"
+|
+"snrsc"
+Output mode for
+y
+, specified as
+"ebno"
+,
+"esno"
+,
+"snr"
+, or
+"snrsc"
+.
+"ebno"
+—
+y
+is the energy per bit to noise power spectral density ratio (Eb/N0).
+"esno"
+—
+y
+is the energy per symbol to noise power spectral density ratio (Es/N0).
+"snr"
+—
+y
+is the SNR.
+"snrsc"
+—
+y
+is the SNR per subcarrier in a multicarrier modulation scheme.
+For more information, see
+Algorithms
+.
+Name-Value Arguments
+collapse all
+Specify optional pairs of arguments as
+Name1=Value1,...,NameN=ValueN
+, where
+Name
+is the argument name and
+Value
+is the corresponding value. Name-value arguments must appear after other arguments, but the order of the pairs does not matter.
+Example:
+y = convertSNR(x,inputmode,outputmode,SamplesPerSymbol=2)
+SamplesPerSymbol
+—
+Samples per symbol
+1
+(default) |
+positive integer
+Samples per symbol, specified as a positive integer. The function ignores
+SamplesPerSymbol
+value if you set:
+inputmode
+to
+"ebno"
+and
+outputmode
+to
+"esno"
+.
+inputmode
+to
+"esno"
+and
+outputmode
+to
+"ebno"
+.
+Data Types:
+double
+BitsPerSymbol
+—
+Bits per symbol
+1
+(default) |
+positive integer
+Bits per symbol, specified as a positive integer. The function ignores
+BitsPerSymbol
+value if you set:
+inputmode
+to
+"esno"
+and
+outputmode
+to
+"snr"
+.
+inputmode
+to
+"snr"
+and
+outputmode
+to
+"esno"
+.
+Data Types:
+double
+CodingRate
+—
+Coding rate
+1
+(default) |
+scalar in the range (0, 1]
+Coding rate, specified as a scalar in the range (0, 1]. The function ignores
+CodingRate
+value if you set:
+inputmode
+to
+"esno"
+and
+outputmode
+to
+"snr"
+.
+inputmode
+to
+"snr"
+and
+outputmode
+to
+"esno"
+.
+Data Types:
+double
+FFTLength
+—
+Total number of subcarriers
+64
+(default) |
+positive integer
+Total number of subcarriers in a multicarrier modulated signal, specified as a positive integer. The function ignores
+FFTLength
+value if
+"snrsc"
+is not the
+inputmode
+or
+outputmode
+setting.
+Data Types:
+double
+NumActiveSubcarriers
+—
+Number of active subcarriers
+64
+(default) |
+positive integer
+Number of active subcarriers, specified as a positive integer. The number of active subcarriers must be equal to or less than
+FFTLength
+. The function ignores
+NumActiveSubcarriers
+if
+"snrsc"
+is not the
+inputmode
+or
+outputmode
+setting.
+Data Types:
+double
+Output Arguments
+collapse all
+y
+— Output value
+row vector of numeric values
+Output value in dB, returned as a row vector of numeric values. For more information, see
+Algorithms
+.
+Algorithms
+This table shows the valid input to output mode conversions.
+inputmode
+to
+outputmode
+Conversion
+"ebno"
+to
+"snr"
+SNR = E
+b
+/ N
+0
++ 10log10((N
+bps
+×R) / N
+sps
+)
+"snr"
+to
+"ebno"
+E
+b
+/ N
+0
+= SNR – 10log10((N
+bps
+×R) / N
+sps
+)
+"ebno"
+to
+"esno"
+E
+s
+/ N
+0
+= E
+b
+/ N
+0
++ 10log10(N
+bps
+×R)
+"esno"
+to
+"ebno"
+E
+b
+/ N
+0
+= E
+s
+/ N
+0
+– 10log10(N
+bps
+×R)
+"esno"
+to
+"snr"
+SNR = E
+s
+/ N
+0
+– 10log10(N
+sps
+)
+"snr"
+to
+"esno"
+E
+s
+/ N
+0
+= SNR + 10log10(N
+sps
+)
+"snrsc"
+to
+"snr"
+SNR = SNR
+SC
++ 10log10(N
+SC
+/ FFTLen)
+"snr"
+to
+"snrsc"
+SNR
+SC
+= SNR – 10log10(N
+SC
+/ FFTLen)
+Where
+N
+bps
+is the
+BitsPerSymbol
+value.
+N
+sps
+is the
+SamplesPerSymbol
+value.
+R
+is the
+CodingRate
+value.
+FFTLen
+is the
+FFTLength
+value.
+N
+SC
+is the
+NumActiveSubcarriers
+value.
+E
+b
+/
+N
+0
+is the
+x
+value input or
+y
+value output when you set
+inputmode
+or
+outputmode
+, respectively, to
+"ebno"
+.
+E
+s
+/
+N
+0
+is the
+x
+value input or
+y
+value output when you set
+inputmode
+or
+outputmode
+, respectively, to
+"esno"
+.
+SNR
+is the
+x
+value input or
+y
+value output when you set
+inputmode
+or
+outputmode
+, respectively, to
+"snr"
+.
+SNR
+SC
+is the
+x
+value input or
+y
+value output when you set
+inputmode
+or
+outputmode
+, respectively, to
+"snrsc"
+.
+Version History
+Introduced in R2022a
+expand all
+R2023b:
+Convert SNR per subcarrier
+You can now use the
+convertSNR
+function to convert between SNR per subcarrier in a multicarrier modulation scheme and SNR.
+See Also
+awgn
+MATLAB Command
+You clicked a link that corresponds to this MATLAB command:
+Run the command by entering it in the MATLAB Command Window. Web browsers do not support MATLAB commands.
+Close
+Select a Web Site
+Choose a web site to get translated content where available and see local events and offers. Based on your location, we recommend that you select:
+.
+(English)
+(Deutsch)
+(Français)
+（简体中文）
+(English)
+You can also select a web site from the following list
+How to Get Best Site Performance
+Select the China site (in Chinese or English) for best site performance. Other MathWorks country sites are not optimized for visits from your location.
+Americas
+América Latina
+(Español)
+Canada
+(English)
+United States
+(English)
+Europe
+Belgium
+(English)
+Denmark
+(English)
+Deutschland
+(Deutsch)
+España
+(Español)
+Finland
+(English)
+France
+(Français)
+Ireland
+(English)
+Italia
+(Italiano)
+Luxembourg
+(English)
+Netherlands
+(English)
+Norway
+(English)
+Österreich
+(Deutsch)
+Portugal
+(English)
+Sweden
+(English)
+Switzerland
+Deutsch
+English
+Français
+United Kingdom
+(English)
+Asia Pacific
+Australia
+(English)
+India
+(English)
+New Zealand
+(English)
+中国
+简体中文
+English
+日本
+(日本語)
+한국
+(한국어)
+Contact your local office

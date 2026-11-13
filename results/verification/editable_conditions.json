@@ -1,0 +1,68 @@
+{
+  "pageErrors": [],
+  "customRun": "20261113_113249_287669_C02_custom_C.json",
+  "case": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": [
+      "qpsk_r12",
+      "qpsk_r34",
+      "qam16_r12",
+      "qam16_r34",
+      "qam64_r12",
+      "qam64_r34"
+    ],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.15,
+    "min_goodput_mbps": 0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+    "id": "C02_custom",
+    "title": "调制升级后传输退化（自定义条件）",
+    "incident": "链路参数已变更，历史数值和测量结论需要在新条件下重新验证。\n请依据本次设置的链路参数和业务约束调查并比较候选配置。以下原始问题用于提供调查背景。\n\n比较当前链路条件下六种候选配置，选择满足可靠性要求的高吞吐方案。",
+    "current_mcs": "qpsk_r34",
+    "channel": "rayleigh_block",
+    "metric_value_db": 14,
+    "metric_kind": "ebn0_information_db",
+    "observations": [
+      {
+        "id": "obs.custom",
+        "text": "链路条件由用户设置。本次证据从当前参数下的工具计算与新仿真建立，原工单的历史观测保留在原始案例文件中。"
+      }
+    ],
+    "customization": {
+      "source_case_id": "C02",
+      "changed_conditions": {
+        "current_mcs": {
+          "original": "qam64_r34",
+          "value": "qpsk_r34"
+        },
+        "channel": {
+          "original": "awgn",
+          "value": "rayleigh_block"
+        },
+        "metric_kind": {
+          "original": "esn0_db",
+          "value": "ebn0_information_db"
+        },
+        "metric_value_db": {
+          "original": 8,
+          "value": 14
+        },
+        "bler_limit": {
+          "original": 0.1,
+          "value": 0.15
+        }
+      },
+      "observations_reused": false
+    }
+  },
+  "simulationCount": 8,
+  "expectedEsn0": 15.760912590556812,
+  "outOfRangeBlocked": true,
+  "staleResultHidden": true,
+  "missingInformationSupported": true,
+  "evaluationTabPassed": true
+}

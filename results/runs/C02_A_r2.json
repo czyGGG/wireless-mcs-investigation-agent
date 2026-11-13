@@ -1,0 +1,197 @@
+{
+  "timestamp": "2026-11-13T10:38:11.549409+08:00",
+  "case_id": "C02",
+  "group": "A",
+  "model": "deepseek-flash",
+  "thinking": false,
+  "temperature": 0,
+  "seed": 20281213,
+  "max_requests": 16,
+  "max_tool_calls": 24,
+  "frame_budget": 16384,
+  "skill_loaded": false,
+  "skill_sha256": null,
+  "prompt_sha256": "3f8ec35f37dafc8a814ef8efae5a65c3e2b8537e42cef6af80ed97af775cf8e7",
+  "case": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": [
+      "qpsk_r12",
+      "qpsk_r34",
+      "qam16_r12",
+      "qam16_r34",
+      "qam64_r12",
+      "qam64_r34"
+    ],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1.0,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.1,
+    "min_goodput_mbps": 0.0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+    "id": "C02",
+    "title": "调制升级后传输退化",
+    "incident": "链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。",
+    "current_mcs": "qam64_r34",
+    "channel": "awgn",
+    "metric_value_db": 8.0,
+    "metric_kind": "esn0_db",
+    "observations": [
+      {
+        "id": "obs.change",
+        "text": "升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。"
+      }
+    ]
+  },
+  "status": "completed",
+  "output": {
+    "decision": "insufficient_evidence",
+    "recommended_mcs": null,
+    "normalized_esn0_db": null,
+    "summary": "工单 C02 只提供了链路参数与一条观察（obs.change：升级前后符号率、平均功率、帧格式相同，主要变化为调制编码），没有任何实测 BLER/吞吐样本，也没有先导样本。因此无法在六个候选 MCS 中判定哪个同时满足 BLER≤0.1 与最低有效吞吐约束，也无法确认 64-QAM 3/4 退化是调制阶数过高（8 dB Es/N0 下 64-QAM 门限不足）还是穿孔码率 3/4 带来的编码增益损失，抑或两者叠加。结论：证据不足，暂不推荐 MCS。",
+    "hypotheses": [
+      {
+        "explanation": "在 Es/N0=8 dB 的 AWGN 条件下，64-QAM 每符号 6 bit、最小欧氏距离很小，理论所需 Es/N0 远高于 8 dB，因此 qam64_r34 大量错帧是调制阶数本身超出链路预算所致；降低阶数（如 qam16 或 qpsk）应能恢复 BLER 约束。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.change"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "退化主要来自 3/4 串行穿孔 [1,1,1,0,0,1] 造成的编码增益损失（相对 1/2 码率约损失 1.5–2 dB 量级），而非调制阶数；若如此，同阶数的 qam64_r12 应显著优于 qam64_r34，甚至可能满足约束。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.change"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "退化是调制阶数与码率共同作用的结果：8 dB 下 64-QAM 已接近/低于可用门限，穿孔又进一步压缩裕量；需要同时降阶与降码率（如 qam16_r12 或 qpsk_r34）才能同时满足 BLER 与吞吐要求。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.change"
+        ],
+        "opposing_evidence": []
+      }
+    ],
+    "evidence_ids": [
+      "obs.change"
+    ],
+    "pilot_sufficient": null,
+    "uncertainty": "工单未给出任何候选方案的实测 BLER 或有效吞吐，也没有先导样本；metric_value_db=8.0 仅为单一工作点，未说明是每符号 Es/N0 还是每比特 Eb/N0，也未给出信道实现（工单标称 awgn，但模型描述提到瑞利每帧恒定），因此无法量化各候选的裕量。normalized_esn0_db 因缺少固定物理条件与实测映射而无法填写。",
+    "missing_information": [
+      "六个候选 MCS 在 Es/N0=8 dB 下的实测 BLER 与有效吞吐（含前导与帧头开销后的净吞吐）",
+      "metric_value_db=8.0 的确切定义（Es/N0 还是 Eb/N0）及是否已含带宽/噪声系数折算",
+      "实际信道类型：AWGN 还是每帧恒定的瑞利衰落（工单与模型描述不一致）",
+      "有效吞吐的统计口径（是否计入前导 16 符号与 32 bit 帧头、是否按成功帧计）",
+      "是否存在升级前的基线测量（原 MCS 及其 BLER/吞吐）以确认退化幅度"
+    ],
+    "next_actions": [
+      "按工单参数（1.2 MHz、1 Msps、192 bit 载荷 + 32 bit 帧头、16 前导符号、K=3 (7,5) 卷积码、max-log 软解调 + Viterbi）对六个候选 MCS 逐一仿真/实测，输出 BLER 与净有效吞吐曲线，至少覆盖 6–12 dB Es/N0",
+      "明确并统一 metric_value_db 的定义与信道模型（AWGN 与瑞利两种情形分别给出结果），消除工单与模型描述的不一致",
+      "以 BLER≤0.1 为硬约束筛选候选，再在满足约束者中按净有效吞吐排序，选出最高吞吐方案",
+      "补充升级前基线（原 MCS 的 BLER/吞吐）以量化退化，并核对是否存在实现类问题（同步、量化、穿孔图样）而非纯链路预算问题"
+    ]
+  },
+  "usage": {
+    "requests": 1,
+    "input_tokens": 1235,
+    "output_tokens": 1098
+  },
+  "elapsed_seconds": 7.139437100000123,
+  "frames_used": 0,
+  "evidence": {},
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "请完成这次调查。以下为本次实验全部原始公开数据。\n{\"target_user\": \"无线链路测试与优化工程师\", \"candidate_mcs\": [\"qpsk_r12\", \"qpsk_r34\", \"qam16_r12\", \"qam16_r34\", \"qam64_r12\", \"qam64_r34\"], \"bandwidth_mhz\": 1.2, \"symbol_rate_msps\": 1.0, \"payload_bits\": 192, \"header_bits\": 32, \"preamble_symbols\": 16, \"bler_limit\": 0.1, \"min_goodput_mbps\": 0.0, \"model_description\": \"归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。\", \"id\": \"C02\", \"title\": \"调制升级后传输退化\", \"incident\": \"链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。\", \"current_mcs\": \"qam64_r34\", \"channel\": \"awgn\", \"metric_value_db\": 8.0, \"metric_kind\": \"esn0_db\", \"observations\": [{\"id\": \"obs.change\", \"text\": \"升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。\"}]}",
+          "timestamp": "2026-11-13T02:38:11.550382Z",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "timestamp": "2026-11-13T02:38:11.550696Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。",
+      "kind": "request",
+      "run_id": "01a1d2c5-0c5d-7172-8b7a-1ef916e273e8",
+      "conversation_id": "01a1d2c5-0c5d-7172-8b7a-1efaf53c1a0e",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "args": "{\"decision\": \"insufficient_evidence\", \"recommended_mcs\": null, \"normalized_esn0_db\": null, \"summary\": \"工单 C02 只提供了链路参数与一条观察（obs.change：升级前后符号率、平均功率、帧格式相同，主要变化为调制编码），没有任何实测 BLER/吞吐样本，也没有先导样本。因此无法在六个候选 MCS 中判定哪个同时满足 BLER≤0.1 与最低有效吞吐约束，也无法确认 64-QAM 3/4 退化是调制阶数过高（8 dB Es/N0 下 64-QAM 门限不足）还是穿孔码率 3/4 带来的编码增益损失，抑或两者叠加。结论：证据不足，暂不推荐 MCS。\", \"hypotheses\": [{\"explanation\": \"在 Es/N0=8 dB 的 AWGN 条件下，64-QAM 每符号 6 bit、最小欧氏距离很小，理论所需 Es/N0 远高于 8 dB，因此 qam64_r34 大量错帧是调制阶数本身超出链路预算所致；降低阶数（如 qam16 或 qpsk）应能恢复 BLER 约束。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.change\"], \"opposing_evidence\": []}, {\"explanation\": \"退化主要来自 3/4 串行穿孔 [1,1,1,0,0,1] 造成的编码增益损失（相对 1/2 码率约损失 1.5–2 dB 量级），而非调制阶数；若如此，同阶数的 qam64_r12 应显著优于 qam64_r34，甚至可能满足约束。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.change\"], \"opposing_evidence\": []}, {\"explanation\": \"退化是调制阶数与码率共同作用的结果：8 dB 下 64-QAM 已接近/低于可用门限，穿孔又进一步压缩裕量；需要同时降阶与降码率（如 qam16_r12 或 qpsk_r34）才能同时满足 BLER 与吞吐要求。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.change\"], \"opposing_evidence\": []}], \"evidence_ids\": [\"obs.change\"], \"pilot_sufficient\": null, \"uncertainty\": \"工单未给出任何候选方案的实测 BLER 或有效吞吐，也没有先导样本；metric_value_db=8.0 仅为单一工作点，未说明是每符号 Es/N0 还是每比特 Eb/N0，也未给出信道实现（工单标称 awgn，但模型描述提到瑞利每帧恒定），因此无法量化各候选的裕量。normalized_esn0_db 因缺少固定物理条件与实测映射而无法填写。\", \"missing_information\": [\"六个候选 MCS 在 Es/N0=8 dB 下的实测 BLER 与有效吞吐（含前导与帧头开销后的净吞吐）\", \"metric_value_db=8.0 的确切定义（Es/N0 还是 Eb/N0）及是否已含带宽/噪声系数折算\", \"实际信道类型：AWGN 还是每帧恒定的瑞利衰落（工单与模型描述不一致）\", \"有效吞吐的统计口径（是否计入前导 16 符号与 32 bit 帧头、是否按成功帧计）\", \"是否存在升级前的基线测量（原 MCS 及其 BLER/吞吐）以确认退化幅度\"], \"next_actions\": [\"按工单参数（1.2 MHz、1 Msps、192 bit 载荷 + 32 bit 帧头、16 前导符号、K=3 (7,5) 卷积码、max-log 软解调 + Viterbi）对六个候选 MCS 逐一仿真/实测，输出 BLER 与净有效吞吐曲线，至少覆盖 6–12 dB Es/N0\", \"明确并统一 metric_value_db 的定义与信道模型（AWGN 与瑞利两种情形分别给出结果），消除工单与模型描述的不一致\", \"以 BLER≤0.1 为硬约束筛选候选，再在满足约束者中按净有效吞吐排序，选出最高吞吐方案\", \"补充升级前基线（原 MCS 的 BLER/吞吐）以量化退化，并核对是否存在实现类问题（同步、量化、穿孔图样）而非纯链路预算问题\"]}",
+          "tool_call_id": "call_00_z3Dv7giG8zzpZgqv790U3436",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1235,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 1024,
+        "output_tokens": 1098,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 211
+        },
+        "cost": "0.001387044"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:38:18.687512Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:38:07Z"
+      },
+      "provider_response_id": "de2b01b1-f0bc-48b6-9d6f-f766208b8947",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c5-0c5d-7172-8b7a-1ef916e273e8",
+      "conversation_id": "01a1d2c5-0c5d-7172-8b7a-1efaf53c1a0e",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "content": "Final result processed.",
+          "tool_call_id": "call_00_z3Dv7giG8zzpZgqv790U3436",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:38:18.688487Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return"
+        }
+      ],
+      "timestamp": "2026-11-13T02:38:18.688521Z",
+      "instructions": null,
+      "kind": "request",
+      "run_id": "01a1d2c5-0c5d-7172-8b7a-1ef916e273e8",
+      "conversation_id": "01a1d2c5-0c5d-7172-8b7a-1efaf53c1a0e",
+      "metadata": null,
+      "state": "complete"
+    }
+  ]
+}

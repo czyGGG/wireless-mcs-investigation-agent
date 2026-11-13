@@ -1,0 +1,19 @@
+test_comparison_rejects_mixed_conditions (test_investigation_tools.InvestigationToolTests.test_comparison_rejects_mixed_conditions) ... ok
+test_concurrent_frame_budget (test_investigation_tools.InvestigationToolTests.test_concurrent_frame_budget) ... ok
+test_missing_definition_returns_explicit_error (test_investigation_tools.InvestigationToolTests.test_missing_definition_returns_explicit_error) ... ok
+test_punctured_code_has_no_nonzero_zero_output_cycle (test_investigation_tools.InvestigationToolTests.test_punctured_code_has_no_nonzero_zero_output_cycle) ... ok
+test_reference_ebn0_conversion (test_investigation_tools.InvestigationToolTests.test_reference_ebn0_conversion) ... ok
+test_constellation_energy_and_gray_neighbors (test_simulation.CommunicationTests.test_constellation_energy_and_gray_neighbors) ... ok
+test_encoder_known_vector (test_simulation.CommunicationTests.test_encoder_known_vector) ... ok
+test_high_snr_recovery (test_simulation.CommunicationTests.test_high_snr_recovery) ... ok
+test_input_validation (test_simulation.CommunicationTests.test_input_validation) ... ok
+test_noiseless_all_six_mcs (test_simulation.CommunicationTests.test_noiseless_all_six_mcs) ... ok
+test_repeatability_and_goodput_identity (test_simulation.CommunicationTests.test_repeatability_and_goodput_identity) ... ok
+test_uncoded_qpsk_matches_theory (test_simulation.CommunicationTests.test_uncoded_qpsk_matches_theory) ... ok
+test_viterbi_matches_exhaustive_likelihood (test_simulation.CommunicationTests.test_viterbi_matches_exhaustive_likelihood) ... ok
+test_zero_errors_still_has_positive_uncertainty (test_simulation.CommunicationTests.test_zero_errors_still_has_positive_uncertainty) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.115s
+
+OK

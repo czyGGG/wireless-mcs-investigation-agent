@@ -1,0 +1,37 @@
+{
+  "model": "deepseek-flash",
+  "thinking": false,
+  "temperature": 0,
+  "repeats": 3,
+  "concurrency": 3,
+  "cases": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08"
+  ],
+  "source_hashes": {
+    "data\\cases.json": "2a82ee994763162343384a40a8c18d40b285b4480f848bce2868c8c31e5bd59f",
+    "src\\agent.py": "0c1c8f3cdfdc8f19457d6c92ee2586ed5ae54c13cb823b4413656a5097c932bd",
+    "src\\cases.py": "9bb831d3545aaf27f1acca31c3c0ae95c24d301151c6d2cda4237246b7630308",
+    "src\\check_deepseek.py": "8c884ccd904803b1fd1ea57cdcf9e09232f9bd4345e94efd8056ea7eff631edb",
+    "src\\investigation_tools.py": "34e8b5666e36b7b6ec929f9977ea1b345c765271bfe7a46ed8c140795a982296",
+    "src\\main.py": "88dc242d74ab58bbfe5cda887c59e5f1097264d1679c4ed05bebe19cfe1b809c",
+    "src\\model.py": "6970169127c724e1ad6b99620560271260f27f45cb36d773eea7a2dcfae4856f",
+    "src\\paths.py": "39ca027155a6f9d1029289731354936a9fa760c838b247f2b3215047cab819b9",
+    "src\\simulation.py": "74768afe0e04dbf771d8067fba00de5a134d7c75ea00826a4ef39118687408bf",
+    "src\\tools.py": "6301be25326c707f746a55e5e89f5176e9d0d11bb5934081e64b43b07fc0659b",
+    "src\\__init__.py": "7da21be41745143104d488de680ebb4b50c19527016dbe95de01c67426e80229",
+    "tests\\build_reference.py": "276100e625b58f2010bc6e98d96c54593b6f300ab451f112bf13967d565b62df",
+    "tests\\evaluate.py": "23fa3451b3b3d24144a1afb564f0885ad1b6b7211a5104e77e47fb42004b728b",
+    "tests\\evaluation_protocol.md": "618eba8698440a41688c4c2d623fca2ef00f9316770aefdcf2ea210c55d11088",
+    "tests\\test_investigation_tools.py": "b2e5e7a0ce26eb6cad7607d7739347a77e61380bd909d9018724c25cf8830da8",
+    "tests\\test_simulation.py": "97bac36d570bb46a7fa0e6474ecf28fa44cf95a3a77a18aee994e2a951692fa2",
+    "tests\\__init__.py": "91133606f5632841629510cbeae9abd36e9224e4fd10ae3c74f0d937fc5f6d2a",
+    "skills\\wireless-mcs-investigation\\SKILL.md": "fc1480168c343ba3f6c004fc467515749229639462f40d63a61296700aa29873"
+  }
+}

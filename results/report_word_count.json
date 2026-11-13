@@ -1,0 +1,51 @@
+{
+  "counting_method": "Chinese Han characters in body paragraphs; excludes abstract, tables, captions, code, references, and contribution blanks",
+  "abstract": 160,
+  "chapters": {
+    "1": 449,
+    "2": 539,
+    "3": 517,
+    "4": 536,
+    "5": 863,
+    "6": 372,
+    "7": 337
+  },
+  "body_total": 3613,
+  "recommended_chapter_ranges": {
+    "1": [
+      400,
+      600
+    ],
+    "2": [
+      500,
+      700
+    ],
+    "3": [
+      500,
+      800
+    ],
+    "4": [
+      500,
+      700
+    ],
+    "5": [
+      700,
+      1000
+    ],
+    "6": [
+      300,
+      500
+    ],
+    "7": [
+      200,
+      400
+    ]
+  },
+  "chapter_ranges_met": true,
+  "body_range_met": true,
+  "pages": 9,
+  "page_range_met": true,
+  "format": "docx",
+  "renderer": "Microsoft Word",
+  "pdf_export": "Microsoft Word"
+}

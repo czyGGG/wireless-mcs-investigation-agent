@@ -1,0 +1,333 @@
+{
+  "timestamp": "2026-11-13T10:39:34.224531+08:00",
+  "case_id": "C03",
+  "group": "A",
+  "model": "deepseek-flash",
+  "thinking": false,
+  "temperature": 0,
+  "seed": 20271313,
+  "max_requests": 16,
+  "max_tool_calls": 24,
+  "frame_budget": 16384,
+  "skill_loaded": false,
+  "skill_sha256": null,
+  "prompt_sha256": "2e64fe6beb9c22e36da06720841ec46c3bc50c86158935f93c8bfc3fbdc8e296",
+  "case": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": [
+      "qpsk_r12",
+      "qpsk_r34",
+      "qam16_r12",
+      "qam16_r34",
+      "qam64_r12",
+      "qam64_r34"
+    ],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1.0,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.1,
+    "min_goodput_mbps": 0.0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+    "id": "C03",
+    "title": "弱信号下的可靠性要求",
+    "incident": "链路处于弱信号状态，业务仍要求 BLER 不超过 10%。请检查候选配置能否满足要求，并给出后续行动。",
+    "current_mcs": "qpsk_r12",
+    "channel": "awgn",
+    "metric_value_db": -6.0,
+    "metric_kind": "esn0_db",
+    "observations": [
+      {
+        "id": "obs.signal",
+        "text": "重复标定得到相同的低信噪比，测试中发射功率和带宽固定。"
+      }
+    ]
+  },
+  "status": "completed",
+  "output": {
+    "decision": "insufficient_evidence",
+    "recommended_mcs": null,
+    "normalized_esn0_db": -6.0,
+    "summary": "工单 C03 给出 AWGN 信道、Es/N0 = -6 dB（obs.signal 仅确认重复标定得到相同低信噪比、发射功率与带宽固定），要求 BLER ≤ 0.1、最低有效吞吐 0 Mbps（吞吐约束不构成筛选条件）。按模型参数（1.2 MHz 带宽、1 Msps、192 载荷比特 + 32 帧头比特、16 前导符号、K=3 (7,5) 卷积码、3/4 码率用 [1,1,1,0,0,1] 穿孔、max-log 软解调 + Viterbi、理想同步与已知信道）估算：在 -6 dB 符号 Es/N0 下，qpsk_r12 的每编码比特 Es/N0 约 -3 dB、每信息比特 Eb/N0 约 0 dB，对 K=3 短约束长度码而言 BLER 大概率明显超过 0.1；qpsk_r34 更差；16QAM/64QAM 在 -6 dB 下几乎必然失效。因此从物理层常识看，唯一可能接近门限的候选是 qpsk_r12，但它是否真正满足 BLER ≤ 0.1 无法由现有材料确认——工单未提供任何先导样本、误块统计或链路仿真/实测结果，仅有单点信噪比标定。故结论为证据不足，不给出推荐 MCS，需补充 BLER 测量后再定论。",
+    "hypotheses": [
+      {
+        "explanation": "在 -6 dB 符号 Es/N0 的 AWGN 下，qpsk_r12 的每编码比特 Es/N0 约 -3 dB、每信息比特 Eb/N0 约 0 dB；对 K=3、(7,5) 码，该工作点通常处于 BLER 远高于 10% 的区域，因此没有任何候选能满足 BLER ≤ 0.1，需要提升发射功率、降低码率（如 1/3 母码或更强编码）或缩短帧长/减少载荷。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.signal"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "qpsk_r12 是六个候选中编码增益最高、星座最稳健的一个，在 -6 dB 下其 BLER 可能恰好落在 0.1 附近或以下，从而成为唯一可行方案；其余候选（qpsk_r34、16QAM、64QAM）在该工作点明显更差。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.signal"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "工单信道标注为 AWGN，但模型描述提到瑞利信道每帧内恒定；若实际存在衰落，-6 dB 平均 Es/N0 下的深衰落帧会使 BLER 进一步恶化，AWGN 假设下的结论会偏乐观。",
+        "status": "undetermined",
+        "supporting_evidence": [],
+        "opposing_evidence": [
+          "obs.signal"
+        ]
+      }
+    ],
+    "evidence_ids": [
+      "obs.signal"
+    ],
+    "pilot_sufficient": null,
+    "uncertainty": "核心不确定性在于缺少任何 BLER 实测/仿真数据：工单只给出单点 Es/N0 = -6 dB 的标定结果，没有误块计数、样本量或链路曲线，因此无法判定 qpsk_r12 是否满足 BLER ≤ 0.1，也无法排除信道模型（AWGN vs 瑞利）与工单描述不一致带来的偏差。此外 metric_kind 为 esn0_db，未给出归一化到固定物理条件（如噪声系数、实现损耗、同步误差）后的等效符号能量比，故 normalized_esn0_db 仅按工单标称值 -6 dB 填写。",
+    "missing_information": [
+      "各候选 MCS 在 -6 dB Es/N0 下的 BLER 实测或仿真曲线（含样本量与置信区间）",
+      "先导/前导序列的原始接收样本，用于独立估计实际 SNR 与验证同步质量",
+      "实际信道类型确认：AWGN 还是每帧恒定的瑞利衰落，以及是否存在多普勒/时变",
+      "接收机实现损耗（软解调量化、Viterbi 回溯深度、频偏/定时残余误差）对有效 Es/N0 的影响",
+      "帧结构细节：前导是否参与编码、帧头 32 比特是否含 CRC，以及 BLER 的统计口径（整帧 vs 载荷）"
+    ],
+    "next_actions": [
+      "在 -6 dB Es/N0 下对 qpsk_r12 与 qpsk_r34 各跑至少 1e4 帧的链路级仿真或实测，统计 BLER 及 95% 置信区间，确认是否 ≤ 0.1",
+      "若 qpsk_r12 仍不达标，评估降低码率（1/3 母码或更强编码）、增加扩频/重复、缩短载荷或提升发射功率的可行性，并重新计算链路预算",
+      "采集并保存前导段的原始 IQ 样本，用其独立估计实际 SNR 与残余定时/频偏，核对工单 -6 dB 标定是否代表解调器输入端的有效 Es/N0",
+      "确认实际信道模型（AWGN 或瑞利）与工单标注一致，必要时在瑞利信道下重复 BLER 评估",
+      "在满足 BLER 约束的候选中，按有效吞吐（扣除前导与帧头开销）排序，选出吞吐最高的配置"
+    ]
+  },
+  "usage": {
+    "requests": 2,
+    "input_tokens": 5096,
+    "output_tokens": 2733
+  },
+  "elapsed_seconds": 13.845455099999981,
+  "frames_used": 0,
+  "evidence": {},
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "请完成这次调查。以下为本次实验全部原始公开数据。\n{\"target_user\": \"无线链路测试与优化工程师\", \"candidate_mcs\": [\"qpsk_r12\", \"qpsk_r34\", \"qam16_r12\", \"qam16_r34\", \"qam64_r12\", \"qam64_r34\"], \"bandwidth_mhz\": 1.2, \"symbol_rate_msps\": 1.0, \"payload_bits\": 192, \"header_bits\": 32, \"preamble_symbols\": 16, \"bler_limit\": 0.1, \"min_goodput_mbps\": 0.0, \"model_description\": \"归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。\", \"id\": \"C03\", \"title\": \"弱信号下的可靠性要求\", \"incident\": \"链路处于弱信号状态，业务仍要求 BLER 不超过 10%。请检查候选配置能否满足要求，并给出后续行动。\", \"current_mcs\": \"qpsk_r12\", \"channel\": \"awgn\", \"metric_value_db\": -6.0, \"metric_kind\": \"esn0_db\", \"observations\": [{\"id\": \"obs.signal\", \"text\": \"重复标定得到相同的低信噪比，测试中发射功率和带宽固定。\"}]}",
+          "timestamp": "2026-11-13T02:39:34.225431Z",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "timestamp": "2026-11-13T02:39:34.225591Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。",
+      "kind": "request",
+      "run_id": "01a1d2c6-4f50-75e7-8b52-f845d1327712",
+      "conversation_id": "01a1d2c6-4f50-75e7-8b52-f8461cc91580",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "args": "{\"decision\": \"insufficient_evidence\", \"recommended_mcs\": \"qpsk_r12\", \"normalized_esn0_db\": -6, \"summary\": \"工单 C03 给出 AWGN 信道、Es/N0 = -6 dB（obs.signal 仅确认重复标定得到相同低信噪比、发射功率与带宽固定），要求 BLER ≤ 0.1、最低有效吞吐 0 Mbps（即吞吐约束不构成筛选条件）。按模型参数（1.2 MHz 带宽、1 Msps、192 载荷比特 + 32 帧头比特、16 前导符号、K=3 (7,5) 卷积码、3/4 码率用 [1,1,1,0,0,1] 穿孔、max-log 软解调 + Viterbi、理想同步与已知信道）估算：在 -6 dB 符号 Es/N0 下，qpsk_r12 的编码比特 Es/N0 约为 -3 dB（每信息比特 Eb/N0 约 0 dB），对 K=3 短约束长度码而言 BLER 大概率明显超过 0.1；qpsk_r34 更差；16QAM/64QAM 在 -6 dB 下几乎必然失效。因此从物理层常识看，唯一可能接近门限的候选是 qpsk_r12，但它是否真正满足 BLER ≤ 0.1 无法由现有材料确认——工单未提供任何先导样本、误块统计或链路仿真/实测结果，仅有单点信噪比标定。故结论为证据不足，暂以当前配置 qpsk_r12 作为最保守候选，需补充 BLER 测量后再定论。\", \"hypotheses\": [{\"explanation\": \"在 -6 dB 符号 Es/N0 的 AWGN 下，qpsk_r12 的每编码比特 Es/N0 约 -3 dB、每信息比特 Eb/N0 约 0 dB；对 K=3、(7,5) 码，该工作点通常处于 BLER 远高于 10% 的区域，因此没有任何候选能满足 BLER ≤ 0.1，需要提升发射功率、降低码率（如 1/3 母码或更强编码）或缩短帧长/减少载荷。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.signal\"], \"opposing_evidence\": []}, {\"explanation\": \"qpsk_r12 是六个候选中编码增益最高、星座最稳健的一个，在 -6 dB 下其 BLER 可能恰好落在 0.1 附近或以下，从而成为唯一可行方案；其余候选（qpsk_r34、16QAM、64QAM）在该工作点明显更差。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.signal\"], \"opposing_evidence\": []}, {\"explanation\": \"工单信道标注为 AWGN，但模型描述提到瑞利信道每帧内恒定；若实际存在衰落，-6 dB 平均 Es/N0 下的深衰落帧会使 BLER 进一步恶化，AWGN 假设下的结论会偏乐观。\", \"status\": \"undetermined\", \"supporting_evidence\": [], \"opposing_evidence\": [\"obs.signal\"]}], \"evidence_ids\": [\"obs.signal\"], \"pilot_sufficient\": null, \"uncertainty\": \"核心不确定性在于缺少任何 BLER 实测/仿真数据：工单只给出单点 Es/N0 = -6 dB 的标定结果，没有误块计数、样本量或链路曲线，因此无法判定 qpsk_r12 是否满足 BLER ≤ 0.1，也无法排除信道模型（AWGN vs 瑞利）与工单描述不一致带来的偏差。此外 metric_kind 为 esn0_db，未给出归一化到固定物理条件（如噪声系数、实现损耗、同步误差）后的等效符号能量比，故 normalized_esn0_db 仅按工单标称值 -6 dB 填写。\", \"missing_information\": [\"各候选 MCS 在 -6 dB Es/N0 下的 BLER 实测或仿真曲线（含样本量与置信区间）\", \"先导/前导序列的原始接收样本，用于独立估计实际 SNR 与验证同步质量\", \"实际信道类型确认：AWGN 还是每帧恒定的瑞利衰落，以及是否存在多普勒/时变\", \"接收机实现损耗（软解调量化、Viterbi 回溯深度、频偏/定时残余误差）对有效 Es/N0 的影响\", \"帧结构细节：前导是否参与编码、帧头 32 比特是否含 CRC，以及 BLER 的统计口径（整帧 vs 载荷）\"], \"next_actions\": [\"在 -6 dB Es/N0 下对 qpsk_r12 与 qpsk_r34 各跑至少 1e4 帧的链路级仿真或实测，统计 BLER 及 95% 置信区间，确认是否 ≤ 0.1\", \"若 qpsk_r12 仍不达标，评估降低码率（1/3 母码或更强编码）、增加扩频/重复、缩短载荷或提升发射功率的可行性，并重新计算链路预算\", \"采集并保存前导段的原始 IQ 样本，用其独立估计实际 SNR 与残余定时/频偏，核对工单 -6 dB 标定是否代表解调器输入端的有效 Es/N0\", \"确认实际信道模型（AWGN 或瑞利）与工单标注一致，必要时在瑞利信道下重复 BLER 评估\", \"在满足 BLER 约束的候选中，按有效吞吐（扣除前导与帧头开销）排序，选出吞吐最高的配置\"]}",
+          "tool_call_id": "call_00_jOY7SeyWGweW7drerMyU4652",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1229,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 1024,
+        "output_tokens": 1372,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 205
+        },
+        "cost": "0.001714044"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:39:42.707581Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:39:30Z"
+      },
+      "provider_response_id": "567f5fd5-d4d8-42d4-aeb5-f97aef11ad0b",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c6-4f50-75e7-8b52-f845d1327712",
+      "conversation_id": "01a1d2c6-4f50-75e7-8b52-f8461cc91580",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "content": [
+            {
+              "type": "value_error",
+              "loc": [],
+              "msg": "Value error, A recommendation requires an MCS; other decisions require null.",
+              "input": {
+                "decision": "insufficient_evidence",
+                "recommended_mcs": "qpsk_r12",
+                "normalized_esn0_db": -6,
+                "summary": "工单 C03 给出 AWGN 信道、Es/N0 = -6 dB（obs.signal 仅确认重复标定得到相同低信噪比、发射功率与带宽固定），要求 BLER ≤ 0.1、最低有效吞吐 0 Mbps（即吞吐约束不构成筛选条件）。按模型参数（1.2 MHz 带宽、1 Msps、192 载荷比特 + 32 帧头比特、16 前导符号、K=3 (7,5) 卷积码、3/4 码率用 [1,1,1,0,0,1] 穿孔、max-log 软解调 + Viterbi、理想同步与已知信道）估算：在 -6 dB 符号 Es/N0 下，qpsk_r12 的编码比特 Es/N0 约为 -3 dB（每信息比特 Eb/N0 约 0 dB），对 K=3 短约束长度码而言 BLER 大概率明显超过 0.1；qpsk_r34 更差；16QAM/64QAM 在 -6 dB 下几乎必然失效。因此从物理层常识看，唯一可能接近门限的候选是 qpsk_r12，但它是否真正满足 BLER ≤ 0.1 无法由现有材料确认——工单未提供任何先导样本、误块统计或链路仿真/实测结果，仅有单点信噪比标定。故结论为证据不足，暂以当前配置 qpsk_r12 作为最保守候选，需补充 BLER 测量后再定论。",
+                "hypotheses": [
+                  {
+                    "explanation": "在 -6 dB 符号 Es/N0 的 AWGN 下，qpsk_r12 的每编码比特 Es/N0 约 -3 dB、每信息比特 Eb/N0 约 0 dB；对 K=3、(7,5) 码，该工作点通常处于 BLER 远高于 10% 的区域，因此没有任何候选能满足 BLER ≤ 0.1，需要提升发射功率、降低码率（如 1/3 母码或更强编码）或缩短帧长/减少载荷。",
+                    "status": "undetermined",
+                    "supporting_evidence": [
+                      "obs.signal"
+                    ],
+                    "opposing_evidence": []
+                  },
+                  {
+                    "explanation": "qpsk_r12 是六个候选中编码增益最高、星座最稳健的一个，在 -6 dB 下其 BLER 可能恰好落在 0.1 附近或以下，从而成为唯一可行方案；其余候选（qpsk_r34、16QAM、64QAM）在该工作点明显更差。",
+                    "status": "undetermined",
+                    "supporting_evidence": [
+                      "obs.signal"
+                    ],
+                    "opposing_evidence": []
+                  },
+                  {
+                    "explanation": "工单信道标注为 AWGN，但模型描述提到瑞利信道每帧内恒定；若实际存在衰落，-6 dB 平均 Es/N0 下的深衰落帧会使 BLER 进一步恶化，AWGN 假设下的结论会偏乐观。",
+                    "status": "undetermined",
+                    "supporting_evidence": [],
+                    "opposing_evidence": [
+                      "obs.signal"
+                    ]
+                  }
+                ],
+                "evidence_ids": [
+                  "obs.signal"
+                ],
+                "pilot_sufficient": null,
+                "uncertainty": "核心不确定性在于缺少任何 BLER 实测/仿真数据：工单只给出单点 Es/N0 = -6 dB 的标定结果，没有误块计数、样本量或链路曲线，因此无法判定 qpsk_r12 是否满足 BLER ≤ 0.1，也无法排除信道模型（AWGN vs 瑞利）与工单描述不一致带来的偏差。此外 metric_kind 为 esn0_db，未给出归一化到固定物理条件（如噪声系数、实现损耗、同步误差）后的等效符号能量比，故 normalized_esn0_db 仅按工单标称值 -6 dB 填写。",
+                "missing_information": [
+                  "各候选 MCS 在 -6 dB Es/N0 下的 BLER 实测或仿真曲线（含样本量与置信区间）",
+                  "先导/前导序列的原始接收样本，用于独立估计实际 SNR 与验证同步质量",
+                  "实际信道类型确认：AWGN 还是每帧恒定的瑞利衰落，以及是否存在多普勒/时变",
+                  "接收机实现损耗（软解调量化、Viterbi 回溯深度、频偏/定时残余误差）对有效 Es/N0 的影响",
+                  "帧结构细节：前导是否参与编码、帧头 32 比特是否含 CRC，以及 BLER 的统计口径（整帧 vs 载荷）"
+                ],
+                "next_actions": [
+                  "在 -6 dB Es/N0 下对 qpsk_r12 与 qpsk_r34 各跑至少 1e4 帧的链路级仿真或实测，统计 BLER 及 95% 置信区间，确认是否 ≤ 0.1",
+                  "若 qpsk_r12 仍不达标，评估降低码率（1/3 母码或更强编码）、增加扩频/重复、缩短载荷或提升发射功率的可行性，并重新计算链路预算",
+                  "采集并保存前导段的原始 IQ 样本，用其独立估计实际 SNR 与残余定时/频偏，核对工单 -6 dB 标定是否代表解调器输入端的有效 Es/N0",
+                  "确认实际信道模型（AWGN 或瑞利）与工单标注一致，必要时在瑞利信道下重复 BLER 评估",
+                  "在满足 BLER 约束的候选中，按有效吞吐（扣除前导与帧头开销）排序，选出吞吐最高的配置"
+                ]
+              }
+            }
+          ],
+          "tool_call_id": "call_00_jOY7SeyWGweW7drerMyU4652",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:39:42.708797Z",
+          "outcome": "retried",
+          "retry": {
+            "cause": "validation_error",
+            "attempt": 1,
+            "max_retries": 2
+          },
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        }
+      ],
+      "timestamp": "2026-11-13T02:39:42.709144Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。",
+      "kind": "request",
+      "run_id": "01a1d2c6-4f50-75e7-8b52-f845d1327712",
+      "conversation_id": "01a1d2c6-4f50-75e7-8b52-f8461cc91580",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "args": "{\"decision\": \"insufficient_evidence\", \"recommended_mcs\": null, \"normalized_esn0_db\": -6, \"summary\": \"工单 C03 给出 AWGN 信道、Es/N0 = -6 dB（obs.signal 仅确认重复标定得到相同低信噪比、发射功率与带宽固定），要求 BLER ≤ 0.1、最低有效吞吐 0 Mbps（吞吐约束不构成筛选条件）。按模型参数（1.2 MHz 带宽、1 Msps、192 载荷比特 + 32 帧头比特、16 前导符号、K=3 (7,5) 卷积码、3/4 码率用 [1,1,1,0,0,1] 穿孔、max-log 软解调 + Viterbi、理想同步与已知信道）估算：在 -6 dB 符号 Es/N0 下，qpsk_r12 的每编码比特 Es/N0 约 -3 dB、每信息比特 Eb/N0 约 0 dB，对 K=3 短约束长度码而言 BLER 大概率明显超过 0.1；qpsk_r34 更差；16QAM/64QAM 在 -6 dB 下几乎必然失效。因此从物理层常识看，唯一可能接近门限的候选是 qpsk_r12，但它是否真正满足 BLER ≤ 0.1 无法由现有材料确认——工单未提供任何先导样本、误块统计或链路仿真/实测结果，仅有单点信噪比标定。故结论为证据不足，不给出推荐 MCS，需补充 BLER 测量后再定论。\", \"hypotheses\": [{\"explanation\": \"在 -6 dB 符号 Es/N0 的 AWGN 下，qpsk_r12 的每编码比特 Es/N0 约 -3 dB、每信息比特 Eb/N0 约 0 dB；对 K=3、(7,5) 码，该工作点通常处于 BLER 远高于 10% 的区域，因此没有任何候选能满足 BLER ≤ 0.1，需要提升发射功率、降低码率（如 1/3 母码或更强编码）或缩短帧长/减少载荷。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.signal\"], \"opposing_evidence\": []}, {\"explanation\": \"qpsk_r12 是六个候选中编码增益最高、星座最稳健的一个，在 -6 dB 下其 BLER 可能恰好落在 0.1 附近或以下，从而成为唯一可行方案；其余候选（qpsk_r34、16QAM、64QAM）在该工作点明显更差。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.signal\"], \"opposing_evidence\": []}, {\"explanation\": \"工单信道标注为 AWGN，但模型描述提到瑞利信道每帧内恒定；若实际存在衰落，-6 dB 平均 Es/N0 下的深衰落帧会使 BLER 进一步恶化，AWGN 假设下的结论会偏乐观。\", \"status\": \"undetermined\", \"supporting_evidence\": [], \"opposing_evidence\": [\"obs.signal\"]}], \"evidence_ids\": [\"obs.signal\"], \"pilot_sufficient\": null, \"uncertainty\": \"核心不确定性在于缺少任何 BLER 实测/仿真数据：工单只给出单点 Es/N0 = -6 dB 的标定结果，没有误块计数、样本量或链路曲线，因此无法判定 qpsk_r12 是否满足 BLER ≤ 0.1，也无法排除信道模型（AWGN vs 瑞利）与工单描述不一致带来的偏差。此外 metric_kind 为 esn0_db，未给出归一化到固定物理条件（如噪声系数、实现损耗、同步误差）后的等效符号能量比，故 normalized_esn0_db 仅按工单标称值 -6 dB 填写。\", \"missing_information\": [\"各候选 MCS 在 -6 dB Es/N0 下的 BLER 实测或仿真曲线（含样本量与置信区间）\", \"先导/前导序列的原始接收样本，用于独立估计实际 SNR 与验证同步质量\", \"实际信道类型确认：AWGN 还是每帧恒定的瑞利衰落，以及是否存在多普勒/时变\", \"接收机实现损耗（软解调量化、Viterbi 回溯深度、频偏/定时残余误差）对有效 Es/N0 的影响\", \"帧结构细节：前导是否参与编码、帧头 32 比特是否含 CRC，以及 BLER 的统计口径（整帧 vs 载荷）\"], \"next_actions\": [\"在 -6 dB Es/N0 下对 qpsk_r12 与 qpsk_r34 各跑至少 1e4 帧的链路级仿真或实测，统计 BLER 及 95% 置信区间，确认是否 ≤ 0.1\", \"若 qpsk_r12 仍不达标，评估降低码率（1/3 母码或更强编码）、增加扩频/重复、缩短载荷或提升发射功率的可行性，并重新计算链路预算\", \"采集并保存前导段的原始 IQ 样本，用其独立估计实际 SNR 与残余定时/频偏，核对工单 -6 dB 标定是否代表解调器输入端的有效 Es/N0\", \"确认实际信道模型（AWGN 或瑞利）与工单标注一致，必要时在瑞利信道下重复 BLER 评估\", \"在满足 BLER 约束的候选中，按有效吞吐（扣除前导与帧头开销）排序，选出吞吐最高的配置\"]}",
+          "tool_call_id": "call_00_ViqhOA6twK0Tco0nYowa8803",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3867,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 2560,
+        "output_tokens": 1361,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 2560,
+          "prompt_cache_miss_tokens": 1307
+        },
+        "cost": "0.00204066"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:39:48.068755Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:39:38Z"
+      },
+      "provider_response_id": "5c945d12-d292-40d2-83a7-7afe9bc359d8",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c6-4f50-75e7-8b52-f845d1327712",
+      "conversation_id": "01a1d2c6-4f50-75e7-8b52-f8461cc91580",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "content": "Final result processed.",
+          "tool_call_id": "call_00_ViqhOA6twK0Tco0nYowa8803",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:39:48.069622Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return"
+        }
+      ],
+      "timestamp": "2026-11-13T02:39:48.069665Z",
+      "instructions": null,
+      "kind": "request",
+      "run_id": "01a1d2c6-4f50-75e7-8b52-f845d1327712",
+      "conversation_id": "01a1d2c6-4f50-75e7-8b52-f8461cc91580",
+      "metadata": null,
+      "state": "complete"
+    }
+  ]
+}

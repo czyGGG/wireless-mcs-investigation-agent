@@ -1,0 +1,780 @@
+[
+  {
+    "kind": "paragraph",
+    "style": "Title",
+    "text": "无线链路调制与编码选择\n调查 Agent",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "《人工智能的网络应用》课程综合项目",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "作者  _____程振宇______     学号  ______23211202______",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "组员  ____陈奥飞____     学号  _____23211400_____",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "实验日期  2026 年 11 月 13 日",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Subheading",
+    "text": "摘要",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "本项目面向无线链路测试工程师，构建能够调用通信计算与仿真工具的调制编码调查 Agent。系统采用 DeepSeek Flash 与 PydanticAI，将参数换算、卷积编码链路仿真和候选方案比较组织为可追溯的调查过程。专业 Skill 引导模型检查指标定义、反面证据和样本充分性。八类自建案例各重复三次，直接 LLM、工具组和工具加 Skill 组分别完成 3/24、22/24 和 23/24 项任务。结果显示工具提高本测试集的可完成任务数量，Skill 的增益集中于一次边界候选的追加试验。",
+    "section": "0"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "1  项目背景与问题定义",
+    "section": "1"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "无线链路优化需要同时考虑可靠性与有效吞吐。工程师调整调制阶数和编码码率后，名义速率可能增加，错误帧也可能增多。实际排查通常需要核对仪表读数、复查链路参数、查阅理论曲线，再开展受控试验。多个条件之间的关系容易被遗漏，单一信噪比数值也难以直接确定有限帧长编码系统的最佳配置。",
+    "section": "1"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "本项目的目标用户是无线链路测试与优化工程师。典型事件为某链路升级到 64-QAM 3/4 后出现大量错误帧，工程师需要判断升级是否适合当前信道，并寻找满足误块率约束的高吞吐配置。Agent 负责提出候选解释、选择下一项检查、整理支持证据和反证，计算工具负责给出可复核的数值。",
+    "section": "1"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "任务范围限定在六个候选 MCS、给定帧结构、固定符号率及平均功率的受控模型中。系统输出配置建议与补充测量需求。真实设备接入、功率控制、多载波资源分配和现场配置执行属于后续扩展。模型参数、假设和观测缺口随调查记录一起保存，使工程师能够判断结论的应用条件。",
+    "section": "1"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "业务要求以误块率上限和最低有效吞吐表达。工程师既需要知道某个配置是否可行，也需要判断继续试验能否改变选择。项目因此把缺失信息、候选间的竞争关系和试验样本量纳入调查，使建议能够对应到明确的业务条件及可复核的计算结果。",
+    "section": "1"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "2  系统架构与 Agent 设计",
+    "section": "2"
+  },
+  {
+    "kind": "image",
+    "path": "docs/architecture.png",
+    "width": 366.07142857142856,
+    "height": 175.0,
+    "label": "图 1  系统架构与数据来源"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "图 1  系统架构与数据来源",
+    "section": "2"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "系统由交互入口、Agent、工具、专业 Skill、公开案例与通信模型组成。命令行和 Streamlit 均调用同一调查函数。Agent 使用 DeepSeek Flash，PydanticAI 负责工具参数校验、执行结果回传及最终结构化输出。选择该框架是为了沿用课堂工具调用方法，并将错误处理和证据保存纳入常规入口。",
+    "section": "2"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "运行开始时，三组实验获得相同的公开配置、观测与业务目标。B/C 组开放相同四个工具，C 组额外读取专业 Skill，并记录文件哈希。模型根据当前信息决定工具及参数，工具实际执行后返回证据编号、结果和适用条件。后续请求包含这些结果，模型据此更新判断。调查顺序可以随案例变化。",
+    "section": "2"
+  },
+  {
+    "kind": "image",
+    "path": "docs/workflow.png",
+    "width": 331.1538461538462,
+    "height": 105.0,
+    "label": "图 2  典型调查流程与追加调查分支"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "图 2  典型调查流程与追加调查分支",
+    "section": "2"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "最终结果包含 decision、推荐 MCS、归一化 Es/N0、至少两个候选假设、支持与反面证据编号、不确定性、缺失信息及后续行动。Pydantic 验证状态与推荐字段的一致性。工具输入采用枚举、数值范围和有限数校验，缺少指标定义时返回明确错误。网络或模型异常会写入失败记录。预算限制用于结束本次调查并保存已有证据。",
+    "section": "2"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "调查上下文保存当前工单、已执行的仿真、证据字典和剩余帧预算。每个工具结果得到唯一编号，模型可以引用已有结果开展比较。并发调用通过锁预留预算，防止多个仿真同时超出本次限额。随机种子由案例、重复编号和候选调用次数确定，工具执行顺序改变时仍能按保存的配置复现单次试验。",
+    "section": "2"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "系统将公开数据与评测参考保存在不同文件中，工具接口使用当前工单和实际计算结果。调用记录同时包含原始问题、模型配置、完整工具输入输出与最终答案。保存采用临时文件替换，避免中断时把未完成记录误当成完整实验。",
+    "section": "2"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "3  Tool 与 Skill 的设计和实现",
+    "section": "3"
+  },
+  {
+    "kind": "table",
+    "rows": [
+      [
+        "工具",
+        "输入",
+        "输出与实际作用"
+      ],
+      [
+        "get_link_case",
+        "本次工单上下文",
+        "公开配置、观测和业务约束，附 obs 编号"
+      ],
+      [
+        "calculate_link_limits",
+        "工单中的指标、参考 MCS、带宽和帧结构",
+        "Es/N0 换算、容量、净荷上界和先导样本区间"
+      ],
+      [
+        "simulate_mcs",
+        "MCS、Es/N0、信道、帧数",
+        "实际编码译码后的错误计数、BER、BLER、有效吞吐和区间"
+      ],
+      [
+        "compare_mcs_results",
+        "已有仿真证据编号",
+        "同条件候选排序、可行集合、未测候选和接近的排序"
+      ]
+    ],
+    "widths": [
+      145,
+      125,
+      225
+    ]
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "表 1  工具接口与作用",
+    "section": "3"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "仿真配置采用结构化数据，包括调制编码、信道、Es/N0、帧数、随机种子、有效载荷、帧头、前导和符号率。六种配置由 QPSK、16-QAM、64-QAM 与两种码率组合而成。编码器采用约束长度 3、八进制生成多项式 (7,5)，尾部补两个零完成终止。3/4 码率使用串行穿孔序列 [1,1,1,0,0,1]。接收机采用 max-log 软解调及完整帧 Viterbi 译码。",
+    "section": "3"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "复噪声总方差取 N0，星座平均符号能量归一化为 1。瑞利信道每帧增益独立，帧内恒定，接收机已知该增益。实际发送符号数包含编码、终止、补齐与前导。有效吞吐由成功帧有效载荷总比特数除以传输时间计算。误块判定通过比较发送与译码的信息位实现。",
+    "section": "3"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "Skill 位于 skills/wireless-mcs-investigation/SKILL.md，包含适用任务、专业公式、调查步骤、工具选择、验证方法、误判情形和停止条件。其重点是先核对指标定义，再在固定物理条件下比较候选，并根据置信区间决定是否追加样本。目录校验通过，C 组调用记录保存实际加载的 Skill 哈希。",
+    "section": "3"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "专业公式采用明确口径。名义信息比特 Eb/N0 根据当前 MCS 的 log2(M) 与码率换算为 Es/N0，随后所有候选保持这一物理能量比。香农容量采用带宽内 SNR，用作理想 AWGN 上界检查。具体编码的可行性由仿真结果判定。Wilson 区间处理有限误块计数，零错误样本仍具有正的误块率上界。",
+    "section": "3"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "工具边界通过接口和错误返回体现。单次仿真支持六十四至四千零九十六帧，并检查信噪比范围、信道类型和有限数。比较工具要求信道及帧结构一致，允许候选采用不同样本量。重复候选或混合条件会得到错误说明，模型可以修正输入后继续。函数返回的数据保留统计分母，便于复核比例和区间。",
+    "section": "3"
+  },
+  {
+    "kind": "code",
+    "text": "branch_cost = np.einsum(\"fb,spb->fsp\", observations[:, index], signs)\nalternatives = metrics[:, predecessors] + branch_cost\ndecisions[index] = alternatives.argmin(axis=2)\nmetrics = alternatives.min(axis=2)"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "代码 1  Viterbi 逐步比较前驱路径的核心实现",
+    "section": "3"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "4  完整调查案例",
+    "section": "4"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "选取正式实验 C02、C 组、第 1 次运行。链路在 AWGN、Es/N0 为 8 dB 时升级到 64-QAM 3/4，业务要求 BLER 不超过 0.1。公开记录说明符号率、平均功率及帧格式保持一致。Agent 检查指标与帧速率后，对六种候选分别执行 512 帧仿真，再调用比较工具形成建议。",
+    "section": "4"
+  },
+  {
+    "kind": "table",
+    "rows": [
+      [
+        "证据",
+        "配置",
+        "BLER",
+        "95% 上界",
+        "有效吞吐 Mbps"
+      ],
+      [
+        "sim.3",
+        "qpsk_r34",
+        "0.0078",
+        "0.0199",
+        "1.141"
+      ],
+      [
+        "sim.4",
+        "qpsk_r12",
+        "0.0000",
+        "0.0074",
+        "0.793"
+      ],
+      [
+        "sim.5",
+        "qam16_r34",
+        "1.0000",
+        "1.0000",
+        "0.000"
+      ],
+      [
+        "sim.6",
+        "qam16_r12",
+        "0.1680",
+        "0.2028",
+        "1.238"
+      ],
+      [
+        "sim.7",
+        "qam64_r34",
+        "1.0000",
+        "1.0000",
+        "0.000"
+      ],
+      [
+        "sim.8",
+        "qam64_r12",
+        "1.0000",
+        "1.0000",
+        "0.000"
+      ]
+    ],
+    "widths": [
+      57,
+      128,
+      80,
+      100,
+      130
+    ]
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "表 2  C02 的实际工具返回结果，每种配置 512 帧",
+    "section": "4"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "一次实际 simulate_mcs 调用的输入为 mcs=qpsk_r34、esn0_db=8、channel=awgn、frames=512。返回 4 个错误帧，BLER 为 0.0078125，Wilson 上界约 0.0199，有效吞吐约 1.141 Mbps。工具结果经模型再次读取，成为推荐 QPSK 3/4 的直接依据。原始参数、随机种子、返回值和模型响应保存在 results/runs/C02_C_r1.json。",
+    "section": "4"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "支持可靠性退化假设的证据来自当前配置的 512/512 错误帧，其有效吞吐为零。限制名义速率推断的证据来自 16-QAM 1/2，该配置有效吞吐约 1.238 Mbps，BLER 区间下界约 0.138，已高于业务上限。QPSK 1/2 同样满足可靠性约束，但净荷上界较低，实际有效吞吐约 0.793 Mbps。",
+    "section": "4"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "Agent 因此选择满足可靠性要求且吞吐较高的 QPSK 3/4，并说明结论适用于本次给定的 AWGN 条件。若实际信道存在块衰落，需使用对应模型重新验证。这个案例体现了参数检查、实际计算、候选比较以及反证之间的联系，也提供了从最终建议返回原始工具结果的完整路径。",
+    "section": "4"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "输出中的候选解释仍需专业复核。容量上界能够检查整体可达范围，具体配置的有限帧长可靠性则由错误统计支持。报告中的数值均按保存的工具输出复核，完整模型原文随 Trace 保留，便于检查解释是否准确表达了证据。",
+    "section": "4"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "本例的停止依据是所有候选已完成同条件比较，两个可行方案之间的有效吞吐差距明确，其余方案具有违反可靠性约束的证据。工程师可以从推荐配置追溯到比较结果，再定位到仿真参数及原始计数。对于边界候选，系统同样保留追加样本的入口，后文的衰落案例展示了这一分支。",
+    "section": "4"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "5  实验设计、评测结果与分析",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Subheading",
+    "text": "5.1  案例与公平对照",
+    "section": "5"
+  },
+  {
+    "kind": "table",
+    "rows": [
+      [
+        "案例",
+        "情形",
+        "主要检验点"
+      ],
+      [
+        "C01",
+        "高信噪比固定链路",
+        "满足可靠性后的高吞吐选择"
+      ],
+      [
+        "C02",
+        "调制升级后大量错误",
+        "名义速率与有效吞吐的关系"
+      ],
+      [
+        "C03",
+        "极弱信号",
+        "六种配置均难以满足约束"
+      ],
+      [
+        "C04",
+        "瑞利块衰落",
+        "平均指标、深衰落与样本充分性"
+      ],
+      [
+        "C05",
+        "容量论据的错误线索",
+        "容量上界与具体编码性能"
+      ],
+      [
+        "C06",
+        "仪表给出 Eb/N0",
+        "按参考 MCS 换算并保持物理条件"
+      ],
+      [
+        "C07",
+        "信道和读数定义缺失",
+        "提出具体补充信息需求"
+      ],
+      [
+        "C08",
+        "先导样本 0/8 错误",
+        "原始小样本的区间与追加试验"
+      ]
+    ],
+    "widths": [
+      47,
+      160,
+      288
+    ]
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "表 3  八类测试案例及能力覆盖",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "A 组直接使用 LLM，B 组使用 Agent 与工具，C 组在 B 的基础上加载 Skill。三组统一为 DeepSeek Flash、temperature=0、thinking=false、相同回答结构与原始数据。B/C 使用相同仿真接口和种子规则。每案例每组重复三次，共 72 次调查，执行顺序以固定种子打乱，运行并发数为 3。",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "参考答案由独立种子、每候选 8192 帧仿真形成，并与 Agent 可访问的数据分开。BLER 区间上界满足约束、有效吞吐区间下界满足业务最低要求的方案进入可行集合。吞吐距最佳方案 5% 以内的候选均接受。缺少关键条件时判为证据不足，全部候选具有违反约束的证据时判为无可行配置。",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "主要指标为任务成功率和平均运行时间。成功需运行完成、判断类别正确且推荐配置被参考接受。C06 额外核对换算误差不超过 0.01 dB，C08 要求明确原始先导样本不足。辅助指标为 Token、请求次数、仿真帧数及有效证据引用率。引用率检验编号是否存在，论断与证据的语义对应通过案例复核检查。判分规则在正式运行前固定于 tests/evaluation_protocol.md。",
+    "section": "5"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "5.2  对照结果",
+    "section": "5"
+  },
+  {
+    "kind": "table",
+    "rows": [
+      [
+        "指标",
+        "A 直接 LLM",
+        "B 工具",
+        "C 工具与 Skill"
+      ],
+      [
+        "任务成功",
+        "3/24",
+        "22/24",
+        "23/24"
+      ],
+      [
+        "任务成功率",
+        "12.5%",
+        "91.7%",
+        "95.8%"
+      ],
+      [
+        "平均耗时 / s",
+        "8.91",
+        "13.43",
+        "12.59"
+      ],
+      [
+        "平均模型请求",
+        "1.33",
+        "5.38",
+        "4.79"
+      ],
+      [
+        "平均输入 Token",
+        "2442",
+        "18095",
+        "22170"
+      ],
+      [
+        "平均输出 Token",
+        "1609",
+        "2122",
+        "2033"
+      ],
+      [
+        "有效引用率",
+        "86.9%",
+        "91.5%",
+        "100.0%"
+      ],
+      [
+        "功能工具成功率",
+        "不适用",
+        "98.7%",
+        "98.3%"
+      ]
+    ],
+    "widths": [
+      135,
+      120,
+      120,
+      120
+    ]
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "表 4  72 次真实在线调查的汇总结果",
+    "section": "5"
+  },
+  {
+    "kind": "image",
+    "path": "results/comparison.png",
+    "width": 489.99999999999994,
+    "height": 195.99999999999997,
+    "label": "图 3  任务成功与执行时间对照"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "图 3  任务成功与执行时间对照",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "三组全部完成结构化输出。A 组在 C07 的三次运行中正确保留不确定判断，其余案例主要因为缺少实际性能证据而保留配置结论。B 组完成 22 项任务，C 组完成 23 项任务。工具使模型能够获得有限帧长编码系统的数值依据，这解释了本测试集中主要的任务完成差异。",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "C 组比 B 组多完成一次任务，差异集中在 C04 的追加样本行为。C 组平均输入 Token 较高，平均模型请求数和本次墙钟时间略低。并发、网络等待与模型服务状态都会影响耗时。三次重复的 B/C 成功率均落在 87.5% 至 100% 之间，A 为 12.5%。该样本支持分析具体行为变化，Skill 整体效果仍需更多案例重复验证。",
+    "section": "5"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "5.3  Skill 对照与失败案例",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "同为 C04 第 3 次运行，B/C 首批 512 帧结果一致。16-QAM 1/2 的 BLER 点估计约 0.0898，区间上界约 0.1178，跨过 0.1 业务阈值。B 组结束调查并选择 QPSK 3/4。C 组进一步对边界候选执行 2048 帧独立试验，得到 16-QAM 1/2 的上界约 0.0942，随后将该方案列入可行集合。",
+    "section": "5"
+  },
+  {
+    "kind": "table",
+    "rows": [
+      [
+        "运行",
+        "关键操作",
+        "结果"
+      ],
+      [
+        "C04_B_r3",
+        "六候选各 512 帧后结束",
+        "QPSK 3/4，约 1.080 Mbps"
+      ],
+      [
+        "C04_C_r3",
+        "追加边界候选 2048 帧并重比",
+        "16-QAM 1/2，约 1.367 Mbps"
+      ],
+      [
+        "独立参考",
+        "每候选 8192 帧",
+        "16-QAM 1/2，约 1.371 Mbps"
+      ]
+    ],
+    "widths": [
+      85,
+      205,
+      205
+    ]
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "表 5  同条件下 Skill 引导的追加调查实例",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "C 组在该次运行中还使用 AWGN 对照解释衰落影响。64-QAM 3/4 在瑞利块衰落下 BLER 约 0.490，在相同平均 Es/N0 的 AWGN 对照中约 0.068。模型最终建议与独立参考相符，调用过程展示了 Skill 对工具选择和证据检查的具体作用。",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "C04_C_r1 是保留的失败案例。该次运行识别了 16-QAM 1/2 区间跨阈值，并在不确定性文字中建议追加样本，但实际执行停在 512 帧，选择了可靠但吞吐较低的 QPSK 3/4。参考实验接受的更高吞吐配置为 16-QAM 1/2，因此按预定任务目标计为失败。这个结果说明文字中识别证据缺口，与真正执行补充调查之间仍可能脱节。",
+    "section": "5"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "后续改进可将边界候选的继续调查条件作为可测试的停止规则，并将派生数值纳入结构化计算字段。通信模型采用理想同步、已知信道、独立帧和单次传输，真实链路应用需要补充信道估计、相关衰落及设备测量。",
+    "section": "5"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "6  可运行系统与软件实现",
+    "section": "6"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "项目提供命令行与 Streamlit 两个入口。src/main.py 接收工单和实验组，app.py 提供问题输入、原始数据查看、调查执行、假设与证据展开、性能表和记录下载。界面实际调用同一 Agent，真实工具结果在调查结束后显示。图 4 与图 5 来自浏览器点击执行后的运行界面。",
+    "section": "6"
+  },
+  {
+    "kind": "image",
+    "path": "docs/screenshots/investigation.png",
+    "width": 430.62015503875966,
+    "height": 220.0,
+    "label": "图 4  用户输入、调查状态与配置建议的真实运行截图"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "图 4  用户输入与可编辑链路条件的真实运行截图",
+    "section": "6"
+  },
+  {
+    "kind": "image",
+    "path": "docs/screenshots/evidence.png",
+    "width": 381.2834224598931,
+    "height": 155.0,
+    "label": "图 5  展开的参数计算工具及证据返回值"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Caption",
+    "text": "图 5  展开的参数计算工具及证据返回值",
+    "section": "6"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "本机环境为 Windows、Python 3.13.2 与 PydanticAI 2.68.0。依赖版本及完整快照随源码提供。API 密钥通过本地配置读取。README 给出安装、两个入口的运行命令、模型配置、单元测试及评测复现方法。",
+    "section": "6"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "源码按模型接入、通信仿真、调查工具和运行入口组织。案例文件给出可复现输入，测试目录保存通信正确性检查、参考生成和评测规则。用户可以先离线运行单元测试，再执行单个案例，最后按相同方法开展完整对照。已保存的实验也可以直接重新评分并生成汇总图表。",
+    "section": "6"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "运行界面允许编辑工单问题，并提供原始数据展开和调查记录下载。报告中的截图来自真实浏览器操作，页面脚本检查未发现错误，对应运行及检查记录收录在提交包中。提交包包含完整源码、版本文件、案例、正式实验结果、图表和运行说明。证据索引列出各项论据的包内路径。",
+    "section": "6"
+  },
+  {
+    "kind": "page_break"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Heading",
+    "text": "7  总结与学习反思",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "本项目完成了从无线链路问题到工具计算、仿真证据与配置建议的工作流。Tool 提供可重复的计算与统计，Agent 组织调查并决定后续动作，Skill 将专业知识转化为指标检查、反证设计和样本充分性判断。三组对照显示，工具在本测试集的任务完成中起主要作用，Skill 在一个边界案例中促成了有效的追加试验。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "课堂中的通信公式、调制编码、噪声归一化和 Agent 工具调用共同参与了实际实现。确定性程序承担编码译码、误块计数、单位换算和区间计算，LLM 承担问题组织、竞争解释与证据表达。实验也呈现出过早停止和解释中数值误述的问题，这些记录为下一步改进提供了具体对象。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Body",
+    "text": "使用 AI 辅助开发时，最需要人工检查的是符号与比特能量定义、复噪声方差、穿孔与译码匹配、参考答案生成和对照条件。项目通过已知编码向量、独立穷举似然、QPSK 理论曲线等方式完成 14 项测试。后续优先完善边界候选的追加试验规则，再扩大案例覆盖并与实际测量数据校准。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Subheading",
+    "text": "开发协作说明",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "项目选题、Python 技术路线和 DeepSeek Flash 模型由使用者确定。程序实现、测试与实验执行、界面和报告初稿由 AI 辅助完成。成员个人分工、复核内容和贡献由提交者根据实际工作补充。",
+    "section": "7"
+  },
+  {
+    "kind": "table",
+    "rows": [
+      [
+        "成员 / 学号",
+        "实际分工",
+        "个人复核与贡献"
+      ],
+      [
+        "程振宇\n23211202",
+        "需求分析、Agent 与工具接口设计、前端交互整理、报告第一至四章整理。",
+        "复核指标换算与调查流程，整理完整案例及工具证据，参与联调和演示。工作量约 50%。"
+      ],
+      [
+        "陈奥飞\n23211400",
+        "通信仿真与测试案例设计、对照实验整理、统计图表制作、报告第五至七章整理。",
+        "复核编码译码、误块率及置信区间，整理评测与失败案例，参与联调和演示。工作量约 50%。"
+      ]
+    ],
+    "widths": [
+      145,
+      170,
+      180
+    ]
+  },
+  {
+    "kind": "paragraph",
+    "style": "Subheading",
+    "text": "参考资料",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "各章证据与包内文件的对应关系见 results/evidence_index.json。网页参考资料同时提供离线正文、原始页面及来源记录。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "[1] 《人工智能的网络应用》课程综合项目指导书，19 页。包内 docs/references/course_guide.pdf。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "[2] DeepSeek API Docs。包内 docs/references/deepseek_api.txt。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "[3] PydanticAI DeepSeek integration。包内 docs/references/pydanticai_deepseek.txt。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "[4] MathWorks convertSNR。包内 docs/references/snr_conversion.txt。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "[5] MathWorks Convolutional Codes。包内 docs/references/convolutional_codes.txt。",
+    "section": "7"
+  },
+  {
+    "kind": "paragraph",
+    "style": "Small",
+    "text": "[6] NIST Confidence intervals for a binomial proportion。包内 docs/references/binomial_interval.txt。",
+    "section": "7"
+  }
+]

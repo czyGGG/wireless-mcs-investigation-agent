@@ -1,0 +1,1837 @@
+{
+  "frames_per_candidate": 8192,
+  "case_sha256": "2a82ee994763162343384a40a8c18d40b285b4480f848bce2868c8c31e5bd59f",
+  "simulation_sha256": "74768afe0e04dbf771d8067fba00de5a134d7c75ea00826a4ef39118687408bf",
+  "references": {
+    "C01": {
+      "decision": "recommend",
+      "acceptable_mcs": [
+        "qam64_r34"
+      ],
+      "normalized_esn0_db": 22.0,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "awgn",
+            "esn0_db": 22.0,
+            "frames": 8192,
+            "seed": 700000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 0.7933884297520661,
+          "goodput_ci95_mbps": [
+            0.7930165620192627,
+            0.7933884297520661
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "awgn",
+            "esn0_db": 22.0,
+            "frames": 8192,
+            "seed": 700001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 1.1497005988023952,
+          "goodput_ci95_mbps": [
+            1.149161724602764,
+            1.1497005988023952
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "awgn",
+            "esn0_db": 22.0,
+            "frames": 8192,
+            "seed": 700002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 1.4883720930232558,
+          "goodput_ci95_mbps": [
+            1.487674480687299,
+            1.4883720930232558
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "awgn",
+            "esn0_db": 22.0,
+            "frames": 8192,
+            "seed": 700003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 2.0869565217391304,
+          "goodput_ci95_mbps": [
+            2.0859783479202343,
+            2.0869565217391304
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "awgn",
+            "esn0_db": 22.0,
+            "frames": 8192,
+            "seed": 700004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 2.0869565217391304,
+          "goodput_ci95_mbps": [
+            2.0859783479202343,
+            2.0869565217391304
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "awgn",
+            "esn0_db": 22.0,
+            "frames": 8192,
+            "seed": 700005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 2.8656716417910446,
+          "goodput_ci95_mbps": [
+            2.8643284777412172,
+            2.8656716417910446
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    },
+    "C02": {
+      "decision": "recommend",
+      "acceptable_mcs": [
+        "qpsk_r34"
+      ],
+      "normalized_esn0_db": 8.0,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "awgn",
+            "esn0_db": 8.0,
+            "frames": 8192,
+            "seed": 701000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 0.7933884297520661,
+          "goodput_ci95_mbps": [
+            0.7930165620192627,
+            0.7933884297520661
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "awgn",
+            "esn0_db": 8.0,
+            "frames": 8192,
+            "seed": 701001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 99,
+          "payload_bits_tested": 1572864,
+          "ber": 6.29425048828125e-05,
+          "block_errors": 36,
+          "frames": 8192,
+          "bler": 0.00439453125,
+          "bler_ci95": [
+            0.0031760802277086475,
+            0.0060775710540728585
+          ],
+          "goodput_mbps": 1.1446482035928143,
+          "goodput_ci95_mbps": [
+            1.1427132117222636,
+            1.146049057462754
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "awgn",
+            "esn0_db": 8.0,
+            "frames": 8192,
+            "seed": 701002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 4810,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0030581156412760415,
+          "block_errors": 1488,
+          "frames": 8192,
+          "bler": 0.181640625,
+          "bler_ci95": [
+            0.17344152001020496,
+            0.19013816534518574
+          ],
+          "goodput_mbps": 1.2180232558139534,
+          "goodput_ci95_mbps": [
+            1.20537575390484,
+            1.2302265748685322
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "awgn",
+            "esn0_db": 8.0,
+            "frames": 8192,
+            "seed": 701003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 248277,
+          "payload_bits_tested": 1572864,
+          "ber": 0.1578502655029297,
+          "block_errors": 8184,
+          "frames": 8192,
+          "bler": 0.9990234375,
+          "bler_ci95": [
+            0.9980740108708718,
+            0.9995050712867827
+          ],
+          "goodput_mbps": 0.0020380434782608695,
+          "goodput_ci95_mbps": [
+            0.0010328947058448504,
+            0.004019455573832817
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "awgn",
+            "esn0_db": 8.0,
+            "frames": 8192,
+            "seed": 701004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 257054,
+          "payload_bits_tested": 1572864,
+          "ber": 0.16343053181966147,
+          "block_errors": 8189,
+          "frames": 8192,
+          "bler": 0.9996337890625,
+          "bler_ci95": [
+            0.9989237655350104,
+            0.9998754475939718
+          ],
+          "goodput_mbps": 0.000764266304347826,
+          "goodput_ci95_mbps": [
+            0.00025993545605875937,
+            0.002246054535630494
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "awgn",
+            "esn0_db": 8.0,
+            "frames": 8192,
+            "seed": 701005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 619674,
+          "payload_bits_tested": 1572864,
+          "ber": 0.3939781188964844,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.0013431640498269878
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    },
+    "C03": {
+      "decision": "no_feasible_option",
+      "acceptable_mcs": [],
+      "normalized_esn0_db": -6.0,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "awgn",
+            "esn0_db": -6.0,
+            "frames": 8192,
+            "seed": 702000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 650913,
+          "payload_bits_tested": 1572864,
+          "ber": 0.41383934020996094,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.0003718677328033396
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "awgn",
+            "esn0_db": -6.0,
+            "frames": 8192,
+            "seed": 702001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 732185,
+          "payload_bits_tested": 1572864,
+          "ber": 0.46551068623860675,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.0005388741996311867
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "awgn",
+            "esn0_db": -6.0,
+            "frames": 8192,
+            "seed": 702002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 694297,
+          "payload_bits_tested": 1572864,
+          "ber": 0.4414221445719401,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.0006976123359566526
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "awgn",
+            "esn0_db": -6.0,
+            "frames": 8192,
+            "seed": 702003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 747092,
+          "payload_bits_tested": 1572864,
+          "ber": 0.47498830159505206,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.000978173818895741
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "awgn",
+            "esn0_db": -6.0,
+            "frames": 8192,
+            "seed": 702004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 732770,
+          "payload_bits_tested": 1572864,
+          "ber": 0.4658826192220052,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.000978173818895741
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "awgn",
+            "esn0_db": -6.0,
+            "frames": 8192,
+            "seed": 702005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 764862,
+          "payload_bits_tested": 1572864,
+          "ber": 0.4862861633300781,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.0013431640498269878
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    },
+    "C04": {
+      "decision": "recommend",
+      "acceptable_mcs": [
+        "qam16_r12"
+      ],
+      "normalized_esn0_db": 18.0,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "rayleigh_block",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 703000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 6358,
+          "payload_bits_tested": 1572864,
+          "ber": 0.004042307535807292,
+          "block_errors": 204,
+          "frames": 8192,
+          "bler": 0.02490234375,
+          "bler_ci95": [
+            0.021744069919460013,
+            0.028505981998937432
+          ],
+          "goodput_mbps": 0.7736311983471075,
+          "goodput_ci95_mbps": [
+            0.7707721134553885,
+            0.7761369362622467
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "rayleigh_block",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 703001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 16620,
+          "payload_bits_tested": 1572864,
+          "ber": 0.01056671142578125,
+          "block_errors": 410,
+          "frames": 8192,
+          "bler": 0.050048828125,
+          "bler_ci95": [
+            0.04553439676696826,
+            0.05498505117013683
+          ],
+          "goodput_mbps": 1.0921594311377245,
+          "goodput_ci95_mbps": [
+            1.0864842525469085,
+            1.0973496755733059
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "rayleigh_block",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 703002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 22326,
+          "payload_bits_tested": 1572864,
+          "ber": 0.014194488525390625,
+          "block_errors": 644,
+          "frames": 8192,
+          "bler": 0.07861328125,
+          "bler_ci95": [
+            0.07298077446402337,
+            0.0846408029312253
+          ],
+          "goodput_mbps": 1.3713662790697674,
+          "goodput_ci95_mbps": [
+            1.362395084009339,
+            1.379749544983779
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "rayleigh_block",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 703003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 62346,
+          "payload_bits_tested": 1572864,
+          "ber": 0.039638519287109375,
+          "block_errors": 1524,
+          "frames": 8192,
+          "bler": 0.18603515625,
+          "bler_ci95": [
+            0.17775638320244583,
+            0.1946082451465054
+          ],
+          "goodput_mbps": 1.6987092391304348,
+          "goodput_ci95_mbps": [
+            1.6808175753464234,
+            1.715986678534026
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "rayleigh_block",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 703004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 59867,
+          "payload_bits_tested": 1572864,
+          "ber": 0.03806241353352865,
+          "block_errors": 1682,
+          "frames": 8192,
+          "bler": 0.205322265625,
+          "bler_ci95": [
+            0.19671419121826791,
+            0.21420657582464356
+          ],
+          "goodput_mbps": 1.6584578804347825,
+          "goodput_ci95_mbps": [
+            1.639916711322483,
+            1.6764225574575278
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "rayleigh_block",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 703005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 162477,
+          "payload_bits_tested": 1572864,
+          "ber": 0.10330009460449219,
+          "block_errors": 3864,
+          "frames": 8192,
+          "bler": 0.4716796875,
+          "bler_ci95": [
+            0.46088549527690575,
+            0.4825004276534817
+          ],
+          "goodput_mbps": 1.5139925373134326,
+          "goodput_ci95_mbps": [
+            1.4829838491124108,
+            1.5449251478631956
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    },
+    "C05": {
+      "decision": "recommend",
+      "acceptable_mcs": [
+        "qam16_r12"
+      ],
+      "normalized_esn0_db": 12.0,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "awgn",
+            "esn0_db": 12.0,
+            "frames": 8192,
+            "seed": 704000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 0.7933884297520661,
+          "goodput_ci95_mbps": [
+            0.7930165620192627,
+            0.7933884297520661
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "awgn",
+            "esn0_db": 12.0,
+            "frames": 8192,
+            "seed": 704001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 1.1497005988023952,
+          "goodput_ci95_mbps": [
+            1.149161724602764,
+            1.1497005988023952
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "awgn",
+            "esn0_db": 12.0,
+            "frames": 8192,
+            "seed": 704002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 2,
+          "payload_bits_tested": 1572864,
+          "ber": 1.2715657552083333e-06,
+          "block_errors": 1,
+          "frames": 8192,
+          "bler": 0.0001220703125,
+          "bler_ci95": [
+            2.1548732592319576e-05,
+            0.0006911857498941994
+          ],
+          "goodput_mbps": 1.4881904069767442,
+          "goodput_ci95_mbps": [
+            1.4873433514420178,
+            1.4883400204910253
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "awgn",
+            "esn0_db": 12.0,
+            "frames": 8192,
+            "seed": 704003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 5180,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0032933553059895835,
+          "block_errors": 1368,
+          "frames": 8192,
+          "bler": 0.1669921875,
+          "bler_ci95": [
+            0.15907210844464256,
+            0.1752244335988796
+          ],
+          "goodput_mbps": 1.7384510869565217,
+          "goodput_ci95_mbps": [
+            1.7212707472719033,
+            1.7549799475937893
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "awgn",
+            "esn0_db": 12.0,
+            "frames": 8192,
+            "seed": 704004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 11610,
+          "payload_bits_tested": 1572864,
+          "ber": 0.007381439208984375,
+          "block_errors": 2830,
+          "frames": 8192,
+          "bler": 0.345458984375,
+          "bler_ci95": [
+            0.335236362269449,
+            0.3558264757903381
+          ],
+          "goodput_mbps": 1.365998641304348,
+          "goodput_ci95_mbps": [
+            1.3443621374810335,
+            1.387332809176802
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "awgn",
+            "esn0_db": 12.0,
+            "frames": 8192,
+            "seed": 704005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 344331,
+          "payload_bits_tested": 1572864,
+          "ber": 0.2189197540283203,
+          "block_errors": 8191,
+          "frames": 8192,
+          "bler": 0.9998779296875,
+          "bler_ci95": [
+            0.9993088142501059,
+            0.9999784512674077
+          ],
+          "goodput_mbps": 0.0003498134328358209,
+          "goodput_ci95_mbps": [
+            6.17515919062997e-05,
+            0.0019807114026816853
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    },
+    "C06": {
+      "decision": "recommend",
+      "acceptable_mcs": [
+        "qam16_r12"
+      ],
+      "normalized_esn0_db": 10.532125137753438,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "awgn",
+            "esn0_db": 10.532125137753438,
+            "frames": 8192,
+            "seed": 705000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 0.7933884297520661,
+          "goodput_ci95_mbps": [
+            0.7930165620192627,
+            0.7933884297520661
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "awgn",
+            "esn0_db": 10.532125137753438,
+            "frames": 8192,
+            "seed": 705001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 1.1497005988023952,
+          "goodput_ci95_mbps": [
+            1.149161724602764,
+            1.1497005988023952
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "awgn",
+            "esn0_db": 10.532125137753438,
+            "frames": 8192,
+            "seed": 705002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 17,
+          "payload_bits_tested": 1572864,
+          "ber": 1.0808308919270834e-05,
+          "block_errors": 8,
+          "frames": 8192,
+          "bler": 0.0009765625,
+          "bler_ci95": [
+            0.0004949287132172655,
+            0.001925989129128251
+          ],
+          "goodput_mbps": 1.4869186046511629,
+          "goodput_ci95_mbps": [
+            1.4855055045519951,
+            1.4876354549384674
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "awgn",
+            "esn0_db": 10.532125137753438,
+            "frames": 8192,
+            "seed": 705003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 34076,
+          "payload_bits_tested": 1572864,
+          "ber": 0.021664937337239582,
+          "block_errors": 5075,
+          "frames": 8192,
+          "bler": 0.6195068359375,
+          "bler_ci95": [
+            0.6089395818102917,
+            0.6299620623757024
+          ],
+          "goodput_mbps": 0.7940726902173912,
+          "goodput_ci95_mbps": [
+            0.7722530872159254,
+            0.8161260901350433
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "awgn",
+            "esn0_db": 10.532125137753438,
+            "frames": 8192,
+            "seed": 705004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 55957,
+          "payload_bits_tested": 1572864,
+          "ber": 0.03557650248209635,
+          "block_errors": 6805,
+          "frames": 8192,
+          "bler": 0.8306884765625,
+          "bler_ci95": [
+            0.8224127928027799,
+            0.8386541674626521
+          ],
+          "goodput_mbps": 0.35334578804347827,
+          "goodput_ci95_mbps": [
+            0.33672173746924783,
+            0.3706167802376767
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "awgn",
+            "esn0_db": 10.532125137753438,
+            "frames": 8192,
+            "seed": 705005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 473532,
+          "payload_bits_tested": 1572864,
+          "ber": 0.30106353759765625,
+          "block_errors": 8192,
+          "frames": 8192,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9995312917117791,
+            1.0
+          ],
+          "goodput_mbps": 0.0,
+          "goodput_ci95_mbps": [
+            0.0,
+            0.0013431640498269878
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    },
+    "C07": {
+      "decision": "insufficient_evidence",
+      "acceptable_mcs": [],
+      "reason": "缺少信道类型与指标定义"
+    },
+    "C08": {
+      "decision": "recommend",
+      "acceptable_mcs": [
+        "qam64_r34"
+      ],
+      "normalized_esn0_db": 18.0,
+      "results": [
+        {
+          "config": {
+            "mcs": "qpsk_r12",
+            "channel": "awgn",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 707000,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 226,
+            "total_symbols": 242,
+            "payload_ceiling_mbps": 0.7933884297520661
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 0.7933884297520661,
+          "goodput_ci95_mbps": [
+            0.7930165620192627,
+            0.7933884297520661
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qpsk_r34",
+            "channel": "awgn",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 707001,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 151,
+            "total_symbols": 167,
+            "payload_ceiling_mbps": 1.1497005988023952
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 1.1497005988023952,
+          "goodput_ci95_mbps": [
+            1.149161724602764,
+            1.1497005988023952
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r12",
+            "channel": "awgn",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 707002,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 113,
+            "total_symbols": 129,
+            "payload_ceiling_mbps": 1.4883720930232558
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 1.4883720930232558,
+          "goodput_ci95_mbps": [
+            1.487674480687299,
+            1.4883720930232558
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam16_r34",
+            "channel": "awgn",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 707003,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 2.0869565217391304,
+          "goodput_ci95_mbps": [
+            2.0859783479202343,
+            2.0869565217391304
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r12",
+            "channel": "awgn",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 707004,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 452,
+            "data_symbols": 76,
+            "total_symbols": 92,
+            "payload_ceiling_mbps": 2.0869565217391304
+          },
+          "payload_bit_errors": 0,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0,
+          "block_errors": 0,
+          "frames": 8192,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.00046870828822094806
+          ],
+          "goodput_mbps": 2.0869565217391304,
+          "goodput_ci95_mbps": [
+            2.0859783479202343,
+            2.0869565217391304
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        },
+        {
+          "config": {
+            "mcs": "qam64_r34",
+            "channel": "awgn",
+            "esn0_db": 18.0,
+            "frames": 8192,
+            "seed": 707005,
+            "payload_bits": 192,
+            "header_bits": 32,
+            "preamble_symbols": 16,
+            "symbol_rate_msps": 1.0
+          },
+          "frame_layout": {
+            "information_bits": 224,
+            "transmitted_coded_bits": 302,
+            "data_symbols": 51,
+            "total_symbols": 67,
+            "payload_ceiling_mbps": 2.8656716417910446
+          },
+          "payload_bit_errors": 2424,
+          "payload_bits_tested": 1572864,
+          "ber": 0.0015411376953125,
+          "block_errors": 565,
+          "frames": 8192,
+          "bler": 0.0689697265625,
+          "bler_ci95": [
+            0.06368195119339656,
+            0.07466155685487202
+          ],
+          "goodput_mbps": 2.6680270522388057,
+          "goodput_ci95_mbps": [
+            2.651716135580068,
+            2.6831800801622068
+          ],
+          "assumptions": [
+            "unit average symbol energy; complex noise variance N0",
+            "ideal synchronization and receiver channel knowledge",
+            "independent frames; Rayleigh gain constant within a frame",
+            "frame failure detected by comparison with transmitted information bits",
+            "fixed preamble time overhead; single transmission per frame"
+          ]
+        }
+      ]
+    }
+  }
+}

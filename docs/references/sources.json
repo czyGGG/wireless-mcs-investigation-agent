@@ -1,0 +1,62 @@
+[
+  {
+    "name": "deepseek_api",
+    "url": "https://api-docs.deepseek.com/",
+    "final_url": "https://api-docs.deepseek.com/",
+    "status": 200,
+    "bytes": 51222,
+    "path": "docs/references/deepseek_api.html",
+    "sha256": "2753c4e803b3be1943e8bbc9ad661f13e447b6293fbc92908b0a1af7781f8de8",
+    "text_path": "docs/references/deepseek_api.txt",
+    "text_sha256": "f72bd9f0d4db0da5cc164d9fe9488b0d54e48a4c7cc83d2ff96d6b395385ccee",
+    "retrieved_at": "2026-11-13T11:14:11.425356+08:00"
+  },
+  {
+    "name": "pydanticai_deepseek",
+    "url": "https://ai.pydantic.dev/models/deepseek/",
+    "final_url": "https://pydantic.dev/docs/ai/models/deepseek/",
+    "status": 200,
+    "bytes": 152051,
+    "path": "docs/references/pydanticai_deepseek.html",
+    "sha256": "eb73e225654cafa656172e1101969d30429f048f0ddcf30d55d0b8fa744d27d1",
+    "text_path": "docs/references/pydanticai_deepseek.txt",
+    "text_sha256": "d121f8f84c1e2346b8465730b8fc9ffb18c5feeb13e00915bc2282af45edc456",
+    "retrieved_at": "2026-11-13T11:14:11.430359+08:00"
+  },
+  {
+    "name": "snr_conversion",
+    "url": "https://www.mathworks.com/help/comm/ref/convertsnr.html",
+    "final_url": "https://www.mathworks.com/help/comm/ref/convertsnr.html",
+    "status": 200,
+    "bytes": 105998,
+    "path": "docs/references/snr_conversion.html",
+    "sha256": "c7686c6fa495614b84550a8991fd1b879a444bc9993262169fdf90a6b3f85564",
+    "text_path": "docs/references/snr_conversion.txt",
+    "text_sha256": "f6b17cc0f2e73aca9699ecec18b275585fd3671fc67d125855981f3fa86f3029",
+    "retrieved_at": "2026-11-13T11:14:11.435414+08:00"
+  },
+  {
+    "name": "convolutional_codes",
+    "url": "https://www.mathworks.com/help/comm/ug/convolutional-codes.html",
+    "final_url": "https://www.mathworks.com/help/comm/ug/convolutional-codes.html",
+    "status": 200,
+    "bytes": 165589,
+    "path": "docs/references/convolutional_codes.html",
+    "sha256": "b674db0215954d1fadab7ae6d836f0488fcde18d50a9be1bda3930799b730190",
+    "text_path": "docs/references/convolutional_codes.txt",
+    "text_sha256": "7a88692f9be583cf4124779e70484bb07cfe542d4d78dca1bde6a0f0167c88a8",
+    "retrieved_at": "2026-11-13T11:14:11.441368+08:00"
+  },
+  {
+    "name": "binomial_interval",
+    "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm",
+    "final_url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm",
+    "status": 200,
+    "bytes": 16488,
+    "path": "docs/references/binomial_interval.html",
+    "sha256": "74d64ffec8f739b2143808057507a3023b9797ab0459f24b40f341831e4ab499",
+    "text_path": "docs/references/binomial_interval.txt",
+    "text_sha256": "68737e2e1f947eb7baac8639e4821519f313918ba97807484064b7d72c0dab20",
+    "retrieved_at": "2026-11-13T11:14:11.443360+08:00"
+  }
+]

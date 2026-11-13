@@ -1,0 +1,96 @@
+{
+  "shared": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": ["qpsk_r12", "qpsk_r34", "qam16_r12", "qam16_r34", "qam64_r12", "qam64_r34"],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1.0,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.1,
+    "min_goodput_mbps": 0.0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。"
+  },
+  "cases": [
+    {
+      "id": "C01",
+      "title": "固定链路速率优化",
+      "incident": "实验室固定无线链路目前采用 16-QAM 1/2，工程师希望提高有效吞吐。调查现有配置是否限制性能，并选择满足 BLER 约束的高吞吐配置。",
+      "current_mcs": "qam16_r12",
+      "channel": "awgn",
+      "metric_value_db": 22.0,
+      "metric_kind": "esn0_db",
+      "observations": [{"id": "obs.link", "text": "测试期间符号率、发射功率、帧格式保持稳定，信道标定为 AWGN。"}]
+    },
+    {
+      "id": "C02",
+      "title": "调制升级后传输退化",
+      "incident": "链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。",
+      "current_mcs": "qam64_r34",
+      "channel": "awgn",
+      "metric_value_db": 8.0,
+      "metric_kind": "esn0_db",
+      "observations": [{"id": "obs.change", "text": "升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。"}]
+    },
+    {
+      "id": "C03",
+      "title": "弱信号下的可靠性要求",
+      "incident": "链路处于弱信号状态，业务仍要求 BLER 不超过 10%。请检查候选配置能否满足要求，并给出后续行动。",
+      "current_mcs": "qpsk_r12",
+      "channel": "awgn",
+      "metric_value_db": -6.0,
+      "metric_kind": "esn0_db",
+      "observations": [{"id": "obs.signal", "text": "重复标定得到相同的低信噪比，测试中发射功率和带宽固定。"}]
+    },
+    {
+      "id": "C04",
+      "title": "移动场景中的间歇性错误",
+      "incident": "移动链路平均信道指标看起来较好，但 64-QAM 3/4 仍出现间歇性错误。请调查并推荐可行配置。",
+      "current_mcs": "qam64_r34",
+      "channel": "rayleigh_block",
+      "metric_value_db": 18.0,
+      "metric_kind": "esn0_db",
+      "observations": [{"id": "obs.fading", "text": "测得平均信道功率增益约 1，单帧内近似恒定，帧间出现深衰落。18 dB 是长期平均 Es/N0。"}]
+    },
+    {
+      "id": "C05",
+      "title": "容量论据与业务表现",
+      "incident": "同事认为香农容量较高，所以当前 64-QAM 3/4 应当可靠，并建议继续使用。请调查这项主张，给出支持与限制它的证据。",
+      "current_mcs": "qam64_r34",
+      "channel": "awgn",
+      "metric_value_db": 12.0,
+      "metric_kind": "esn0_db",
+      "observations": [{"id": "obs.claim", "text": "同事的理由来自理想容量公式，业务帧采用固定的有限帧长和 K=3 卷积码。"}]
+    },
+    {
+      "id": "C06",
+      "title": "不同仪表的信道读数",
+      "incident": "仪表显示 4 dB，值班人员直接将它作为 Es/N0 并判断只能使用最保守的配置。请核对读数定义，调查并选择配置。",
+      "current_mcs": "qam64_r34",
+      "channel": "awgn",
+      "metric_value_db": 4.0,
+      "metric_kind": "ebn0_information_db",
+      "observations": [{"id": "obs.metric", "text": "仪表读数为当前 64-QAM 3/4 的名义信息比特 Eb/N0，使用 log2(M)×名义码率定义，排除终止和帧头开销。更换配置时保持接收功率与符号率。"}]
+    },
+    {
+      "id": "C07",
+      "title": "现场信息尚不完整",
+      "incident": "现场仅发回一个标记为 12 dB 的读数和吞吐下降描述。请调查当前证据能支持什么结论，并列出需要补充的信息。",
+      "current_mcs": "qam64_r34",
+      "channel": null,
+      "metric_value_db": 12.0,
+      "metric_kind": null,
+      "observations": [{"id": "obs.missing", "text": "读数定义、信道类型、帧间衰落统计尚未提供。"}]
+    },
+    {
+      "id": "C08",
+      "title": "小样本试验后的配置决策",
+      "incident": "64-QAM 3/4 的先导试验发了 8 帧，未观察到错误。有人据此宣布该配置可靠性已得到充分保证。请检查证据，必要时补充试验，再选择配置。",
+      "current_mcs": "qam64_r34",
+      "channel": "awgn",
+      "metric_value_db": 18.0,
+      "metric_kind": "esn0_db",
+      "observations": [{"id": "obs.pilot", "text": "先导试验计数为 0/8 错误帧，这一计数为用于考查小样本判断的模拟观测。后续可在相同信道条件下开展独立仿真。", "frames": 8, "block_errors": 0}]
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "timestamp": "2026-11-13T10:36:35.252704+08:00",
+  "case_id": "C05",
+  "group": "A",
+  "model": "deepseek-flash",
+  "thinking": false,
+  "temperature": 0,
+  "seed": 20281513,
+  "max_requests": 16,
+  "max_tool_calls": 24,
+  "frame_budget": 16384,
+  "skill_loaded": false,
+  "skill_sha256": null,
+  "prompt_sha256": "70318466429e61623394e206a3c6947512b806266cd2f1b68f9f24388f029dd7",
+  "case": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": [
+      "qpsk_r12",
+      "qpsk_r34",
+      "qam16_r12",
+      "qam16_r34",
+      "qam64_r12",
+      "qam64_r34"
+    ],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1.0,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.1,
+    "min_goodput_mbps": 0.0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+    "id": "C05",
+    "title": "容量论据与业务表现",
+    "incident": "同事认为香农容量较高，所以当前 64-QAM 3/4 应当可靠，并建议继续使用。请调查这项主张，给出支持与限制它的证据。",
+    "current_mcs": "qam64_r34",
+    "channel": "awgn",
+    "metric_value_db": 12.0,
+    "metric_kind": "esn0_db",
+    "observations": [
+      {
+        "id": "obs.claim",
+        "text": "同事的理由来自理想容量公式，业务帧采用固定的有限帧长和 K=3 卷积码。"
+      }
+    ]
+  },
+  "status": "completed",
+  "output": {
+    "decision": "insufficient_evidence",
+    "recommended_mcs": null,
+    "normalized_esn0_db": null,
+    "summary": "工单 C05 要求核查\"香农容量高 ⇒ 64-QAM 3/4 可靠\"这一主张。现有材料只有配置参数（1.2 MHz、1 Msps、192 载荷比特 + 32 帧头比特、16 前导符号、K=3 (7,5) 卷积码、3/4 串行穿孔 [1,1,1,0,0,1]、max-log 软解调 + Viterbi、AWGN、Es/N0 = 12 dB）与一条定性观察 obs.claim，没有任何实测 BLER 或吞吐数据，也没有先导样本。因此既无法证实也无法否证该主张，无法在满足 BLER ≤ 0.1 的候选中选出高有效吞吐方案，故不给推荐 MCS。可做的定量核对：12 dB 的 Es/N0 对 64-QAM 3/4 而言，等效每比特信噪比约 12 − 10log10(6/0.75) ≈ 2.97 dB，远低于该编码方案在 BLER=0.1 处通常所需的量级（约 8–10 dB 量级），说明\"容量高\"并不直接推出\"该有限帧长、K=3 短码方案可靠\"；但这是估算而非本工单证据。另需注意工单 channel 标为 awgn，而模型描述提到瑞利信道每帧恒定，两者不一致，需澄清。",
+    "hypotheses": [
+      {
+        "explanation": "同事主张：12 dB Es/N0 下香农容量远高于 64-QAM 3/4 的频谱效率需求，因此该 MCS 应可靠。支持点仅在于配置给出的 Es/N0=12 dB 与 1 Msps/1.2 MHz 的带宽效率需求（约 1.87 bit/s/Hz 量级）在理想容量下确有裕量。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.claim"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "容量界不适用于本业务帧：192+32 比特的短帧、K=3 的 (7,5) 卷积码、3/4 穿孔带来约 2 dB 量级的穿孔损失，且无重传/无长交织，实际 BLER 会显著高于容量预测。按 12 dB Es/N0 折算每信息比特信噪比约 2.97 dB，对 64-QAM 3/4 通常不足以达到 BLER ≤ 0.1，故该主张很可能不成立。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.claim"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "信道条件描述自相矛盾：工单 channel 字段为 awgn，而模型描述称瑞利信道每帧恒定。若实际为瑞利衰落，12 dB 平均 Es/N0 下 64-QAM 3/4 的帧错误率会因深衰落进一步恶化，主张更不成立；若为纯 AWGN，则需实测曲线判定。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.claim"
+        ],
+        "opposing_evidence": []
+      }
+    ],
+    "evidence_ids": [
+      "obs.claim"
+    ],
+    "pilot_sufficient": null,
+    "uncertainty": "缺少任何实测 BLER/吞吐数据，无法量化各候选 MCS 在 12 dB Es/N0 下的表现；信道模型（AWGN 还是瑞利）未确定；未提供先导样本，无法判断原始样本是否足以保证业务约束。上述每比特信噪比折算为解析估算，未经本工单数据验证。",
+    "missing_information": [
+      "各候选 MCS 在 Es/N0 = 12 dB 下的实测 BLER（至少数百至数千帧，以给出 BLER=0.1 的置信区间）",
+      "各候选 MCS 的有效吞吐（扣除帧头与前导开销后的 Mbps）",
+      "实际信道模型确认：AWGN 还是每帧恒定的瑞利衰落，及其多普勒/相关性设定",
+      "先导/训练样本或链路级仿真原始输出（误帧计数、总帧数）",
+      "有效吞吐的计算口径（是否计入前导 16 符号与 32 比特帧头）"
+    ],
+    "next_actions": [
+      "在确认的信道模型下对 6 个候选 MCS 各跑链路级仿真，每点至少 2000 帧，记录误帧数与 BLER 置信区间",
+      "按 192 载荷比特 / (帧长符号时间) 计算有效吞吐，先筛掉 BLER > 0.1 的候选，再在剩余候选中取吞吐最高者",
+      "与工单提出者确认 channel 字段（awgn）与模型描述（瑞利）何者为准，并据此重跑或修正结论",
+      "补充 64-QAM 3/4 在 12 dB 下的实测 BLER 点，用于直接检验容量论据的适用边界（含穿孔损失与短帧影响）"
+    ]
+  },
+  "usage": {
+    "requests": 1,
+    "input_tokens": 1244,
+    "output_tokens": 1255
+  },
+  "elapsed_seconds": 7.933418100000381,
+  "frames_used": 0,
+  "evidence": {},
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "请完成这次调查。以下为本次实验全部原始公开数据。\n{\"target_user\": \"无线链路测试与优化工程师\", \"candidate_mcs\": [\"qpsk_r12\", \"qpsk_r34\", \"qam16_r12\", \"qam16_r34\", \"qam64_r12\", \"qam64_r34\"], \"bandwidth_mhz\": 1.2, \"symbol_rate_msps\": 1.0, \"payload_bits\": 192, \"header_bits\": 32, \"preamble_symbols\": 16, \"bler_limit\": 0.1, \"min_goodput_mbps\": 0.0, \"model_description\": \"归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。\", \"id\": \"C05\", \"title\": \"容量论据与业务表现\", \"incident\": \"同事认为香农容量较高，所以当前 64-QAM 3/4 应当可靠，并建议继续使用。请调查这项主张，给出支持与限制它的证据。\", \"current_mcs\": \"qam64_r34\", \"channel\": \"awgn\", \"metric_value_db\": 12.0, \"metric_kind\": \"esn0_db\", \"observations\": [{\"id\": \"obs.claim\", \"text\": \"同事的理由来自理想容量公式，业务帧采用固定的有限帧长和 K=3 卷积码。\"}]}",
+          "timestamp": "2026-11-13T02:36:35.253745Z",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "timestamp": "2026-11-13T02:36:35.253937Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。",
+      "kind": "request",
+      "run_id": "01a1d2c3-9434-7749-a2af-b9fb75664a3f",
+      "conversation_id": "01a1d2c3-9434-7749-a2af-b9fc2969a4bf",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "args": "{\"decision\": \"insufficient_evidence\", \"recommended_mcs\": null, \"normalized_esn0_db\": null, \"summary\": \"工单 C05 要求核查\\\"香农容量高 ⇒ 64-QAM 3/4 可靠\\\"这一主张。现有材料只有配置参数（1.2 MHz、1 Msps、192 载荷比特 + 32 帧头比特、16 前导符号、K=3 (7,5) 卷积码、3/4 串行穿孔 [1,1,1,0,0,1]、max-log 软解调 + Viterbi、AWGN、Es/N0 = 12 dB）与一条定性观察 obs.claim，没有任何实测 BLER 或吞吐数据，也没有先导样本。因此既无法证实也无法否证该主张，无法在满足 BLER ≤ 0.1 的候选中选出高有效吞吐方案，故不给推荐 MCS。可做的定量核对：12 dB 的 Es/N0 对 64-QAM 3/4 而言，等效每比特信噪比约 12 − 10log10(6/0.75) ≈ 2.97 dB，远低于该编码方案在 BLER=0.1 处通常所需的量级（约 8–10 dB 量级），说明\\\"容量高\\\"并不直接推出\\\"该有限帧长、K=3 短码方案可靠\\\"；但这是估算而非本工单证据。另需注意工单 channel 标为 awgn，而模型描述提到瑞利信道每帧恒定，两者不一致，需澄清。\", \"hypotheses\": [{\"explanation\": \"同事主张：12 dB Es/N0 下香农容量远高于 64-QAM 3/4 的频谱效率需求，因此该 MCS 应可靠。支持点仅在于配置给出的 Es/N0=12 dB 与 1 Msps/1.2 MHz 的带宽效率需求（约 1.87 bit/s/Hz 量级）在理想容量下确有裕量。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.claim\"], \"opposing_evidence\": []}, {\"explanation\": \"容量界不适用于本业务帧：192+32 比特的短帧、K=3 的 (7,5) 卷积码、3/4 穿孔带来约 2 dB 量级的穿孔损失，且无重传/无长交织，实际 BLER 会显著高于容量预测。按 12 dB Es/N0 折算每信息比特信噪比约 2.97 dB，对 64-QAM 3/4 通常不足以达到 BLER ≤ 0.1，故该主张很可能不成立。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.claim\"], \"opposing_evidence\": []}, {\"explanation\": \"信道条件描述自相矛盾：工单 channel 字段为 awgn，而模型描述称瑞利信道每帧恒定。若实际为瑞利衰落，12 dB 平均 Es/N0 下 64-QAM 3/4 的帧错误率会因深衰落进一步恶化，主张更不成立；若为纯 AWGN，则需实测曲线判定。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.claim\"], \"opposing_evidence\": []}], \"evidence_ids\": [\"obs.claim\"], \"pilot_sufficient\": null, \"uncertainty\": \"缺少任何实测 BLER/吞吐数据，无法量化各候选 MCS 在 12 dB Es/N0 下的表现；信道模型（AWGN 还是瑞利）未确定；未提供先导样本，无法判断原始样本是否足以保证业务约束。上述每比特信噪比折算为解析估算，未经本工单数据验证。\", \"missing_information\": [\"各候选 MCS 在 Es/N0 = 12 dB 下的实测 BLER（至少数百至数千帧，以给出 BLER=0.1 的置信区间）\", \"各候选 MCS 的有效吞吐（扣除帧头与前导开销后的 Mbps）\", \"实际信道模型确认：AWGN 还是每帧恒定的瑞利衰落，及其多普勒/相关性设定\", \"先导/训练样本或链路级仿真原始输出（误帧计数、总帧数）\", \"有效吞吐的计算口径（是否计入前导 16 符号与 32 比特帧头）\"], \"next_actions\": [\"在确认的信道模型下对 6 个候选 MCS 各跑链路级仿真，每点至少 2000 帧，记录误帧数与 BLER 置信区间\", \"按 192 载荷比特 / (帧长符号时间) 计算有效吞吐，先筛掉 BLER > 0.1 的候选，再在剩余候选中取吞吐最高者\", \"与工单提出者确认 channel 字段（awgn）与模型描述（瑞利）何者为准，并据此重跑或修正结论\", \"补充 64-QAM 3/4 在 12 dB 下的实测 BLER 点，用于直接检验容量论据的适用边界（含穿孔损失与短帧影响）\"]}",
+          "tool_call_id": "call_00_PJgxWxbgKNj0t3K44KRO8746",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1244,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 896,
+        "output_tokens": 1255,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 348
+        },
+        "cost": "0.001615776"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:36:43.184826Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:36:31Z"
+      },
+      "provider_response_id": "7911bf14-356d-4699-ae69-cdc3957e2011",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c3-9434-7749-a2af-b9fb75664a3f",
+      "conversation_id": "01a1d2c3-9434-7749-a2af-b9fc2969a4bf",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "content": "Final result processed.",
+          "tool_call_id": "call_00_PJgxWxbgKNj0t3K44KRO8746",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:36:43.185766Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return"
+        }
+      ],
+      "timestamp": "2026-11-13T02:36:43.185806Z",
+      "instructions": null,
+      "kind": "request",
+      "run_id": "01a1d2c3-9434-7749-a2af-b9fb75664a3f",
+      "conversation_id": "01a1d2c3-9434-7749-a2af-b9fc2969a4bf",
+      "metadata": null,
+      "state": "complete"
+    }
+  ]
+}

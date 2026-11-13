@@ -1,0 +1,27 @@
+{
+  "case_id": "C02_custom",
+  "run_timestamp": "2026-11-13T15:22:46.312003+08:00",
+  "run_file": "results/ui_runs/screenshot_investigation.json",
+  "model": "deepseek-flash",
+  "metric_value_db": 15,
+  "metric_kind": "esn0_db",
+  "channel": "awgn",
+  "bler_limit": 0.1,
+  "frames_used": 3072,
+  "recommended_mcs": "qam16_r34",
+  "elapsed_seconds": 11.341865000002144,
+  "browser_console_errors": [],
+  "visible_editable_inputs": [
+    "当前调制与编码",
+    "信道类型",
+    "指标定义",
+    "指标数值（dB）",
+    "BLER 上限（%）"
+  ],
+  "screenshots": [
+    "docs/screenshots/investigation.png",
+    "docs/screenshots/evidence.png"
+  ],
+  "expanded_calculation": "calc.2",
+  "capture_method": "Actual browser screenshots, cropped to the relevant UI region."
+}

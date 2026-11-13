@@ -1,0 +1,1363 @@
+{
+  "timestamp": "2026-11-13T10:37:19.043206+08:00",
+  "case_id": "C02",
+  "group": "C",
+  "model": "deepseek-flash",
+  "thinking": false,
+  "temperature": 0,
+  "seed": 20281213,
+  "max_requests": 16,
+  "max_tool_calls": 24,
+  "frame_budget": 16384,
+  "skill_loaded": true,
+  "skill_sha256": "fc1480168c343ba3f6c004fc467515749229639462f40d63a61296700aa29873",
+  "prompt_sha256": "3f8ec35f37dafc8a814ef8efae5a65c3e2b8537e42cef6af80ed97af775cf8e7",
+  "case": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": [
+      "qpsk_r12",
+      "qpsk_r34",
+      "qam16_r12",
+      "qam16_r34",
+      "qam64_r12",
+      "qam64_r34"
+    ],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1.0,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.1,
+    "min_goodput_mbps": 0.0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+    "id": "C02",
+    "title": "调制升级后传输退化",
+    "incident": "链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。",
+    "current_mcs": "qam64_r34",
+    "channel": "awgn",
+    "metric_value_db": 8.0,
+    "metric_kind": "esn0_db",
+    "observations": [
+      {
+        "id": "obs.change",
+        "text": "升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。"
+      }
+    ]
+  },
+  "status": "completed",
+  "output": {
+    "decision": "recommend",
+    "recommended_mcs": "qpsk_r34",
+    "normalized_esn0_db": 8.0,
+    "summary": "工单 C02：在 AWGN、Es/N0=8 dB（读数即符号能量比，obs.1/calc.2）下对六个候选各做 512 帧独立仿真。当前配置 qam64_r34 完全失效：BLER=1.0（CI 0.993–1.0），有效吞吐 0（sim.7）；qam64_r12 同样 BLER=1.0、吞吐 0（sim.8），qam16_r34 BLER≈0.998、吞吐 0.004 Mbps（sim.5），均远超 0.1 的 BLER 上限。qam16_r12 吞吐最高（1.169 Mbps）但 BLER=0.215（CI 0.181–0.252），不满足可靠性约束（sim.6）。满足约束的只有 qpsk_r34（BLER=0.00195，CI 上界 0.011，吞吐 1.147 Mbps，sim.3）与 qpsk_r12（BLER=0，CI 上界 0.0074，吞吐 0.793 Mbps，sim.4）。比较结果 cmp.9 推荐 qpsk_r34：其吞吐高于 qpsk_r12 且两者不统计接近，故在满足 BLER≤0.1 与最低吞吐（0 Mbps）约束的候选中选 qpsk_r34。所谓“名义速率提升改善传输”的说法被否定：高阶调制在固定 Es/N0 下每符号承载更多比特但噪声容限急剧下降，帧错误使有效吞吐归零。",
+    "hypotheses": [
+      {
+        "explanation": "升级到 64-QAM 3/4 后可靠性崩溃：在固定 Es/N0=8 dB 下 64-QAM 的星座点间距最小，配合 3/4 穿孔码几乎没有纠错余量，导致几乎每帧都错，有效吞吐归零。",
+        "status": "supported",
+        "supporting_evidence": [
+          "sim.7",
+          "sim.8",
+          "sim.5",
+          "calc.2"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "名义速率提升应改善传输：更高阶调制/更高码率的载荷上限更高（qam64_r34 上限 2.87 Mbps vs qpsk_r34 1.15 Mbps），因此吞吐应更好。",
+        "status": "refuted",
+        "supporting_evidence": [
+          "calc.2"
+        ],
+        "opposing_evidence": [
+          "sim.7",
+          "sim.8",
+          "sim.5",
+          "cmp.9"
+        ]
+      },
+      {
+        "explanation": "折中方案 qam16_r12 吞吐最高但可靠性不达标，说明瓶颈是 BLER 约束而非名义速率；只有 QPSK 类配置能在 8 dB 下满足 BLER≤0.1。",
+        "status": "supported",
+        "supporting_evidence": [
+          "sim.6",
+          "sim.3",
+          "sim.4",
+          "cmp.9"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "观测到的退化可能由信道衰落或读数定义错误造成，而非调制编码本身。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.change"
+        ],
+        "opposing_evidence": [
+          "obs.1",
+          "calc.2"
+        ]
+      }
+    ],
+    "evidence_ids": [
+      "obs.1",
+      "obs.change",
+      "calc.2",
+      "sim.3",
+      "sim.4",
+      "sim.5",
+      "sim.6",
+      "sim.7",
+      "sim.8",
+      "cmp.9"
+    ],
+    "pilot_sufficient": null,
+    "uncertainty": "结论限于 AWGN、Es/N0=8 dB、512 帧/候选的仿真条件；qam16_r12 的 BLER 区间（0.181–0.252）明显高于阈值，结论稳健；qpsk_r34 的 BLER 区间上界 0.011 远低于 0.1，可靠性判断稳健。qam16_r12 与 qpsk_r34 的吞吐差约 0.02 Mbps，但前者不可行，故不影响选择。工单无先导样本，pilot_sufficient 记为 null。若实际信道为瑞利块衰落，8 dB 平均 Es/N0 下各配置表现会显著变差，需重新评估。",
+    "missing_information": [
+      "实际信道类型（工单标注 awgn，但现场是否含衰落/多径未确认）",
+      "现场实测的 Es/N0 或 SNR 读数及其定义（是否已含前导/帧头开销）",
+      "升级前后实测 BLER 与吞吐的原始计数，用于与仿真对照",
+      "是否存在可用的先导/训练样本以直接估计 BLER"
+    ],
+    "next_actions": [
+      "将链路回退到 qpsk_r34 作为当前 8 dB 条件下的推荐配置，并现场验证 BLER≤0.1",
+      "若现场信道存在衰落，补充 rayleigh_block 信道下 qpsk_r34 与 qam16_r12 的仿真对比",
+      "采集现场实测 BLER/吞吐计数，与 sim.3、sim.6 的预测对照，确认 Es/N0 读数定义",
+      "若需更高吞吐，评估在更高 Es/N0 下 qam16_r12 是否可满足 BLER 约束（例如 10–12 dB 区间扫描）"
+    ]
+  },
+  "usage": {
+    "requests": 4,
+    "input_tokens": 17561,
+    "output_tokens": 1928
+  },
+  "elapsed_seconds": 11.279167499999858,
+  "frames_used": 3072,
+  "evidence": {
+    "obs.1": {
+      "evidence_id": "obs.1",
+      "status": "ok",
+      "case": {
+        "target_user": "无线链路测试与优化工程师",
+        "candidate_mcs": [
+          "qpsk_r12",
+          "qpsk_r34",
+          "qam16_r12",
+          "qam16_r34",
+          "qam64_r12",
+          "qam64_r34"
+        ],
+        "bandwidth_mhz": 1.2,
+        "symbol_rate_msps": 1.0,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "bler_limit": 0.1,
+        "min_goodput_mbps": 0.0,
+        "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+        "id": "C02",
+        "title": "调制升级后传输退化",
+        "incident": "链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。",
+        "current_mcs": "qam64_r34",
+        "channel": "awgn",
+        "metric_value_db": 8.0,
+        "metric_kind": "esn0_db",
+        "observations": [
+          {
+            "id": "obs.change",
+            "text": "升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。"
+          }
+        ]
+      }
+    },
+    "calc.2": {
+      "evidence_id": "calc.2",
+      "status": "ok",
+      "esn0_db": 8.0,
+      "wideband_snr_db": 7.2081875395237525,
+      "awgn_capacity_mbps": 3.1748358683514413,
+      "capacity_assumption": "Ideal band-limited AWGN channel with average power constraint",
+      "payload_ceilings_mbps": {
+        "qpsk_r12": 0.7933884297520661,
+        "qpsk_r34": 1.1497005988023952,
+        "qam16_r12": 1.4883720930232558,
+        "qam16_r34": 2.0869565217391304,
+        "qam64_r12": 2.0869565217391304,
+        "qam64_r34": 2.8656716417910446
+      },
+      "pilot_intervals": [],
+      "power_comparison": "Keep this Es/N0 fixed across MCS at equal symbol rate and average power."
+    },
+    "sim.3": {
+      "evidence_id": "sim.3",
+      "status": "ok",
+      "config": {
+        "mcs": "qpsk_r34",
+        "channel": "awgn",
+        "esn0_db": 8.0,
+        "frames": 512,
+        "seed": 20282210,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "symbol_rate_msps": 1.0
+      },
+      "frame_layout": {
+        "information_bits": 224,
+        "transmitted_coded_bits": 302,
+        "data_symbols": 151,
+        "total_symbols": 167,
+        "payload_ceiling_mbps": 1.1497005988023952
+      },
+      "payload_bit_errors": 5,
+      "payload_bits_tested": 98304,
+      "ber": 5.0862630208333336e-05,
+      "block_errors": 1,
+      "frames": 512,
+      "bler": 0.001953125,
+      "bler_ci95": [
+        0.00034485776154337486,
+        0.010979278212421853
+      ],
+      "goodput_mbps": 1.1474550898203593,
+      "goodput_ci95_mbps": [
+        1.1370777160671557,
+        1.149304115627447
+      ],
+      "assumptions": [
+        "unit average symbol energy; complex noise variance N0",
+        "ideal synchronization and receiver channel knowledge",
+        "independent frames; Rayleigh gain constant within a frame",
+        "frame failure detected by comparison with transmitted information bits",
+        "fixed preamble time overhead; single transmission per frame"
+      ]
+    },
+    "sim.4": {
+      "evidence_id": "sim.4",
+      "status": "ok",
+      "config": {
+        "mcs": "qpsk_r12",
+        "channel": "awgn",
+        "esn0_db": 8.0,
+        "frames": 512,
+        "seed": 20281213,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "symbol_rate_msps": 1.0
+      },
+      "frame_layout": {
+        "information_bits": 224,
+        "transmitted_coded_bits": 452,
+        "data_symbols": 226,
+        "total_symbols": 242,
+        "payload_ceiling_mbps": 0.7933884297520661
+      },
+      "payload_bit_errors": 0,
+      "payload_bits_tested": 98304,
+      "ber": 0.0,
+      "block_errors": 0,
+      "frames": 512,
+      "bler": 0.0,
+      "bler_ci95": [
+        0.0,
+        0.007446975722882739
+      ],
+      "goodput_mbps": 0.7933884297520661,
+      "goodput_ci95_mbps": [
+        0.7874800853768864,
+        0.7933884297520661
+      ],
+      "assumptions": [
+        "unit average symbol energy; complex noise variance N0",
+        "ideal synchronization and receiver channel knowledge",
+        "independent frames; Rayleigh gain constant within a frame",
+        "frame failure detected by comparison with transmitted information bits",
+        "fixed preamble time overhead; single transmission per frame"
+      ]
+    },
+    "sim.5": {
+      "evidence_id": "sim.5",
+      "status": "ok",
+      "config": {
+        "mcs": "qam16_r34",
+        "channel": "awgn",
+        "esn0_db": 8.0,
+        "frames": 512,
+        "seed": 20284204,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "symbol_rate_msps": 1.0
+      },
+      "frame_layout": {
+        "information_bits": 224,
+        "transmitted_coded_bits": 302,
+        "data_symbols": 76,
+        "total_symbols": 92,
+        "payload_ceiling_mbps": 2.0869565217391304
+      },
+      "payload_bit_errors": 15323,
+      "payload_bits_tested": 98304,
+      "ber": 0.15587361653645834,
+      "block_errors": 511,
+      "frames": 512,
+      "bler": 0.998046875,
+      "bler_ci95": [
+        0.9890207217875779,
+        0.9996551422384565
+      ],
+      "goodput_mbps": 0.004076086956521739,
+      "goodput_ci95_mbps": [
+        0.0007197031545255049,
+        0.022913276269402563
+      ],
+      "assumptions": [
+        "unit average symbol energy; complex noise variance N0",
+        "ideal synchronization and receiver channel knowledge",
+        "independent frames; Rayleigh gain constant within a frame",
+        "frame failure detected by comparison with transmitted information bits",
+        "fixed preamble time overhead; single transmission per frame"
+      ]
+    },
+    "sim.6": {
+      "evidence_id": "sim.6",
+      "status": "ok",
+      "config": {
+        "mcs": "qam16_r12",
+        "channel": "awgn",
+        "esn0_db": 8.0,
+        "frames": 512,
+        "seed": 20283207,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "symbol_rate_msps": 1.0
+      },
+      "frame_layout": {
+        "information_bits": 224,
+        "transmitted_coded_bits": 452,
+        "data_symbols": 113,
+        "total_symbols": 129,
+        "payload_ceiling_mbps": 1.4883720930232558
+      },
+      "payload_bit_errors": 374,
+      "payload_bits_tested": 98304,
+      "ber": 0.0038045247395833335,
+      "block_errors": 110,
+      "frames": 512,
+      "bler": 0.21484375,
+      "bler_ci95": [
+        0.18146083224296278,
+        0.25247377109899377
+      ],
+      "goodput_mbps": 1.1686046511627908,
+      "goodput_ci95_mbps": [
+        1.1125971778991721,
+        1.2182908543360556
+      ],
+      "assumptions": [
+        "unit average symbol energy; complex noise variance N0",
+        "ideal synchronization and receiver channel knowledge",
+        "independent frames; Rayleigh gain constant within a frame",
+        "frame failure detected by comparison with transmitted information bits",
+        "fixed preamble time overhead; single transmission per frame"
+      ]
+    },
+    "sim.7": {
+      "evidence_id": "sim.7",
+      "status": "ok",
+      "config": {
+        "mcs": "qam64_r34",
+        "channel": "awgn",
+        "esn0_db": 8.0,
+        "frames": 512,
+        "seed": 20286198,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "symbol_rate_msps": 1.0
+      },
+      "frame_layout": {
+        "information_bits": 224,
+        "transmitted_coded_bits": 302,
+        "data_symbols": 51,
+        "total_symbols": 67,
+        "payload_ceiling_mbps": 2.8656716417910446
+      },
+      "payload_bit_errors": 38729,
+      "payload_bits_tested": 98304,
+      "ber": 0.3939717610677083,
+      "block_errors": 512,
+      "frames": 512,
+      "bler": 1.0,
+      "bler_ci95": [
+        0.9925530242771171,
+        0.9999999999999999
+      ],
+      "goodput_mbps": 0.0,
+      "goodput_ci95_mbps": [
+        3.1815346377317917e-16,
+        0.021340587146171854
+      ],
+      "assumptions": [
+        "unit average symbol energy; complex noise variance N0",
+        "ideal synchronization and receiver channel knowledge",
+        "independent frames; Rayleigh gain constant within a frame",
+        "frame failure detected by comparison with transmitted information bits",
+        "fixed preamble time overhead; single transmission per frame"
+      ]
+    },
+    "sim.8": {
+      "evidence_id": "sim.8",
+      "status": "ok",
+      "config": {
+        "mcs": "qam64_r12",
+        "channel": "awgn",
+        "esn0_db": 8.0,
+        "frames": 512,
+        "seed": 20285201,
+        "payload_bits": 192,
+        "header_bits": 32,
+        "preamble_symbols": 16,
+        "symbol_rate_msps": 1.0
+      },
+      "frame_layout": {
+        "information_bits": 224,
+        "transmitted_coded_bits": 452,
+        "data_symbols": 76,
+        "total_symbols": 92,
+        "payload_ceiling_mbps": 2.0869565217391304
+      },
+      "payload_bit_errors": 16549,
+      "payload_bits_tested": 98304,
+      "ber": 0.16834513346354166,
+      "block_errors": 512,
+      "frames": 512,
+      "bler": 1.0,
+      "bler_ci95": [
+        0.9925530242771171,
+        0.9999999999999999
+      ],
+      "goodput_mbps": 0.0,
+      "goodput_ci95_mbps": [
+        2.3169871818264136e-16,
+        0.015541514552103416
+      ],
+      "assumptions": [
+        "unit average symbol energy; complex noise variance N0",
+        "ideal synchronization and receiver channel knowledge",
+        "independent frames; Rayleigh gain constant within a frame",
+        "frame failure detected by comparison with transmitted information bits",
+        "fixed preamble time overhead; single transmission per frame"
+      ]
+    },
+    "cmp.9": {
+      "evidence_id": "cmp.9",
+      "status": "ok",
+      "decision": "recommend",
+      "recommended_mcs": "qpsk_r34",
+      "feasible_mcs": [
+        "qpsk_r34",
+        "qpsk_r12"
+      ],
+      "unsampled_mcs": [],
+      "statistically_close_mcs": [],
+      "simulation_ids": [
+        "sim.7",
+        "sim.8",
+        "sim.5",
+        "sim.6",
+        "sim.3",
+        "sim.4"
+      ],
+      "ranking": [
+        {
+          "mcs": "qam16_r12",
+          "goodput_mbps": 1.1686046511627908,
+          "bler": 0.21484375,
+          "bler_ci95": [
+            0.18146083224296278,
+            0.25247377109899377
+          ]
+        },
+        {
+          "mcs": "qpsk_r34",
+          "goodput_mbps": 1.1474550898203593,
+          "bler": 0.001953125,
+          "bler_ci95": [
+            0.00034485776154337486,
+            0.010979278212421853
+          ]
+        },
+        {
+          "mcs": "qpsk_r12",
+          "goodput_mbps": 0.7933884297520661,
+          "bler": 0.0,
+          "bler_ci95": [
+            0.0,
+            0.007446975722882739
+          ]
+        },
+        {
+          "mcs": "qam16_r34",
+          "goodput_mbps": 0.004076086956521739,
+          "bler": 0.998046875,
+          "bler_ci95": [
+            0.9890207217875779,
+            0.9996551422384565
+          ]
+        },
+        {
+          "mcs": "qam64_r34",
+          "goodput_mbps": 0.0,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9925530242771171,
+            0.9999999999999999
+          ]
+        },
+        {
+          "mcs": "qam64_r12",
+          "goodput_mbps": 0.0,
+          "bler": 1.0,
+          "bler_ci95": [
+            0.9925530242771171,
+            0.9999999999999999
+          ]
+        }
+      ],
+      "scope": "Ranking applies to the supplied simulation conditions and sampled candidates."
+    }
+  },
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "请完成这次调查。以下为本次实验全部原始公开数据。\n{\"target_user\": \"无线链路测试与优化工程师\", \"candidate_mcs\": [\"qpsk_r12\", \"qpsk_r34\", \"qam16_r12\", \"qam16_r34\", \"qam64_r12\", \"qam64_r34\"], \"bandwidth_mhz\": 1.2, \"symbol_rate_msps\": 1.0, \"payload_bits\": 192, \"header_bits\": 32, \"preamble_symbols\": 16, \"bler_limit\": 0.1, \"min_goodput_mbps\": 0.0, \"model_description\": \"归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。\", \"id\": \"C02\", \"title\": \"调制升级后传输退化\", \"incident\": \"链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。\", \"current_mcs\": \"qam64_r34\", \"channel\": \"awgn\", \"metric_value_db\": 8.0, \"metric_kind\": \"esn0_db\", \"observations\": [{\"id\": \"obs.change\", \"text\": \"升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。\"}]}",
+          "timestamp": "2026-11-13T02:37:19.044134Z",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "timestamp": "2026-11-13T02:37:19.044310Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。\n\n---\nname: wireless-mcs-investigation\ndescription: 调查无线链路调制编码配置与可靠性、有效吞吐之间的关系，利用参数检查和受控仿真验证假设，形成可追溯的配置建议。\n---\n\n# 无线链路调制编码调查\n\n## 适用任务与目标\n\n适用于有限候选 MCS 的性能退化调查和配置选择。理解工程师的业务约束，在满足 BLER 上限及最低有效吞吐要求的候选中寻找高吞吐方案。根据当前证据决定下一项检查或仿真。\n\n## 专业知识与模型条件\n\n- 比较候选配置时保持符号率、接收平均功率与信道条件一致，固定物理 Es/N0。\n- `esn0_db` 直接给出符号能量比。名义信息比特 `ebn0_information_db` 通过 Es/N0 = Eb/N0 + 10 log10(log2(M) × r) 换算，使用读数所对应的当前 MCS。其他候选继续使用换算得到的同一 Es/N0。\n- 带宽内 SNR = Es/N0 + 10 log10(Rs/B)。香农公式 C = B log2(1+SNR) 给出理想 AWGN 容量上界，具体码的可靠性通过译码仿真检查。\n- 本工程采用 K=3、(7,5) 卷积码、零状态终止与软判决 Viterbi。帧头、终止位、QAM 补齐和前导影响净荷速率，使用工具返回的实际帧布局。\n- 瑞利块衰落每帧独立且帧内恒定，平均 Es/N0 对应平均功率增益 1。观察深衰落时，保留原信道作为配置推荐依据，可用 AWGN 作为解释现象的对照。\n- 有效吞吐为成功有效载荷比特数除以总传输时间。错误帧和时间开销均参与统计。\n\n## 调查步骤与工具选择\n\n1. 检查 `obs.case` 与具体 `obs.*` 观测。提出至少两个有意义的候选解释，例如可靠性下降、码率与开销、衰落、读数定义和样本不足。\n2. 用 `calculate_link_limits` 核对读数换算、容量上界、帧速率上界和先导实验区间。缺少读数定义或信道类型时，列出需要补充的信息。\n3. 根据待区分的假设调用 `simulate_mcs`。先验证当前配置及有意义的对照，随后补足候选比较。对于可能满足约束且吞吐更高的未测配置，优先补测。\n4. 每次检查返回的输入条件、错误数、样本数量和置信区间。记录支持证据，也寻找限制或反驳当前解释的结果。\n5. 用 `compare_mcs_results` 比较相同条件下的结果。样本不足或候选接近时，可用更大的独立样本重新验证相关候选。比较时选择每个候选最新的完整独立试验。\n6. 最终推荐要覆盖有竞争力的候选，解释可靠性约束、证据和条件。引用实际存在的 `obs.*`、`calc.*`、`sim.*`、`cmp.*` 编号。\n\n## 验证与常见误判\n\n- 高阶调制会提高每符号携带的编码比特数，实际有效吞吐还取决于帧错误。\n- 强纠错码率会降低名义速率，需要比较译码后的 BLER 和有效吞吐。\n- 样本中出现零错误时，使用 Wilson 95% 区间量化仍可能存在的误块率。0/8 的上界约为 0.324。\n- 可靠性判断采用 BLER 区间上界与目标比较。区间跨过阈值时，追加样本或说明不确定性。\n- 未测候选、模拟假设变化和信道信息缺失会限制选择结论。将因果解释与观测到的相关性、受控模型中的验证范围说明清楚。\n\n## 不确定性与停止条件\n\n达到可解释的配置选择、验证所有候选均不满足要求、缺少必要输入，或耗尽本次仿真预算时结束调查。缺少必要输入时输出 `insufficient_evidence`，给出具体补充测量。`no_feasible_option` 需要完整候选覆盖及相应失败证据。\n\n## 参考资料\n\n- 信噪比与能量比换算。[MathWorks convertSNR](https://www.mathworks.com/help/comm/ref/convertsnr.html)\n- 卷积码和穿孔编码。[MathWorks Convolutional Codes](https://www.mathworks.com/help/comm/ug/convolutional-codes.html)\n- 二项比例区间。[NIST Confidence intervals](https://itl.nist.gov/div898/handbook/prc/section2/prc241.htm)",
+      "kind": "request",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "get_link_case",
+          "args": "{}",
+          "tool_call_id": "call_00_kkYogOAE6efcfiVPYmCg7282",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "calculate_link_limits",
+          "args": "{}",
+          "tool_call_id": "call_01_grLE3vxSTeuQWGw8LN4R4140",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2688,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 2432,
+        "output_tokens": 31,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 2432,
+          "prompt_cache_miss_tokens": 256
+        },
+        "cost": "0.000128592"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:37:19.795194Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:37:14Z"
+      },
+      "provider_response_id": "0a2e5f87-5e42-4c37-9957-991877b537a6",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "get_link_case",
+          "content": {
+            "evidence_id": "obs.1",
+            "status": "ok",
+            "case": {
+              "target_user": "无线链路测试与优化工程师",
+              "candidate_mcs": [
+                "qpsk_r12",
+                "qpsk_r34",
+                "qam16_r12",
+                "qam16_r34",
+                "qam64_r12",
+                "qam64_r34"
+              ],
+              "bandwidth_mhz": 1.2,
+              "symbol_rate_msps": 1.0,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "bler_limit": 0.1,
+              "min_goodput_mbps": 0.0,
+              "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+              "id": "C02",
+              "title": "调制升级后传输退化",
+              "incident": "链路升级为 64-QAM 3/4 后出现大量错误帧。有人认为名义速率提升应当改善传输。请调查并比较六个候选方案。",
+              "current_mcs": "qam64_r34",
+              "channel": "awgn",
+              "metric_value_db": 8.0,
+              "metric_kind": "esn0_db",
+              "observations": [
+                {
+                  "id": "obs.change",
+                  "text": "升级前后符号率、平均功率和帧格式相同，主要配置变化为调制编码。"
+                }
+              ]
+            }
+          },
+          "tool_call_id": "call_00_kkYogOAE6efcfiVPYmCg7282",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:19.798225Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        },
+        {
+          "tool_name": "calculate_link_limits",
+          "content": {
+            "evidence_id": "calc.2",
+            "status": "ok",
+            "esn0_db": 8.0,
+            "wideband_snr_db": 7.2081875395237525,
+            "awgn_capacity_mbps": 3.1748358683514413,
+            "capacity_assumption": "Ideal band-limited AWGN channel with average power constraint",
+            "payload_ceilings_mbps": {
+              "qpsk_r12": 0.7933884297520661,
+              "qpsk_r34": 1.1497005988023952,
+              "qam16_r12": 1.4883720930232558,
+              "qam16_r34": 2.0869565217391304,
+              "qam64_r12": 2.0869565217391304,
+              "qam64_r34": 2.8656716417910446
+            },
+            "pilot_intervals": [],
+            "power_comparison": "Keep this Es/N0 fixed across MCS at equal symbol rate and average power."
+          },
+          "tool_call_id": "call_01_grLE3vxSTeuQWGw8LN4R4140",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:19.798266Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        }
+      ],
+      "timestamp": "2026-11-13T02:37:19.798779Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。\n\n---\nname: wireless-mcs-investigation\ndescription: 调查无线链路调制编码配置与可靠性、有效吞吐之间的关系，利用参数检查和受控仿真验证假设，形成可追溯的配置建议。\n---\n\n# 无线链路调制编码调查\n\n## 适用任务与目标\n\n适用于有限候选 MCS 的性能退化调查和配置选择。理解工程师的业务约束，在满足 BLER 上限及最低有效吞吐要求的候选中寻找高吞吐方案。根据当前证据决定下一项检查或仿真。\n\n## 专业知识与模型条件\n\n- 比较候选配置时保持符号率、接收平均功率与信道条件一致，固定物理 Es/N0。\n- `esn0_db` 直接给出符号能量比。名义信息比特 `ebn0_information_db` 通过 Es/N0 = Eb/N0 + 10 log10(log2(M) × r) 换算，使用读数所对应的当前 MCS。其他候选继续使用换算得到的同一 Es/N0。\n- 带宽内 SNR = Es/N0 + 10 log10(Rs/B)。香农公式 C = B log2(1+SNR) 给出理想 AWGN 容量上界，具体码的可靠性通过译码仿真检查。\n- 本工程采用 K=3、(7,5) 卷积码、零状态终止与软判决 Viterbi。帧头、终止位、QAM 补齐和前导影响净荷速率，使用工具返回的实际帧布局。\n- 瑞利块衰落每帧独立且帧内恒定，平均 Es/N0 对应平均功率增益 1。观察深衰落时，保留原信道作为配置推荐依据，可用 AWGN 作为解释现象的对照。\n- 有效吞吐为成功有效载荷比特数除以总传输时间。错误帧和时间开销均参与统计。\n\n## 调查步骤与工具选择\n\n1. 检查 `obs.case` 与具体 `obs.*` 观测。提出至少两个有意义的候选解释，例如可靠性下降、码率与开销、衰落、读数定义和样本不足。\n2. 用 `calculate_link_limits` 核对读数换算、容量上界、帧速率上界和先导实验区间。缺少读数定义或信道类型时，列出需要补充的信息。\n3. 根据待区分的假设调用 `simulate_mcs`。先验证当前配置及有意义的对照，随后补足候选比较。对于可能满足约束且吞吐更高的未测配置，优先补测。\n4. 每次检查返回的输入条件、错误数、样本数量和置信区间。记录支持证据，也寻找限制或反驳当前解释的结果。\n5. 用 `compare_mcs_results` 比较相同条件下的结果。样本不足或候选接近时，可用更大的独立样本重新验证相关候选。比较时选择每个候选最新的完整独立试验。\n6. 最终推荐要覆盖有竞争力的候选，解释可靠性约束、证据和条件。引用实际存在的 `obs.*`、`calc.*`、`sim.*`、`cmp.*` 编号。\n\n## 验证与常见误判\n\n- 高阶调制会提高每符号携带的编码比特数，实际有效吞吐还取决于帧错误。\n- 强纠错码率会降低名义速率，需要比较译码后的 BLER 和有效吞吐。\n- 样本中出现零错误时，使用 Wilson 95% 区间量化仍可能存在的误块率。0/8 的上界约为 0.324。\n- 可靠性判断采用 BLER 区间上界与目标比较。区间跨过阈值时，追加样本或说明不确定性。\n- 未测候选、模拟假设变化和信道信息缺失会限制选择结论。将因果解释与观测到的相关性、受控模型中的验证范围说明清楚。\n\n## 不确定性与停止条件\n\n达到可解释的配置选择、验证所有候选均不满足要求、缺少必要输入，或耗尽本次仿真预算时结束调查。缺少必要输入时输出 `insufficient_evidence`，给出具体补充测量。`no_feasible_option` 需要完整候选覆盖及相应失败证据。\n\n## 参考资料\n\n- 信噪比与能量比换算。[MathWorks convertSNR](https://www.mathworks.com/help/comm/ref/convertsnr.html)\n- 卷积码和穿孔编码。[MathWorks Convolutional Codes](https://www.mathworks.com/help/comm/ug/convolutional-codes.html)\n- 二项比例区间。[NIST Confidence intervals](https://itl.nist.gov/div898/handbook/prc/section2/prc241.htm)",
+      "kind": "request",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "simulate_mcs",
+          "args": "{\"mcs\": \"qam64_r34\", \"esn0_db\": 8, \"channel\": \"awgn\", \"frames\": 512}",
+          "tool_call_id": "call_00_pDUHTlbH14UCLwn65ie60994",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "args": "{\"mcs\": \"qam64_r12\", \"esn0_db\": 8, \"channel\": \"awgn\", \"frames\": 512}",
+          "tool_call_id": "call_01_YMoMTag7xZgCAWTUr9LU9684",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "args": "{\"mcs\": \"qam16_r34\", \"esn0_db\": 8, \"channel\": \"awgn\", \"frames\": 512}",
+          "tool_call_id": "call_02_Xaq4w4u1eVgWZcLZwGbE0629",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "args": "{\"mcs\": \"qam16_r12\", \"esn0_db\": 8, \"channel\": \"awgn\", \"frames\": 512}",
+          "tool_call_id": "call_03_85T09W6IKE4xq5fzwQBL0027",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "args": "{\"mcs\": \"qpsk_r34\", \"esn0_db\": 8, \"channel\": \"awgn\", \"frames\": 512}",
+          "tool_call_id": "call_04_c3w0XSdVNkAMXrDBNk0z4898",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "args": "{\"mcs\": \"qpsk_r12\", \"esn0_db\": 8, \"channel\": \"awgn\", \"frames\": 512}",
+          "tool_call_id": "call_05_kEo0BYZEjdYP6sELs9ZC5035",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3267,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 3072,
+        "output_tokens": 524,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 3072,
+          "prompt_cache_miss_tokens": 195
+        },
+        "cost": "0.000705732"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:37:21.901042Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:37:15Z"
+      },
+      "provider_response_id": "ea429797-40bb-4b80-9494-41fc3b735815",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "simulate_mcs",
+          "content": {
+            "evidence_id": "sim.7",
+            "status": "ok",
+            "config": {
+              "mcs": "qam64_r34",
+              "channel": "awgn",
+              "esn0_db": 8.0,
+              "frames": 512,
+              "seed": 20286198,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "symbol_rate_msps": 1.0
+            },
+            "frame_layout": {
+              "information_bits": 224,
+              "transmitted_coded_bits": 302,
+              "data_symbols": 51,
+              "total_symbols": 67,
+              "payload_ceiling_mbps": 2.8656716417910446
+            },
+            "payload_bit_errors": 38729,
+            "payload_bits_tested": 98304,
+            "ber": 0.3939717610677083,
+            "block_errors": 512,
+            "frames": 512,
+            "bler": 1.0,
+            "bler_ci95": [
+              0.9925530242771171,
+              0.9999999999999999
+            ],
+            "goodput_mbps": 0.0,
+            "goodput_ci95_mbps": [
+              3.1815346377317917e-16,
+              0.021340587146171854
+            ],
+            "assumptions": [
+              "unit average symbol energy; complex noise variance N0",
+              "ideal synchronization and receiver channel knowledge",
+              "independent frames; Rayleigh gain constant within a frame",
+              "frame failure detected by comparison with transmitted information bits",
+              "fixed preamble time overhead; single transmission per frame"
+            ]
+          },
+          "tool_call_id": "call_00_pDUHTlbH14UCLwn65ie60994",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:22.138391Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "content": {
+            "evidence_id": "sim.8",
+            "status": "ok",
+            "config": {
+              "mcs": "qam64_r12",
+              "channel": "awgn",
+              "esn0_db": 8.0,
+              "frames": 512,
+              "seed": 20285201,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "symbol_rate_msps": 1.0
+            },
+            "frame_layout": {
+              "information_bits": 224,
+              "transmitted_coded_bits": 452,
+              "data_symbols": 76,
+              "total_symbols": 92,
+              "payload_ceiling_mbps": 2.0869565217391304
+            },
+            "payload_bit_errors": 16549,
+            "payload_bits_tested": 98304,
+            "ber": 0.16834513346354166,
+            "block_errors": 512,
+            "frames": 512,
+            "bler": 1.0,
+            "bler_ci95": [
+              0.9925530242771171,
+              0.9999999999999999
+            ],
+            "goodput_mbps": 0.0,
+            "goodput_ci95_mbps": [
+              2.3169871818264136e-16,
+              0.015541514552103416
+            ],
+            "assumptions": [
+              "unit average symbol energy; complex noise variance N0",
+              "ideal synchronization and receiver channel knowledge",
+              "independent frames; Rayleigh gain constant within a frame",
+              "frame failure detected by comparison with transmitted information bits",
+              "fixed preamble time overhead; single transmission per frame"
+            ]
+          },
+          "tool_call_id": "call_01_YMoMTag7xZgCAWTUr9LU9684",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:22.150010Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "content": {
+            "evidence_id": "sim.5",
+            "status": "ok",
+            "config": {
+              "mcs": "qam16_r34",
+              "channel": "awgn",
+              "esn0_db": 8.0,
+              "frames": 512,
+              "seed": 20284204,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "symbol_rate_msps": 1.0
+            },
+            "frame_layout": {
+              "information_bits": 224,
+              "transmitted_coded_bits": 302,
+              "data_symbols": 76,
+              "total_symbols": 92,
+              "payload_ceiling_mbps": 2.0869565217391304
+            },
+            "payload_bit_errors": 15323,
+            "payload_bits_tested": 98304,
+            "ber": 0.15587361653645834,
+            "block_errors": 511,
+            "frames": 512,
+            "bler": 0.998046875,
+            "bler_ci95": [
+              0.9890207217875779,
+              0.9996551422384565
+            ],
+            "goodput_mbps": 0.004076086956521739,
+            "goodput_ci95_mbps": [
+              0.0007197031545255049,
+              0.022913276269402563
+            ],
+            "assumptions": [
+              "unit average symbol energy; complex noise variance N0",
+              "ideal synchronization and receiver channel knowledge",
+              "independent frames; Rayleigh gain constant within a frame",
+              "frame failure detected by comparison with transmitted information bits",
+              "fixed preamble time overhead; single transmission per frame"
+            ]
+          },
+          "tool_call_id": "call_02_Xaq4w4u1eVgWZcLZwGbE0629",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:22.113286Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "content": {
+            "evidence_id": "sim.6",
+            "status": "ok",
+            "config": {
+              "mcs": "qam16_r12",
+              "channel": "awgn",
+              "esn0_db": 8.0,
+              "frames": 512,
+              "seed": 20283207,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "symbol_rate_msps": 1.0
+            },
+            "frame_layout": {
+              "information_bits": 224,
+              "transmitted_coded_bits": 452,
+              "data_symbols": 113,
+              "total_symbols": 129,
+              "payload_ceiling_mbps": 1.4883720930232558
+            },
+            "payload_bit_errors": 374,
+            "payload_bits_tested": 98304,
+            "ber": 0.0038045247395833335,
+            "block_errors": 110,
+            "frames": 512,
+            "bler": 0.21484375,
+            "bler_ci95": [
+              0.18146083224296278,
+              0.25247377109899377
+            ],
+            "goodput_mbps": 1.1686046511627908,
+            "goodput_ci95_mbps": [
+              1.1125971778991721,
+              1.2182908543360556
+            ],
+            "assumptions": [
+              "unit average symbol energy; complex noise variance N0",
+              "ideal synchronization and receiver channel knowledge",
+              "independent frames; Rayleigh gain constant within a frame",
+              "frame failure detected by comparison with transmitted information bits",
+              "fixed preamble time overhead; single transmission per frame"
+            ]
+          },
+          "tool_call_id": "call_03_85T09W6IKE4xq5fzwQBL0027",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:22.115541Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "content": {
+            "evidence_id": "sim.3",
+            "status": "ok",
+            "config": {
+              "mcs": "qpsk_r34",
+              "channel": "awgn",
+              "esn0_db": 8.0,
+              "frames": 512,
+              "seed": 20282210,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "symbol_rate_msps": 1.0
+            },
+            "frame_layout": {
+              "information_bits": 224,
+              "transmitted_coded_bits": 302,
+              "data_symbols": 151,
+              "total_symbols": 167,
+              "payload_ceiling_mbps": 1.1497005988023952
+            },
+            "payload_bit_errors": 5,
+            "payload_bits_tested": 98304,
+            "ber": 5.0862630208333336e-05,
+            "block_errors": 1,
+            "frames": 512,
+            "bler": 0.001953125,
+            "bler_ci95": [
+              0.00034485776154337486,
+              0.010979278212421853
+            ],
+            "goodput_mbps": 1.1474550898203593,
+            "goodput_ci95_mbps": [
+              1.1370777160671557,
+              1.149304115627447
+            ],
+            "assumptions": [
+              "unit average symbol energy; complex noise variance N0",
+              "ideal synchronization and receiver channel knowledge",
+              "independent frames; Rayleigh gain constant within a frame",
+              "frame failure detected by comparison with transmitted information bits",
+              "fixed preamble time overhead; single transmission per frame"
+            ]
+          },
+          "tool_call_id": "call_04_c3w0XSdVNkAMXrDBNk0z4898",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:22.105588Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        },
+        {
+          "tool_name": "simulate_mcs",
+          "content": {
+            "evidence_id": "sim.4",
+            "status": "ok",
+            "config": {
+              "mcs": "qpsk_r12",
+              "channel": "awgn",
+              "esn0_db": 8.0,
+              "frames": 512,
+              "seed": 20281213,
+              "payload_bits": 192,
+              "header_bits": 32,
+              "preamble_symbols": 16,
+              "symbol_rate_msps": 1.0
+            },
+            "frame_layout": {
+              "information_bits": 224,
+              "transmitted_coded_bits": 452,
+              "data_symbols": 226,
+              "total_symbols": 242,
+              "payload_ceiling_mbps": 0.7933884297520661
+            },
+            "payload_bit_errors": 0,
+            "payload_bits_tested": 98304,
+            "ber": 0.0,
+            "block_errors": 0,
+            "frames": 512,
+            "bler": 0.0,
+            "bler_ci95": [
+              0.0,
+              0.007446975722882739
+            ],
+            "goodput_mbps": 0.7933884297520661,
+            "goodput_ci95_mbps": [
+              0.7874800853768864,
+              0.7933884297520661
+            ],
+            "assumptions": [
+              "unit average symbol energy; complex noise variance N0",
+              "ideal synchronization and receiver channel knowledge",
+              "independent frames; Rayleigh gain constant within a frame",
+              "frame failure detected by comparison with transmitted information bits",
+              "fixed preamble time overhead; single transmission per frame"
+            ]
+          },
+          "tool_call_id": "call_05_kEo0BYZEjdYP6sELs9ZC5035",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:22.109490Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        }
+      ],
+      "timestamp": "2026-11-13T02:37:22.150399Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。\n\n---\nname: wireless-mcs-investigation\ndescription: 调查无线链路调制编码配置与可靠性、有效吞吐之间的关系，利用参数检查和受控仿真验证假设，形成可追溯的配置建议。\n---\n\n# 无线链路调制编码调查\n\n## 适用任务与目标\n\n适用于有限候选 MCS 的性能退化调查和配置选择。理解工程师的业务约束，在满足 BLER 上限及最低有效吞吐要求的候选中寻找高吞吐方案。根据当前证据决定下一项检查或仿真。\n\n## 专业知识与模型条件\n\n- 比较候选配置时保持符号率、接收平均功率与信道条件一致，固定物理 Es/N0。\n- `esn0_db` 直接给出符号能量比。名义信息比特 `ebn0_information_db` 通过 Es/N0 = Eb/N0 + 10 log10(log2(M) × r) 换算，使用读数所对应的当前 MCS。其他候选继续使用换算得到的同一 Es/N0。\n- 带宽内 SNR = Es/N0 + 10 log10(Rs/B)。香农公式 C = B log2(1+SNR) 给出理想 AWGN 容量上界，具体码的可靠性通过译码仿真检查。\n- 本工程采用 K=3、(7,5) 卷积码、零状态终止与软判决 Viterbi。帧头、终止位、QAM 补齐和前导影响净荷速率，使用工具返回的实际帧布局。\n- 瑞利块衰落每帧独立且帧内恒定，平均 Es/N0 对应平均功率增益 1。观察深衰落时，保留原信道作为配置推荐依据，可用 AWGN 作为解释现象的对照。\n- 有效吞吐为成功有效载荷比特数除以总传输时间。错误帧和时间开销均参与统计。\n\n## 调查步骤与工具选择\n\n1. 检查 `obs.case` 与具体 `obs.*` 观测。提出至少两个有意义的候选解释，例如可靠性下降、码率与开销、衰落、读数定义和样本不足。\n2. 用 `calculate_link_limits` 核对读数换算、容量上界、帧速率上界和先导实验区间。缺少读数定义或信道类型时，列出需要补充的信息。\n3. 根据待区分的假设调用 `simulate_mcs`。先验证当前配置及有意义的对照，随后补足候选比较。对于可能满足约束且吞吐更高的未测配置，优先补测。\n4. 每次检查返回的输入条件、错误数、样本数量和置信区间。记录支持证据，也寻找限制或反驳当前解释的结果。\n5. 用 `compare_mcs_results` 比较相同条件下的结果。样本不足或候选接近时，可用更大的独立样本重新验证相关候选。比较时选择每个候选最新的完整独立试验。\n6. 最终推荐要覆盖有竞争力的候选，解释可靠性约束、证据和条件。引用实际存在的 `obs.*`、`calc.*`、`sim.*`、`cmp.*` 编号。\n\n## 验证与常见误判\n\n- 高阶调制会提高每符号携带的编码比特数，实际有效吞吐还取决于帧错误。\n- 强纠错码率会降低名义速率，需要比较译码后的 BLER 和有效吞吐。\n- 样本中出现零错误时，使用 Wilson 95% 区间量化仍可能存在的误块率。0/8 的上界约为 0.324。\n- 可靠性判断采用 BLER 区间上界与目标比较。区间跨过阈值时，追加样本或说明不确定性。\n- 未测候选、模拟假设变化和信道信息缺失会限制选择结论。将因果解释与观测到的相关性、受控模型中的验证范围说明清楚。\n\n## 不确定性与停止条件\n\n达到可解释的配置选择、验证所有候选均不满足要求、缺少必要输入，或耗尽本次仿真预算时结束调查。缺少必要输入时输出 `insufficient_evidence`，给出具体补充测量。`no_feasible_option` 需要完整候选覆盖及相应失败证据。\n\n## 参考资料\n\n- 信噪比与能量比换算。[MathWorks convertSNR](https://www.mathworks.com/help/comm/ref/convertsnr.html)\n- 卷积码和穿孔编码。[MathWorks Convolutional Codes](https://www.mathworks.com/help/comm/ug/convolutional-codes.html)\n- 二项比例区间。[NIST Confidence intervals](https://itl.nist.gov/div898/handbook/prc/section2/prc241.htm)",
+      "kind": "request",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "compare_mcs_results",
+          "args": "{\"simulation_ids\": [\"sim.7\", \"sim.8\", \"sim.5\", \"sim.6\", \"sim.3\", \"sim.4\"]}",
+          "tool_call_id": "call_00_d0CJdicW2wHAeRCZftd32334",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5548,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 3712,
+        "output_tokens": 65,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 3712,
+          "prompt_cache_miss_tokens": 1836
+        },
+        "cost": "0.000651072"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:37:23.468019Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:37:18Z"
+      },
+      "provider_response_id": "6dd89a73-34c9-419e-9658-1ab99c006dc8",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "compare_mcs_results",
+          "content": {
+            "evidence_id": "cmp.9",
+            "status": "ok",
+            "decision": "recommend",
+            "recommended_mcs": "qpsk_r34",
+            "feasible_mcs": [
+              "qpsk_r34",
+              "qpsk_r12"
+            ],
+            "unsampled_mcs": [],
+            "statistically_close_mcs": [],
+            "simulation_ids": [
+              "sim.7",
+              "sim.8",
+              "sim.5",
+              "sim.6",
+              "sim.3",
+              "sim.4"
+            ],
+            "ranking": [
+              {
+                "mcs": "qam16_r12",
+                "goodput_mbps": 1.1686046511627908,
+                "bler": 0.21484375,
+                "bler_ci95": [
+                  0.18146083224296278,
+                  0.25247377109899377
+                ]
+              },
+              {
+                "mcs": "qpsk_r34",
+                "goodput_mbps": 1.1474550898203593,
+                "bler": 0.001953125,
+                "bler_ci95": [
+                  0.00034485776154337486,
+                  0.010979278212421853
+                ]
+              },
+              {
+                "mcs": "qpsk_r12",
+                "goodput_mbps": 0.7933884297520661,
+                "bler": 0.0,
+                "bler_ci95": [
+                  0.0,
+                  0.007446975722882739
+                ]
+              },
+              {
+                "mcs": "qam16_r34",
+                "goodput_mbps": 0.004076086956521739,
+                "bler": 0.998046875,
+                "bler_ci95": [
+                  0.9890207217875779,
+                  0.9996551422384565
+                ]
+              },
+              {
+                "mcs": "qam64_r34",
+                "goodput_mbps": 0.0,
+                "bler": 1.0,
+                "bler_ci95": [
+                  0.9925530242771171,
+                  0.9999999999999999
+                ]
+              },
+              {
+                "mcs": "qam64_r12",
+                "goodput_mbps": 0.0,
+                "bler": 1.0,
+                "bler_ci95": [
+                  0.9925530242771171,
+                  0.9999999999999999
+                ]
+              }
+            ],
+            "scope": "Ranking applies to the supplied simulation conditions and sampled candidates."
+          },
+          "tool_call_id": "call_00_d0CJdicW2wHAeRCZftd32334",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:23.469247Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return",
+          "content_file_digests": []
+        }
+      ],
+      "timestamp": "2026-11-13T02:37:23.469553Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。\n\n---\nname: wireless-mcs-investigation\ndescription: 调查无线链路调制编码配置与可靠性、有效吞吐之间的关系，利用参数检查和受控仿真验证假设，形成可追溯的配置建议。\n---\n\n# 无线链路调制编码调查\n\n## 适用任务与目标\n\n适用于有限候选 MCS 的性能退化调查和配置选择。理解工程师的业务约束，在满足 BLER 上限及最低有效吞吐要求的候选中寻找高吞吐方案。根据当前证据决定下一项检查或仿真。\n\n## 专业知识与模型条件\n\n- 比较候选配置时保持符号率、接收平均功率与信道条件一致，固定物理 Es/N0。\n- `esn0_db` 直接给出符号能量比。名义信息比特 `ebn0_information_db` 通过 Es/N0 = Eb/N0 + 10 log10(log2(M) × r) 换算，使用读数所对应的当前 MCS。其他候选继续使用换算得到的同一 Es/N0。\n- 带宽内 SNR = Es/N0 + 10 log10(Rs/B)。香农公式 C = B log2(1+SNR) 给出理想 AWGN 容量上界，具体码的可靠性通过译码仿真检查。\n- 本工程采用 K=3、(7,5) 卷积码、零状态终止与软判决 Viterbi。帧头、终止位、QAM 补齐和前导影响净荷速率，使用工具返回的实际帧布局。\n- 瑞利块衰落每帧独立且帧内恒定，平均 Es/N0 对应平均功率增益 1。观察深衰落时，保留原信道作为配置推荐依据，可用 AWGN 作为解释现象的对照。\n- 有效吞吐为成功有效载荷比特数除以总传输时间。错误帧和时间开销均参与统计。\n\n## 调查步骤与工具选择\n\n1. 检查 `obs.case` 与具体 `obs.*` 观测。提出至少两个有意义的候选解释，例如可靠性下降、码率与开销、衰落、读数定义和样本不足。\n2. 用 `calculate_link_limits` 核对读数换算、容量上界、帧速率上界和先导实验区间。缺少读数定义或信道类型时，列出需要补充的信息。\n3. 根据待区分的假设调用 `simulate_mcs`。先验证当前配置及有意义的对照，随后补足候选比较。对于可能满足约束且吞吐更高的未测配置，优先补测。\n4. 每次检查返回的输入条件、错误数、样本数量和置信区间。记录支持证据，也寻找限制或反驳当前解释的结果。\n5. 用 `compare_mcs_results` 比较相同条件下的结果。样本不足或候选接近时，可用更大的独立样本重新验证相关候选。比较时选择每个候选最新的完整独立试验。\n6. 最终推荐要覆盖有竞争力的候选，解释可靠性约束、证据和条件。引用实际存在的 `obs.*`、`calc.*`、`sim.*`、`cmp.*` 编号。\n\n## 验证与常见误判\n\n- 高阶调制会提高每符号携带的编码比特数，实际有效吞吐还取决于帧错误。\n- 强纠错码率会降低名义速率，需要比较译码后的 BLER 和有效吞吐。\n- 样本中出现零错误时，使用 Wilson 95% 区间量化仍可能存在的误块率。0/8 的上界约为 0.324。\n- 可靠性判断采用 BLER 区间上界与目标比较。区间跨过阈值时，追加样本或说明不确定性。\n- 未测候选、模拟假设变化和信道信息缺失会限制选择结论。将因果解释与观测到的相关性、受控模型中的验证范围说明清楚。\n\n## 不确定性与停止条件\n\n达到可解释的配置选择、验证所有候选均不满足要求、缺少必要输入，或耗尽本次仿真预算时结束调查。缺少必要输入时输出 `insufficient_evidence`，给出具体补充测量。`no_feasible_option` 需要完整候选覆盖及相应失败证据。\n\n## 参考资料\n\n- 信噪比与能量比换算。[MathWorks convertSNR](https://www.mathworks.com/help/comm/ref/convertsnr.html)\n- 卷积码和穿孔编码。[MathWorks Convolutional Codes](https://www.mathworks.com/help/comm/ug/convolutional-codes.html)\n- 二项比例区间。[NIST Confidence intervals](https://itl.nist.gov/div898/handbook/prc/section2/prc241.htm)",
+      "kind": "request",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "args": "{\"decision\": \"recommend\", \"recommended_mcs\": \"qpsk_r34\", \"normalized_esn0_db\": 8, \"summary\": \"工单 C02：在 AWGN、Es/N0=8 dB（读数即符号能量比，obs.1/calc.2）下对六个候选各做 512 帧独立仿真。当前配置 qam64_r34 完全失效：BLER=1.0（CI 0.993–1.0），有效吞吐 0（sim.7）；qam64_r12 同样 BLER=1.0、吞吐 0（sim.8），qam16_r34 BLER≈0.998、吞吐 0.004 Mbps（sim.5），均远超 0.1 的 BLER 上限。qam16_r12 吞吐最高（1.169 Mbps）但 BLER=0.215（CI 0.181–0.252），不满足可靠性约束（sim.6）。满足约束的只有 qpsk_r34（BLER=0.00195，CI 上界 0.011，吞吐 1.147 Mbps，sim.3）与 qpsk_r12（BLER=0，CI 上界 0.0074，吞吐 0.793 Mbps，sim.4）。比较结果 cmp.9 推荐 qpsk_r34：其吞吐高于 qpsk_r12 且两者不统计接近，故在满足 BLER≤0.1 与最低吞吐（0 Mbps）约束的候选中选 qpsk_r34。所谓“名义速率提升改善传输”的说法被否定：高阶调制在固定 Es/N0 下每符号承载更多比特但噪声容限急剧下降，帧错误使有效吞吐归零。\", \"hypotheses\": [{\"explanation\": \"升级到 64-QAM 3/4 后可靠性崩溃：在固定 Es/N0=8 dB 下 64-QAM 的星座点间距最小，配合 3/4 穿孔码几乎没有纠错余量，导致几乎每帧都错，有效吞吐归零。\", \"status\": \"supported\", \"supporting_evidence\": [\"sim.7\", \"sim.8\", \"sim.5\", \"calc.2\"], \"opposing_evidence\": []}, {\"explanation\": \"名义速率提升应改善传输：更高阶调制/更高码率的载荷上限更高（qam64_r34 上限 2.87 Mbps vs qpsk_r34 1.15 Mbps），因此吞吐应更好。\", \"status\": \"refuted\", \"supporting_evidence\": [\"calc.2\"], \"opposing_evidence\": [\"sim.7\", \"sim.8\", \"sim.5\", \"cmp.9\"]}, {\"explanation\": \"折中方案 qam16_r12 吞吐最高但可靠性不达标，说明瓶颈是 BLER 约束而非名义速率；只有 QPSK 类配置能在 8 dB 下满足 BLER≤0.1。\", \"status\": \"supported\", \"supporting_evidence\": [\"sim.6\", \"sim.3\", \"sim.4\", \"cmp.9\"], \"opposing_evidence\": []}, {\"explanation\": \"观测到的退化可能由信道衰落或读数定义错误造成，而非调制编码本身。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.change\"], \"opposing_evidence\": [\"obs.1\", \"calc.2\"]}], \"evidence_ids\": [\"obs.1\", \"obs.change\", \"calc.2\", \"sim.3\", \"sim.4\", \"sim.5\", \"sim.6\", \"sim.7\", \"sim.8\", \"cmp.9\"], \"pilot_sufficient\": null, \"uncertainty\": \"结论限于 AWGN、Es/N0=8 dB、512 帧/候选的仿真条件；qam16_r12 的 BLER 区间（0.181–0.252）明显高于阈值，结论稳健；qpsk_r34 的 BLER 区间上界 0.011 远低于 0.1，可靠性判断稳健。qam16_r12 与 qpsk_r34 的吞吐差约 0.02 Mbps，但前者不可行，故不影响选择。工单无先导样本，pilot_sufficient 记为 null。若实际信道为瑞利块衰落，8 dB 平均 Es/N0 下各配置表现会显著变差，需重新评估。\", \"missing_information\": [\"实际信道类型（工单标注 awgn，但现场是否含衰落/多径未确认）\", \"现场实测的 Es/N0 或 SNR 读数及其定义（是否已含前导/帧头开销）\", \"升级前后实测 BLER 与吞吐的原始计数，用于与仿真对照\", \"是否存在可用的先导/训练样本以直接估计 BLER\"], \"next_actions\": [\"将链路回退到 qpsk_r34 作为当前 8 dB 条件下的推荐配置，并现场验证 BLER≤0.1\", \"若现场信道存在衰落，补充 rayleigh_block 信道下 qpsk_r34 与 qam16_r12 的仿真对比\", \"采集现场实测 BLER/吞吐计数，与 sim.3、sim.6 的预测对照，确认 Es/N0 读数定义\", \"若需更高吞吐，评估在更高 Es/N0 下 qam16_r12 是否可满足 BLER 约束（例如 10–12 dB 区间扫描）\"]}",
+          "tool_call_id": "call_00_pQId3WaWdYCKPkm6ioDB9178",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6058,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 5504,
+        "output_tokens": 1308,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 5504,
+          "prompt_cache_miss_tokens": 554
+        },
+        "cost": "0.001768824"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:37:30.320934Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:37:19Z"
+      },
+      "provider_response_id": "fb82611b-b4f2-4756-b7e6-8b66a2c0d78a",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "content": "Final result processed.",
+          "tool_call_id": "call_00_pQId3WaWdYCKPkm6ioDB9178",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:37:30.322007Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return"
+        }
+      ],
+      "timestamp": "2026-11-13T02:37:30.322043Z",
+      "instructions": null,
+      "kind": "request",
+      "run_id": "01a1d2c4-3f43-71cc-8c6c-11e83628b1ae",
+      "conversation_id": "01a1d2c4-3f43-71cc-8c6c-11e9d87e9127",
+      "metadata": null,
+      "state": "complete"
+    }
+  ]
+}

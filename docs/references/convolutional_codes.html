@@ -1,0 +1,2126 @@
+<!DOCTYPE html><html lang="en"><head><script nonce="214+w+Nx5E46c3qhx9ni3YkM">window.mwDocMetadata = {"isLoggedIn":false,"exampleVersionSpec":["\u003e=25.1"],"isArchivedDoc":false,"release":"R2026b"};</script>
+	
+	<!-- Template Source Page: /content/mathworks/www/en/template-service/help/full-header-footer-offcanvas-bs5 -->
+	<!-- Template Source Env: stage -->
+	<!-- Template Last Modified: 2026-06-23T07:46:22-04:00 -->
+	
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+
+	<link rel="icon" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/favicon.20260806155224309.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	
+	
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:site" content="@MathWorks"/>
+		
+		<meta name="twitter:image" content="https://www.mathworks.com/template-service/help/full-header-footer-offcanvas-bs5/_jcr_content/ogImageSecureUrl.adapt.1200.medium.jpg/1744384063106.jpg"/>
+		<meta property="og:image:url" content="https://www.mathworks.com/template-service/help/full-header-footer-offcanvas-bs5/_jcr_content/ogImageSecureUrl.adapt.1200.medium.jpg/1744384063106.jpg"/>
+		<meta property="og:image:secure_url" content="https://www.mathworks.com/template-service/help/full-header-footer-offcanvas-bs5/_jcr_content/ogImageSecureUrl.adapt.1200.medium.jpg/1744384063106.jpg"/>
+	
+	<meta property="og:url" content="https://www.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<meta property="og:description" content="Convolutional coding and Viterbi decoding."/>
+	<meta property="og:title" content="Convolutional Codes - MATLAB &amp; Simulink"/>
+	<meta property="og:type" content="website"/>
+	
+
+	
+
+	<script nonce="214+w+Nx5E46c3qhx9ni3YkM"> (function() { if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.classList.add('mw-theme-dark'); } else { document.documentElement.classList.add('mw-theme-light'); } })();	</script>
+	
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/webvitals.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+
+	
+	
+
+	
+	
+	
+
+	
+
+	
+	
+		
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/bootstrap5.min.20260806155224309.css" type="text/css"/>
+
+
+
+		
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/bs5.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+	
+	
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/offcanvasv5.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-300.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-400.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-500.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-700.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-300.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-400.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-500.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-700.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/mathworks.20260806155224309.woff" rel="preload" as="font" type="font/woff" crossorigin=""/>
+
+	
+		
+		<script nonce="214+w+Nx5E46c3qhx9ni3YkM">(function(g,b,d,f){(function(a,c,d){if(a){var e=b.createElement("style");e.id=c;e.innerHTML=d;a.appendChild(e)}})(b.getElementsByTagName("head")[0],"at-body-style",d);setTimeout(function(){var a=b.getElementsByTagName("head")[0];if(a){var c=b.getElementById("at-body-style");c&&a.removeChild(c)}},f)})(window,document,"[class*='personalization-container']:not([id^='web-application']) {opacity: 0 !important}",1E3);</script> <script src="//assets.adobedtm.com/d0cc0600946eb3957f703b9fe43c3590597a8c2c/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js" async="" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+	
+	
+
+	
+
+	
+
+	<title>Convolutional Codes - MATLAB &amp; Simulink
+</title>
+	
+
+
+
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/jquery.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script><script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/jquery-migrate.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<meta xmlns="http://www.w3.org/1999/xhtml" http-equiv="Content-Script-Type" content="text/javascript"/>
+
+<link xmlns="http://www.w3.org/1999/xhtml" href="/help/releases/R2026b/includes/web/css/doc_center.css" rel="stylesheet" type="text/css"/>
+<link xmlns="http://www.w3.org/1999/xhtml" href="/help/releases/R2026b/includes/web/css/doc_center_localnav.css" rel="stylesheet" type="text/css"/>
+
+<script src="/help/releases/R2026b/includes/shared/equationrenderer/release/MathRenderer.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/l10n.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/docscripts.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/f1help.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/mw.imageanimation.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/jquery.highlight.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/product/scripts/underscore-min.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+<script xmlns="http://www.w3.org/1999/xhtml" src="/help/releases/R2026b/includes/shared/scripts/localstorage.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+<script src="/help/releases/R2026b/includes/web/scripts/overload.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/helpservices.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/product/scripts/productfilter.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/matlab_dialog_shared.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<link href="/help/releases/R2026b/includes/shared/highlight/styles/mwdochighlight.min.css" rel="stylesheet" type="text/css"/>
+<script src="/help/releases/R2026b/includes/shared/highlight/highlight.min.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<link href="/help/releases/R2026b/includes/web/css/doc_center_print.css" rel="stylesheet" type="text/css" media="print"/>
+
+<script src="/matlabcentral/jscript/userarea-typeahead-v1.js" defer="" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+  <script type="text/javascript" nonce="214+w+Nx5E46c3qhx9ni3YkM">
+    document.addEventListener("DOMContentLoaded", function () {
+      const possibleSelectors = ['#query','#inpage_query'];
+      possibleSelectors.forEach(selector => {
+        const inputElement = document.querySelector(selector);
+        if (inputElement) {
+          const customElement = document.createElement('userarea-typeahead');
+          customElement.setAttribute('input-selector', selector);
+          customElement.setAttribute('collection', 'documentation');
+          customElement.setAttribute('app-label', 'Documentation');
+          customElement.setAttribute('env', 'prod');
+          customElement.setAttribute('site-language', 'en');
+          customElement.setAttribute('blank-state', 'true');
+          document.body.appendChild(customElement);
+        }
+      });
+    });
+</script> 
+	<meta name="robots" content="all"/><meta name="description" content="Convolutional coding and Viterbi decoding."/><style>#localnav:has(.alert) { height:calc(44px + 36px); padding-top:36px; }
+			#localnav .alert { width: 100%; padding-top:2px; padding-right:5px; padding-bottom:2px; border-top:none; border-left:none; border-right:none; border-radius:0; display:flex; align-items:center; flex-direction:row; flex-wrap:nowrap; gap:7px; position:absolute; top:0; z-index:2;  }
+			#localnav .alert p { margin-bottom:0; }
+			#localnav .alert-dismissible .btn-close { margin-left:auto; position:relative; }</style><link rel="alternate" hreflang="x-default" href="https://www.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="de" href="https://de.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="en" href="https://www.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="es" href="https://la.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="fr" href="https://fr.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="it" href="https://it.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="ja" href="https://jp.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="ko" href="https://kr.mathworks.com/help/comm/ug/convolutional-codes.html"/>
+	<link rel="alternate" hreflang="zh" href="https://ww2.mathworks.cn/help/comm/ug/convolutional-codes.html"/></head>
+
+
+
+	<body id="template_offcanvas" class="site_lang_en templateservice offcanvas_fixed
+		  
+		  
+		  
+		  
+ 		  
+		  -has_usernav
+		  -is_full_header
+		  
+		  " data-cid="helpcenter">
+		<a class="skip_link visually-hidden-focusable" href="#main">Skip to content</a>
+
+		
+		
+
+
+	<div class="sticky-top" id="sticky_container">
+		
+
+	<header class="-has_matrix
+					 -has_mwa
+					 -has_store
+					 -has_topnav
+					 -has_subnav
+					 ">
+		<nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+			<div class="container-fluid container-lg">
+				<div class="d-lg-flex flex-row align-items-center" id="header_content_container">
+					<a class="navbar-brand d-inline-flex" href="/?s_tid=user_nav_logo">
+						
+						<img src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo-membrane.20260806155224309.svg" class="mw_logo" alt="MathWorks" width="34" height="30"/>
+					</a>
+
+					<div class="sectionHead sectionhead containsResourceName resourceClass-sectionhead">
+
+
+	<p class="d-inline-flex d-lg-none h1">
+		<a class="add_cursor_pointer" href="/help/?s_tid=user_nav_help">MATLAB Help Center</a>
+		
+	</p>
+	
+
+
+
+
+</div>
+
+
+					<div class="d-flex d-lg-none" id="global_mobile_actuator_container_search">
+						<button class="navbar-toggler btn collapsed" id="global_search_mobile_actuator" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#global_search_mobile" data-bs-target="#global_search_mobile" aria-controls="global_search_mobile" aria-expanded="false" aria-label="Toggle Search">
+							<span class="icon-search"></span>
+						</button>
+					</div>
+					<div class="navbar-collapse collapse" id="global_search_mobile">
+						<div id="global_search_mobile_placeholder"></div>
+						<div id="global_search_container">
+							<div class="sectionHeadSearchBox sectionheadsearchbox containsResourceName resourceClass-sectionheadsearchbox">
+
+	
+
+	
+		
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/sectionheadsearchbox/bs5.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+		
+		
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/typeahead.min.20260806155224309.css" type="text/css"/>
+
+
+
+		
+		
+		
+			
+		
+		<form name="search" id="site_search" class="site_search" action="/search/user-center" method="get" data-release="R2026b" data-language="en">
+			<div class="input-group">
+				<label id="search-mathworks" class="visually-hidden" for="query">Search or ask a question</label>
+				<input type="hidden" name="c[]" id="site_search_collection" value="usercenter" disabled=""/>
+				<input type="search" name="q" id="query" class="form-control conjoined_search" aria-autocomplete="list" autocomplete="off" role="combobox" aria-controls="search_suggestions" aria-haspopup="listbox" aria-expanded="true" aria-activedescendant="" placeholder="Search or ask a question" data-site-domain="www" data-site-language="en" data-typeahead-proxy-url="https://services.mathworks.com/typeahead" data-typeahead-type="basic" data-typeahead-result-count="10" data-label-suggestions="Suggestions" data-label-see-all-results="See all results" aria-labelledby="search-mathworks"/>
+				<button type="button" id="clearsearch" class="btn btn_color_blue btn-outline icon-remove visually-hidden-focusable" aria-label="Clear search"></button>
+				
+				
+				<button type="submit" id="searchbutton" class="btn btn_color_blue btn-outline icon-search" aria-label="Search"></button>
+			</div>
+		</form>
+	
+
+	
+
+</div>
+
+						</div>
+					</div>
+
+
+					<div class="d-flex d-lg-none" id="global_mobile_actuator_container_navigation">
+						<button class="navbar-toggler collapsed btn" id="global_navigation_mobile_actuator" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#global_navigation" data-bs-target="#global_navigation" aria-controls="global_navigation" aria-expanded="false" aria-label="Toggle Main Navigation">
+							<span class="icon-menu-full"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="global_navigation">
+						
+						<div class="topNavigation topnavigation containsResourceName resourceClass-topnavigation">
+
+
+
+	<ul class="navbar-nav flex-grow-1 align-items-lg-center mb-0">
+		
+		
+			<li class="nav-item dropdown" id="globalnav_item_helpcenter">
+				
+	
+	
+	
+
+	
+
+	<a class="nav-link active " href="/help/?s_tid=user_nav_help">
+
+		
+
+		
+			
+			MATLAB Help Center</a>
+
+		
+		
+	
+
+				
+			</li>
+		
+			<li class="nav-item dropdown" id="globalnav_item_community">
+				
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="/matlabcentral/?s_tid=user_nav_community">
+
+		
+
+		
+			
+			Community</a>
+
+		
+		
+	
+
+				
+			</li>
+		
+			<li class="nav-item dropdown" id="globalnav_item_learning">
+				
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="https://matlabacademy.mathworks.com/?s_tid=user_nav_learning">
+
+		
+
+		
+			
+			Learning</a>
+
+		
+		
+	
+
+				
+			</li>
+		
+
+		
+		<li class="nav-item  -alignment_lg_end" id="globalnav_item_matlab">
+			
+			
+
+			
+	
+	
+	
+
+	
+
+	<a class="not-logged-in btn btn_color_blue d-block d-lg-inline-flex " data-link="lead" data-offertype="trial" href="/campaigns/products/trials.html?prodcode=ML&amp;s_tid=user_nav_getml" style="display:none !important;">
+
+		
+
+		
+			
+			Get MATLAB</a>
+
+		
+		
+	
+
+			
+	
+	
+	
+
+	
+
+	<a class="logged-in btn btn_color_blue d-block d-lg-inline-flex " data-link="lead" data-offertype="trial" href="/campaigns/products/trials.html?prodcode=ML&amp;s_tid=user_nav_getml" style="display:none !important;">
+
+		
+
+		
+			
+			MATLAB</a>
+
+		
+		
+	
+
+
+		</li>
+
+		
+		
+			<li class="nav-item dropdown -alignment_lg_end" id="globalnav_item_mwa">
+				<a aria-label="Sign In to Your MathWorks Account" class="nav-link headernav_login mwa-nav_login" href="#" id="mwanav_item_login" style="display: none;">
+					Sign In
+				</a>
+
+				<a aria-expanded="false" class="nav-link headernav_logout dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" id="mwanav_actuator" role="button" style="display: none;" title="Access your MathWorks Account">
+					<span class="mwanav_avatar mwa_image_drop_down"></span>
+					<span class="mobile_account_name visually_hidden_xxl visually_hidden_xl visually_hidden_lg hidden-md hidden-lg"></span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-lg-end" id="mwanav_dropdown_menu">
+					<li id="mwanav_item_account"><a class="mwa-account dropdown-item">My Account</a></li>
+					<li id="mwanav_item_community"><a class="mwa-community-profile dropdown-item">My Community Profile</a></li>
+					<li id="mwanav_item_associate"><a class="mwa-link-license dropdown-item">Link License</a></li>
+					<li><hr class="dropdown-divider"/></li>
+					<li id="mwanav_item_logout"><a class="mwa-logout dropdown-item">Sign Out</a></li>
+				</ul>
+			</li>
+		
+
+		
+
+		
+
+		<li class="nav-item d-block d-lg-none" id="globalnav_item_mobile_cta_support">
+			
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="/support/contact_us.html" id="mobile_cta_support">
+
+		
+
+		
+			<span class="icon-phone"></span>
+			Contact MathWorks Support</a>
+
+		
+		
+	
+
+		</li>
+
+		<li class="nav-item d-block d-lg-none" id="globalnav_item_mobile_cta_corporate">
+			
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="/" id="mobile_cta_corporate">
+
+		
+
+		
+			<span class="icon-membrane"></span>
+			Visit mathworks.com</a>
+
+		
+		
+	
+
+		</li>
+
+		<li class="nav-item dropdown d-none d-lg-block -alignment_lg_end" id="globalnav_item_search">
+			<a aria-expanded="false" aria-label="Search" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" role="button"><span class="icon-search"></span></a>
+			<div class="dropdown-menu">
+				<div class="container-lg">
+					<div class="row align-items-center">
+						
+						
+							<div class="col">
+								<div id="global_search_desktop_placeholder"></div>
+							</div>
+						
+					</div>
+				</div>
+			</div>
+		</li>
+
+		<li class="nav-item d-none d-lg-block -alignment_lg_end" id="globalnav_item_matrix">
+			<mw-matrix lang="en" tier="DOTCOM" env="prod" bsversion="bs5" class="nav-link" host="https://www.mathworks.com"></mw-matrix>
+		</li>
+	</ul>
+
+
+	
+
+
+</div>
+
+					</div>
+				</div>
+
+				
+			</div>
+		</nav>
+	</header>
+
+
+
+		
+		
+		
+	</div>
+
+
+
+
+
+		
+<div id="offcanvas_container">
+	
+
+	<div class="collapse collapse-horizontal" id="offcanvas_menu" data-offcanvas-id="helpcenter-offcanvas">
+		<button class="btn collapsed" id="offcanvas_actuator" type="button" data-bs-toggle="collapse" data-bs-target="#offcanvas_menu" aria-expanded="false" aria-controls="offcanvas_menu">
+			<span class="icon-offcanvas-menu"><span class="visually-hidden">Off-Canvas Navigation Menu Toggle</span></span> <span class="offcanvas_actuator_label" aria-hidden="true">Contents</span>
+		</button>
+		<div id="offcanvas_menu_content"><nav class="offcanvas_nav" role="navigation">
+<div class="search_refine_v4 -presentation_browse">
+<div id="facets_area">
+<div class="personalization-container" id="web-application-offcanvas-container">
+<ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="nav_breadcrumb list-unstyled" id="ul_left_nav_ancestors">
+  <li itemscope="" itemtype="http://www.schema.org/ListItem" itemprop="itemListElement">
+	  <a href="/help/index.html?s_tid=CRUX_lftnav" itemprop="item">
+      <span itemprop="name">Documentation Home</span>
+		</a>
+    <meta itemprop="position" content="1"/>
+	</li>
+</ol>
+<ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="nav_breadcrumb list-unstyled" id="ul_left_nav_productgroups">
+<li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+	<a href="/help/overview/wireless-communications.html?s_tid=hc_product_group_bc" itemprop="item">
+    <span itemprop="name">Wireless Communications</span>
+	</a>
+  <meta itemprop="position" content="1"/>
+</li></ol><ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="nav_disambiguation list-unstyled"><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../index.html?s_tid=CRUX_lftnav" id="index" itemprop="item">
+              <span itemprop="name">Communications Toolbox</span>
+            </a>
+            <meta itemprop="position" content="1"/>
+					</li><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../comm-phy-components.html?s_tid=CRUX_lftnav" id="mw_091241f2-7dca-424e-b0d0-db9f2b8bd333" itemprop="item">
+              <span itemprop="name">PHY Components</span>
+            </a>
+            <meta itemprop="position" content="2"/>
+					</li><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../error-detection-and-correction.html?s_tid=CRUX_lftnav" id="error-detection-and-correction" itemprop="item">
+              <span itemprop="name">Error Detection and Correction</span>
+            </a>
+            <meta itemprop="position" content="3"/>
+					</li></ol><ul class="nav_scrollspy nav list-unstyled" id="nav_scrollspy" aria-label="On this page">
+	<li class="nav_scrollspy_function nav-item notranslate">
+    <a class="intrnllnk" href="#doc_center_content" style="color: inherit; text-decoration: none;">Convolutional Codes</a>
+	</li>
+
+<li class="nav_scrollspy_title" id="SSPY810-refentry">On this page</li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7421">Convolutional Code Features</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7431">Polynomial Description of a Convolutional Code</a><ul class="nav"><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7475">Constraint Lengths</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7480">Generator Polynomials</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7500">Feedback Connection Polynomials</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#mw_24939921-75e6-4155-87e7-5731beefed1b">Use Trellis Structure for Rate 1/2 Feedback Convolutional Encoder</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7554">Using the Polynomial Description in MATLAB</a></li></ul></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7566">Trellis Description of a Convolutional Code</a><ul class="nav"><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7623">Specifying a Trellis in MATLAB</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7674">How to Create a MATLAB Trellis Structure</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7691">Example: A MATLAB Trellis Structure</a></li></ul></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7752dup3">Create and Decode Convolutional Codes</a><ul class="nav"><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7755">Encoding</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7763">Hard-Decision Decoding</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7771">Soft-Decision Decoding</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#mw_e25a35a2-5c98-451d-9a23-028ecca17b35">Implement Soft-Decision Decoding Using MATLAB</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp88369a">Implement Soft-Decision Decoding Using Simulink</a></li></ul></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7855">Design a Rate-2/3 Feedforward Encoder Using MATLAB</a><ul class="nav"><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7929">Determining Coding Parameters</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7936">Using the Encoder</a></li></ul></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp74876">Design a Rate 2/3 Feedforward Encoder Using Simulink</a><ul class="nav"><li class="nav-item"><a class="intrnllnk nav-link" href="#fp74952">How to Determine Coding Parameters</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp74957">How to Simulate the Encoder</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp74986">Notes on the Model</a></li></ul></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7950">Puncture a Convolutional Code Using MATLAB</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp88262">Implement a Systematic Encoder with Feedback Using Simulink</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp88369">Soft-Decision Decoding</a><ul class="nav"><li class="nav-item"><a class="intrnllnk nav-link" href="#fp81765">Overview of the Simulation</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp81778">Defining the Convolutional Code</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp81912">Mapping the Received Data</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp81957">Decoding the Convolutional Code</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp82190">Delay in Received Data</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp82333">Comparing Simulation Results with Theoretical Results</a></li></ul></li><li class="nav-item"><a class="intrnllnk nav-link" href="#bruue2m">Tailbiting Encoding Using Feedback Encoders</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#fp7977dup4">Selected Bibliography for Convolutional Coding</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#seealsoref">See Also</a></li></ul></div>
+</div>
+</div>
+</nav>
+			<div class="sidebar parsys containsResourceName resourceClass-parsys"><div class="targetcontainer containsResourceName resourceClass-targetcontainer section">
+
+
+
+<div class="personalization-container " id="web-application-offcanvas-container">
+	<div><div class="targetContent parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+</div></div>
+
+</div>
+
+		</div>
+		
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/offcanvasv5.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+	</div>
+
+
+	<div id="offcanvas_body_container">
+		<div id="offcanvas_body" class=" -has_stickynav">
+			
+			<div class="introParsys parsys containsResourceName resourceClass-parsys">
+</div>
+
+			<div class="content_container p-0" id="content_container">
+				<div class="container-fluid container-lg">
+					<div class="row">
+						<div class="col" id="offcanvas_fixed_menu_container"> </div>
+						<div class="col" id="offcanvas_content_container">
+							
+
+	
+	<div class="localnav" id="localnav">
+		<div class="localnav_container">
+			<div class="container-fluid container-lg">
+				<div class="row">
+					<div class="col-12">
+						<nav class="navbar navbar-expand-lg" aria-label="Local Navigation">
+							<button class="navbar-toggler" type="button" id="localnav_actuator" data-toggle="collapse" data-bs-toggle="collapse" data-target="#local_navigation" data-bs-target="#local_navigation" aria-controls="localnav" aria-expanded="false" aria-label="Toggle navigation"><span class="icon-kebab"></span></button>
+							<div class="collapse navbar-collapse" id="local_navigation">
+								<div class="localNavigation localnav containsResourceName resourceClass-localnav">
+
+
+
+	
+	<ul class="navbar-nav  crux_resource_list crux_browse" id="localnav_navbar">
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_documentation">
+		<a class="nav-link active" data-id="" href="/help/comm/error-detection-and-correction.html?s_tid=CRUX_topnav">
+			Documentation
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_examples">
+		<a class="nav-link " data-id="" href="/help/comm/examples.html?s_tid=CRUX_topnav&amp;category=error-detection-and-correction">
+			Examples
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_function">
+		<a class="nav-link " data-id="" href="/help/comm/referencelist.html?type=function&amp;s_tid=CRUX_topnav&amp;category=error-detection-and-correction">
+			Functions
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_block">
+		<a class="nav-link " data-id="" href="/help/comm/referencelist.html?type=block&amp;s_tid=CRUX_topnav&amp;category=error-detection-and-correction">
+			Blocks
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_app">
+		<a class="nav-link " data-id="" href="/help/comm/referencelist.html?type=app&amp;s_tid=CRUX_topnav&amp;category=error-detection-and-correction">
+			Apps
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_video">
+		<a class="nav-link " data-id="" href="/support/search.html?fq%5B%5D=asset_type_name:video&amp;fq%5B%5D=category:comm/error-detection-and-correction&amp;page=1&amp;s_tid=CRUX_topnav">
+			Videos
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_answers">
+		<a class="nav-link " data-id="" href="/support/search.html?fq%5B%5D=asset_type_name:answer&amp;fq%5B%5D=category:comm/error-detection-and-correction&amp;page=1&amp;s_tid=CRUX_topnav">
+			Answers
+	    </a>
+	</li>
+</ul>
+
+
+
+
+</div>
+
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+							<div id="offcanvas_focus_actuator" tabindex="0" class="d-block d-md-none"><span class="visually-hidden">Main Content</span></div>
+							
+
+<main id="main" tabindex="-1">
+	
+	<section><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+
+<style>
+#global_search_container > .sectionHeadSearchBox:has(#suggestions) { 
+    align-items: flex-end;
+    
+    #search_scope_doc { width:100%; max-width:540px; }
+}
+</style>
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+
+<style>
+@media (max-width:991.98px) {
+
+    #localnav .nav-item:not(:first-child) .nav-link { padding-left:24px !important; }
+    #localnav .dropdown-menu .dropdown-item { padding-left:calc(var(--bs-dropdown-item-padding-x) * 3); }
+
+}
+</style>
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+	
+	
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/akamai.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/enhancedchat.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+
+<style>
+@media (max-width: 991.98px) {
+    #localnav_actuator { width:auto !important; padding-left:10px !important; display: flex !important; align-items:center !important; flex-direction: row-reverse !important; justify-content:center !important; }
+    #localnav_actuator:after { padding-right:5px; content:"Resources"; font-size:14px; white-space:nowrap; }
+    #localnav_actuator .icon-kebab { position:relative; top:-1px; }
+    #localnav_actuator .icon-kebab:before { content: "\e60f" !important; font-size:16px; }
+}
+</style>
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+	
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/mathworks-aem.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/searchrefine.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/panel.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/card.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/search.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+	
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/form.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/nuggets.min.20260806155224309.css" type="text/css"/>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/handlebars.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/nuggets.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+	
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+    
+
+
+
+	
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/accordion.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/alert.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/band.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/blockquote.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/image.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/inpagenav.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/table.min.20260806155224309.css" type="text/css"/>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/accordion.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/panel.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+	
+	
+
+
+
+</div>
+<div class="targetcontainer containsResourceName resourceClass-targetcontainer section">
+
+
+
+<div class="personalization-container " id="web-application-body-container">
+
+
+
+
+
+
+<section xmlns="http://www.w3.org/1999/xhtml" id="doc_center_content" itemprop="content" lang="en" data-language="en" data-bs-spy="scroll" data-bs-target="#nav_scrollspy"><div id="pgtype-topic">
+<section><div class="d-flex justify-content-between align-items-baseline title_with_release_mark"><h1 class="title r2026b" itemprop="title content" id="fp7405">Convolutional Codes</h1><span class="add_font_release_mark"><strong>R</strong>2026<strong>b</strong></span></div><span id="comm_convcoding" class="anchor_target"></span><p>Convolutional coding is a type of error-control coding distinguished by its use of
+            memory, in contrast to block coders, which are memoryless. Although a convolutional
+            coder processes a fixed number of input message symbols and generates a fixed number of
+            output code symbols, its computations depend not only on the current input symbols but
+            also on some of the previous input symbols.</p><p>Communications Toolbox™ provides convolutional coding capabilities as MATLAB<sup>®</sup> functions and System objects, and Simulink<sup>®</sup> blocks. The features support feedforward and feedback convolutional codes
+            that can be described by a trellis structure or a set of generator polynomials and use
+            the Viterbi algorithm to implement hard-decision and soft-decision decoding. The
+            software also includes an <span class="emphasis"><em>a posteriori</em></span> probability decoder, which
+            can be used for soft output decoding of convolutional codes.</p><p>Use these features to generate various convolutional codes.</p>
+<div class="table-responsive"><table class="table table-condensed"><colgroup><col class="tcol1" width="25%"/><col class="tcol2" width="25%"/><col class="tcol3" width="25%"/><col class="tcol4" width="25%"/></colgroup><thead><tr><th> </th><th>Functions</th><th>System objects</th><th>Blocks</th></tr></thead><tbody><tr><td>Convolutional</td><td><p><a href="../ref/convenc.html"><code class="function">convenc</code></a>,
+                                        <a href="../ref/vitdec.html"><code class="function">vitdec</code></a></p></td><td><p><a href="../ref/comm.appdecoder-system-object.html"><code class="object">comm.APPDecoder</code></a>,
+                                        <a href="../ref/comm.convolutionalencoder-system-object.html"><code class="object">comm.ConvolutionalEncoder</code></a>, <a href="../ref/comm.gpu.convolutionalencoder-system-object.html"><code class="object">comm.gpu.ConvolutionalEncoder</code></a>, <a href="../ref/comm.viterbidecoder-system-object.html"><code class="object">comm.ViterbiDecoder</code></a></p></td><td><p><a href="../ref/appdecoder.html"><span class="block">APP Decoder</span></a>, <a href="../ref/convolutionalencoder.html"><span class="block">Convolutional
+                                    Encoder</span></a>, <a href="../ref/viterbidecoder.html"><span class="block">Viterbi
+                                Decoder</span></a></p></td></tr><tr><td>Concatenated</td><td><p>—</p></td><td><p><a href="../ref/comm.turboencoder-system-object.html"><code class="object">comm.TurboEncoder</code></a>,
+                                        <a href="../ref/comm.turbodecoder-system-object.html"><code class="object">comm.TurboDecoder</code></a>,
+                                        <a href="../ref/comm.gpu.turbodecoder-system-object.html"><code class="object">comm.gpu.TurboDecoder</code></a>, </p></td><td><p><a href="../ref/turboencoder.html"><span class="block">Turbo Encoder</span></a>,
+                                        <a href="../ref/turbodecoder.html"><span class="block">Turbo
+                                Decoder</span></a></p></td></tr><tr><td>Utilities</td><td><p><a href="../ref/distspec.html"><code class="function">distspec</code></a>,
+                                        <a href="../ref/getturboioindices.html"><code class="function">getTurboIOIndices</code></a>, <a href="../ref/iscatastrophic.html"><code class="function">iscatastrophic</code></a>,
+                                        <a href="../ref/istrellis.html"><code class="function">istrellis</code></a>,
+                                        <a href="../ref/oct2dec.html"><code class="function">oct2dec</code></a>, <a href="../ref/poly2trellis.html"><code class="function">poly2trellis</code></a></p></td><td><p>—</p></td><td><p>—</p></td></tr></tbody></table></div><p>
+</p><p>For background information about convolutional coding, see the works listed in <a class="intrnllnk" href="convolutional-codes.html#fp7977dup4">Selected Bibliography for
+                Convolutional Coding</a>.</p><section><h3 class="title" id="fp7421">Convolutional Code Features</h3><p><strong class="emphasis bold">Block Parameters for Convolutional Coding</strong></p><p>To process convolutional codes, use the <a href="../ref/convolutionalencoder.html"><span class="block">Convolutional Encoder</span></a>, <a href="../ref/viterbidecoder.html"><span class="block">Viterbi Decoder</span></a>, and/or <a href="../ref/appdecoder.html"><span class="block">APP Decoder</span></a> blocks in the Convolutional sublibrary. If a mask parameter
+                is required in both the encoder and the decoder, use the same value in both
+                blocks.</p><p>The blocks in the Convolutional sublibrary assume that you use one of two
+                different representations of a convolutional encoder:</p><div class="itemizedlist"><ul><li><p>If you design your encoder using a diagram with shift registers and
+                        modulo-2 adders, you can compute the code generator polynomial matrix and
+                        subsequently use the <a href="../ref/poly2trellis.html"><code class="function">poly2trellis</code></a> function (in
+                            Communications Toolbox) to generate the corresponding trellis structure mask
+                        parameter automatically. For an example, see <a class="intrnllnk" href="convolutional-codes.html#fp74876">Design a Rate 2/3 Feedforward Encoder Using Simulink</a>.</p></li><li><p>If you design your encoder using a trellis diagram, you can construct the
+                        trellis structure in MATLAB and use it as the mask parameter.</p></li></ul></div><p>For more information about these representations, see <a class="intrnllnk" href="convolutional-codes.html#fp7431">Polynomial Description
+                    of a Convolutional Code</a> and <a class="intrnllnk" href="convolutional-codes.html#fp7566">Trellis Description of a
+                    Convolutional Code</a>.</p><p><strong class="emphasis bold">Using the Polynomial Description in Blocks</strong></p><p>To use the polynomial description with the <a href="../ref/convolutionalencoder.html"><span class="block">Convolutional Encoder</span></a>, <a href="../ref/viterbidecoder.html"><span class="block">Viterbi Decoder</span></a>, or <a href="../ref/appdecoder.html"><span class="block">APP Decoder</span></a> blocks, use the utility function <a href="../ref/poly2trellis.html"><code class="function">poly2trellis</code></a> from Communications Toolbox. This function accepts a polynomial description and converts it into a
+                trellis description. For example, the following command computes the trellis
+                description of an encoder whose constraint length is 5 and whose generator
+                polynomials are 35 and 31:</p><div class="code_responsive" translate="no"><pre class="programlisting">trellis = poly2trellis(5,[35 31]);
+</pre></div><p>To use this encoder with one of the convolutional-coding blocks, simply place a
+                    <code class="literal">poly2trellis</code> command such as</p><div class="code_responsive" translate="no"><pre class="programlisting">poly2trellis(5,[35 31]);
+</pre></div><p>in the <strong class="guilabel">Trellis structure</strong> parameter field.</p></section><section><h3 class="title" id="fp7431">Polynomial Description of a Convolutional Code</h3><span id="comm_conv_polynomial" class="anchor_target"></span><p>A polynomial description of a convolutional encoder describes the connections
+                among shift registers and modulo 2 adders. For example, the figure below depicts a
+                feedforward convolutional encoder that has one input, two outputs, and two shift
+                registers.</p><div class="informalfigure"><div id="d127e7669" class="mediaobject"><p><img src="simpleconvcode.png" alt="Feedforward convolutional encoder with one input, two outputs, and two shift registers." height="248" width="334"/></p></div></div><p>A polynomial description of a convolutional encoder has either two or three
+                components, depending on whether the encoder is a feedforward or feedback
+                type:</p><div class="itemizedlist"><ul><li><p>
+                        <a class="intrnllnk" href="convolutional-codes.html#fp7475">Constraint
+                            lengths</a>
+                    </p></li><li><p>
+                        <a class="intrnllnk" href="convolutional-codes.html#fp7480">Generator
+                            polynomials</a>
+                    </p></li><li><p><a class="intrnllnk" href="convolutional-codes.html#fp7500">Feedback connection
+                            polynomials</a> (for feedback encoders only)</p></li></ul></div><section><h4 class="title" id="fp7475">Constraint Lengths</h4><p>The constraint lengths of the encoder form a vector whose length is the number
+                    of inputs in the encoder diagram. The elements of this vector indicate the
+                    number of bits stored in each shift register, <span class="emphasis"><em>including</em></span> the
+                    current input bits.</p><p>In the figure above, the constraint length is three. It is a scalar because
+                    the encoder has one input stream, and its value is one plus the number of shift
+                    registers for that input.</p></section><section><h4 class="title" id="fp7480">Generator Polynomials</h4><p>If the encoder diagram has k inputs and n outputs, the code generator matrix
+                    is a k-by-n matrix. The element in the ith row and jth column indicates how the
+                    ith input contributes to the jth output.</p><p>For <span class="emphasis"><em>systematic</em></span> bits of a systematic feedback encoder,
+                    match the entry in the code generator matrix with the corresponding element of
+                    the feedback connection vector. See <a class="intrnllnk" href="convolutional-codes.html#fp7500">Feedback Connection Polynomials</a> below for details.</p><p>In other situations, you can determine the (i,j) entry in the matrix as
+                    follows:</p><div class="orderedlist"><ol style="list-style: decimal;"><li><p>Build a binary number representation by placing a 1 in each spot where
+                            a connection line from the shift register feeds into the adder, and a 0
+                            elsewhere. The leftmost spot in the binary number represents the current
+                            input, while the rightmost spot represents the oldest input that still
+                            remains in the shift register.</p></li><li><p>Convert this binary representation into an octal representation by
+                            considering consecutive triplets of bits, starting from the rightmost
+                            bit. The rightmost bit in each triplet is the least significant. If the
+                            number of bits is not a multiple of three, place zero bits at the left
+                            end as necessary. (For example, interpret 1101010 as 001 101 010 and
+                            convert it to 152.)</p></li></ol></div><p>For example, the binary numbers corresponding to the upper and lower adders in
+                    the figure above are 110 and 111, respectively. These binary numbers are
+                    equivalent to the octal numbers 6 and 7, respectively, so the generator
+                    polynomial matrix is [6 7].</p><div class="alert alert-info d-inline-block"><span class="alert_icon icon-alert-info-reverse"></span><p class="alert_heading"><strong>Note</strong></p><p>You can perform the binary-to-octal conversion in MATLAB by using code like
+                            <code class="literal">str2num(dec2base(bin2dec(&#39;110&#39;),8))</code>.</p></div><p>For a table of some good convolutional code generators, refer to <a class="a" href="block-codes.html#fp7396">[2]</a> in the section <a class="a" href="block-codes.html#fp7394">Selected Bibliography for Block Coding</a>, especially that book&#39;s
+                    appendices.</p></section><section><h4 class="title" id="fp7500">Feedback Connection Polynomials</h4><p>If you are representing a feedback encoder, you need a vector of feedback
+                    connection polynomials. The length of this vector is the number of inputs in the
+                    encoder diagram. The elements of this vector indicate the feedback connection
+                    for each input, using an octal format. First build a binary number
+                    representation as in step 1 above. Then convert the binary representation into
+                    an octal representation as in step 2 above.</p><p>If the encoder has a feedback configuration and is also systematic, the code
+                    generator and feedback connection parameters corresponding to the systematic
+                    bits must have the same values.</p></section><section><h4 class="title" id="mw_24939921-75e6-4155-87e7-5731beefed1b">Use Trellis Structure for Rate 1/2 Feedback Convolutional Encoder</h4><div class="examples_short_list hidden_ios_android" data-products="ML CM"><div data-pane="metadata" class="card metadata_container"><div class="card-body metadata_content"><div class="d-grid"><a class="btn btn_color_blue" data-ex-genre="Live Script" href="matlab:openExample(&#39;comm/TrellisStructureFor12FeedbackConvolutionalEncoderExample&#39;)">Open Live Script</a></div></div></div></div><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "DigitalDocument",
+          "headline": "Use Trellis Structure for Rate 1/2 Feedback Convolutional Encoder",
+          "description": "Create a trellis structure to represent the rate 1/2 systematic convolutional encoder with feedback shown in this diagram.",
+          "thumbnailURL": "../../examples/comm/TrellisStructureFor12FeedbackConvolutionalEncoderExample_01.png",
+          "genre": "Live Script",
+          "isPartOf": {
+          "@type": "CreativeWork",
+          "url": "convolutional-codes.html"
+
+        },
+          "identifier": "comm.TrellisStructureFor12FeedbackConvolutionalEncoderExample",
+          "name": "TrellisStructureFor12FeedbackConvolutionalEncoderExample",
+          "url": "convolutional-codes.html#mw_24939921-75e6-4155-87e7-5731beefed1b"
+
+        }</script><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "PropertyValue",
+          "name": "open_command",
+          "value": "matlab:openExample('comm/TrellisStructureFor12FeedbackConvolutionalEncoderExample')"
+
+        }</script><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "ItemList",
+          "name": "ExampleSourceFiles",
+
+        "itemListElement":
+        [
+        "TrellisStructureFor12FeedbackConvolutionalEncoderExample.m",
+        "feedbackconvcode.png"
+        ],
+        "itemListOrder": "http://schema.org/ItemListOrderAscending"
+        }
+        </script><div itemscope="" itemtype="http://www.mathworks.com/help/schema/MathWorksDocPage/Example" itemprop="example" class="em_example"><meta itemprop="exampleid" content="comm-TrellisStructureFor12FeedbackConvolutionalEncoderExample"/><meta itemprop="exampletitle" content="Use Trellis Structure for Rate 1/2 Feedback Convolutional Encoder"/></div><span id="TrellisStructureFor12FeedbackConvolutionalEncoderExample" class="anchor_target"></span><p class="shortdesc">Create a trellis structure to represent the rate 1/2 systematic convolutional encoder with feedback shown in this diagram.</p><div class="informalfigure"><div id="d127e7754" class="mediaobject"><p><img src="../../examples/comm/TrellisStructureFor12FeedbackConvolutionalEncoderExample_01.png" alt="Rate 1/2 systematic convolutional encoder with feedback." height="124" width="320"/></p></div></div><p>This encoder has 5 for its constraint length, [37 33] as its generator polynomial matrix, and 37 for its feedback connection polynomial. </p><p>The first generator polynomial is octal 37. The second generator polynomial is octal 33. The feedback polynomial is octal 37. The first generator polynomial matches the feedback connection polynomial because the first output corresponds to the systematic bits.</p><p>The binary vector [1 1 1 1 1] represents octal 37 and corresponds to the upper row of binary digits in the diagram. The binary vector [1 1 0 1 1] represents octal 33 and corresponds to the lower row of binary digits in the diagram. These binary digits indicate connections from the outputs of the registers to the two adders in the diagram. The initial 1 corresponds to the input bit.</p><p>Convert the polynomial to a trellis structure by using the <code class="literal">poly2trellis</code> function. When used with a feedback polynomial, <code class="literal">poly2trellis</code> makes a feedback connection to the input of the trellis.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>trellis = poly2trellis(5,[37 33],37)</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeoutput"><pre>trellis = <span class="emphasis"><em>struct with fields:</em></span>
+     numInputSymbols: 2
+    numOutputSymbols: 4
+           numStates: 16
+          nextStates: [16×2 double]
+             outputs: [16×2 double]
+
+</pre></div></div></div><p>Generate random binary data. Convolutionally encode the data by using the specified trellis structure. Decode the coded data by using the Viterbi algorithm with the specified trellis structure, 34 for its traceback depth, truncated operation mode, and hard decisions.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>data = randi([0 1],70,1);
+codedData = convenc(data,trellis);
+tbdepth = 34; <span style="color:var(--mw-color-matlabComment)">% Traceback depth for Viterbi decoder</span>
+decodedData = vitdec(codedData,trellis,tbdepth,<span style="color:var(--mw-color-matlabString)">&#39;trunc&#39;</span>,<span style="color:var(--mw-color-matlabString)">&#39;hard&#39;</span>);</pre></div></div></div><p>Verify the decoded data has zero bit errors.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>biterr(data,decodedData)</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeoutput"><pre>ans = 
+0
+</pre></div></div></div><div class="procedure"></div></section><section><h4 class="title" id="fp7554">Using the Polynomial Description in MATLAB</h4><p>To use the polynomial description with the <a href="../ref/convenc.html"><code class="function">convenc</code></a> and <a href="../ref/vitdec.html"><code class="function">vitdec</code></a> functions, first convert
+                    the polynomial into a trellis description by using the <a href="../ref/poly2trellis.html"><code class="function">poly2trellis</code></a> function. For
+                    example, the command below computes the trellis description of the encoder
+                    pictured in the section <a class="intrnllnk" href="convolutional-codes.html#fp7431">Polynomial
+                        Description of a Convolutional Code</a>.</p><div class="code_responsive" translate="no"><pre class="programlisting">trellis = poly2trellis(3,[6 7]);</pre></div><p>The MATLAB structure <code class="function">trellis</code> is a suitable input
+                    argument for <code class="function">convenc</code> and
+                    <code class="function">vitdec</code>.</p></section></section><section><h3 class="title" id="fp7566">Trellis Description of a Convolutional Code</h3><span id="comm_conv_trellis" class="anchor_target"></span><p>A trellis description of a convolutional encoder shows how each possible input to
+                the encoder influences both the output and the state transitions of the encoder.
+                This section describes trellises, and <a class="intrnllnk" href="convolutional-codes.html#fp7623">how to represent</a>
+                trellises in MATLAB, and gives an <a class="intrnllnk" href="convolutional-codes.html#fp7691">example of a MATLAB
+                    trellis</a>.</p><p>The figure below depicts a trellis for the convolutional encoder from the previous
+                section. The encoder has four states (numbered in binary from 00 to 11), a one-bit
+                input, and a two-bit output. (The ratio of input bits to output bits makes this
+                encoder a rate-1/2 encoder.) Each solid arrow shows how the encoder changes its
+                state if the current input is zero, and each dashed arrow shows how the encoder
+                changes its state if the current input is one. The octal numbers above each arrow
+                indicate the current output of the encoder.</p><div class="informalfigure"><div id="d127e7830" class="mediaobject"><p><img src="trellis.png" alt="Trellis state diagram for the convolutional encoder from the previous section." height="384" width="415"/></p></div></div><p>As an example of interpreting this trellis diagram, if the encoder is in the 10
+                state and receives an input of zero, it outputs the code symbol 3 and changes to the
+                01 state. If it is in the 10 state and receives an input of one, it outputs the code
+                symbol 0 and changes to the 11 state.</p><p>Note that any polynomial description of a convolutional encoder is equivalent to
+                some trellis description, although some trellises have no corresponding polynomial
+                descriptions.</p><section><h4 class="title" id="fp7623">Specifying a Trellis in MATLAB</h4><p>To specify a trellis in MATLAB, use a specific form of a MATLAB structure called a trellis structure. A trellis structure must
+                    have five fields, as in the table below. </p>
+<div itemprop="content" id="fp7630" class="table_class"><p class="title"><strong class="title">Fields of a Trellis Structure for a Rate k/n Code</strong></p><div class="table-responsive"><table class="table table-condensed" summary="Fields of a Trellis Structure for a Rate k/n Code"><colgroup><col class="tcol1" width="33%"/><col class="tcol2" width="33%"/><col class="tcol3" width="33%"/></colgroup><thead><tr><th>Field in Trellis
+                                        Structure</th><th>Dimensions</th><th>Meaning</th></tr></thead><tbody><tr><td><code class="literal">numInputSymbols</code>
+                                    </td><td>Scalar </td><td>Number of input symbols to the
+                                        encoder: 2<sup>k</sup>
+                                    </td></tr><tr><td><code class="literal">numOutputsymbols</code>
+                                    </td><td>Scalar </td><td>Number of output symbols from the
+                                        encoder: 2<sup>n</sup>
+                                    </td></tr><tr><td><code class="literal">numStates</code>
+                                    </td><td>Scalar </td><td>Number of states in the encoder
+                                    </td></tr><tr><td><code class="literal">nextStates</code>
+                                    </td><td><code class="literal">numStates</code>-by-2<sup>k</sup>
+                                        matrix </td><td>Next states for all combinations of
+                                        current state and current input </td></tr><tr><td><code class="literal">outputs</code>
+                                    </td><td><code class="literal">numStates</code>-by-2<sup>k</sup>
+                                        matrix </td><td>Outputs (in octal) for all
+                                        combinations of current state and current input </td></tr></tbody></table></div></div><p>
+
+                </p><div class="alert alert-info d-inline-block"><span class="alert_icon icon-alert-info-reverse"></span><p class="alert_heading"><strong>Note</strong></p><p>While your trellis structure can have any name, its fields must have the
+                            <span class="emphasis"><em>exact</em></span> names as in the table. Field names are case
+                        sensitive.</p></div><p>In the <code class="literal">nextStates</code> matrix, each entry is an integer between
+                    0 and <code class="literal">numStates</code>-1. The element in the ith row and jth column
+                    denotes the next state when the starting state is i-1 and the input bits have
+                    decimal representation j-1. To convert the input bits to a decimal value, use
+                    the first input bit as the most significant bit (MSB). For example, the second
+                    column of the <code class="literal">nextStates</code> matrix stores the next states when
+                    the current set of input values is {0,...,0,1}. To learn how to assign numbers
+                    to states, see the reference page for <a href="../ref/istrellis.html"><code class="function">istrellis</code></a>.</p><p>In the <code class="literal">outputs</code> matrix, the element in the ith row and jth
+                    column denotes the encoder&#39;s output when the starting state is i-1 and the input
+                    bits have decimal representation j-1. To convert to decimal value, use the first
+                    output bit as the MSB.</p></section><section><h4 class="title" id="fp7674">How to Create a MATLAB Trellis Structure</h4><p>Once you know what information you want to put into each field, you can create
+                    a trellis structure in any of these ways:</p><div class="itemizedlist"><ul><li><p>Define each of the five fields individually, using
+                                <code class="literal">structurename.fieldname</code> notation. For example,
+                            set the first field of a structure called <code class="literal">s</code> using the
+                            command below. Use additional commands to define the other
+                            fields.</p><div class="code_responsive" translate="no"><pre class="programlisting">s.numInputSymbols = 2;
+</pre></div><p>The reference page for the <a href="../ref/istrellis.html"><code class="function">istrellis</code></a> function
+                            illustrates this approach.</p></li><li><p>Collect all field names and their values in a single
+                                <code class="function">struct</code> command. For example:</p><div class="code_responsive" translate="no"><pre class="programlisting">s = struct(&#39;numInputSymbols&#39;,2,&#39;numOutputSymbols&#39;,2,...
+   &#39;numStates&#39;,2,&#39;nextStates&#39;,[0 1;0 1],&#39;outputs&#39;,[0 0;1 1]);
+</pre></div></li><li><p>Start with a polynomial description of the encoder and use the
+                                <code class="function">poly2trellis</code> function to convert it to a valid
+                            trellis structure. For more information , see <a class="intrnllnk" href="convolutional-codes.html#fp7431">Polynomial
+                                Description of a Convolutional Code</a>.</p></li></ul></div><p>To check whether your structure is a valid trellis structure, use the
+                        <code class="function">istrellis</code> function.</p></section><section><h4 class="title" id="fp7691">Example: A MATLAB Trellis Structure</h4><p>Consider the trellis shown below.</p><div class="informalfigure"><div id="d127e7971" class="mediaobject"><p><img src="trellis.png" alt="Trellis state diagram." height="384" width="415"/></p></div></div><p>To build a trellis structure that describes it, use the command below.</p><div class="code_responsive" translate="no"><pre class="programlisting">trellis = struct(<span style="color:var(--mw-color-matlabString)">&#39;numInputSymbols&#39;</span>,2,<span style="color:var(--mw-color-matlabString)">&#39;numOutputSymbols&#39;</span>,4,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+<span style="color:var(--mw-color-matlabString)">&#39;numStates&#39;</span>,4,<span style="color:var(--mw-color-matlabString)">&#39;nextStates&#39;</span>,[0 2;0 2;1 3;1 3],<span style="color:var(--mw-color-matlabKeyword)">...</span>
+<span style="color:var(--mw-color-matlabString)">&#39;outputs&#39;</span>,[0 3;1 2;3 0;2 1]);</pre></div><p>The number of input symbols is 2 because the trellis diagram has two types of
+                    input path: the solid arrow and the dashed arrow. The number of output symbols
+                    is 4 because the numbers above the arrows can be either 0, 1, 2, or 3. The
+                    number of states is 4 because there are four bullets on the left side of the
+                    trellis diagram (equivalently, four on the right side). To compute the matrix of
+                    next states, create a matrix whose rows correspond to the four current states on
+                    the left side of the trellis, whose columns correspond to the inputs of 0 and 1,
+                    and whose elements give the next states at the end of the arrows on the right
+                    side of the trellis. To compute the matrix of outputs, create a matrix whose
+                    rows and columns are as in the next states matrix, but whose elements give the
+                    octal outputs shown above the arrows in the trellis.</p></section></section><section><h3 class="title" id="fp7752dup3">Create and Decode Convolutional Codes</h3><p>The functions for encoding and decoding convolutional codes are
+                    <code class="function">convenc</code> and <code class="function">vitdec</code>. This section
+                discusses using these functions to create and decode convolutional codes.</p><section><h4 class="title" id="fp7755">Encoding</h4><p>A simple way to use <code class="function">convenc</code> to create a convolutional
+                    code is shown in the commands below.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre><span style="color:var(--mw-color-matlabComment)">% Define a trellis.</span>
+t = poly2trellis([4 3],[4 5 17;7 4 2]);
+<span style="color:var(--mw-color-matlabComment)">% Encode a vector of ones.</span>
+x = ones(100,1);
+code = convenc(x,t);</pre></div></div></div><p>The first command converts a polynomial description of a feedforward
+                    convolutional encoder to the corresponding trellis description. The second
+                    command encodes 100 bits, or 50 two-bit symbols. Because the code rate in this
+                    example is 2/3, the output vector <code class="literal">code</code> contains 150 bits
+                    (that is, 100 input bits times 3/2).</p><p>To check whether your trellis corresponds to a catastrophic convolutional
+                    code, use the <code class="function">iscatastrophic</code> function.</p></section><section><h4 class="title" id="fp7763">Hard-Decision Decoding</h4><p>To decode using hard decisions, use the <code class="function">vitdec</code> function
+                    with the flag <code class="literal">&#39;hard&#39;</code> and with <span class="emphasis"><em>binary</em></span>
+                    input data. Because the output of <code class="function">convenc</code> is binary,
+                    hard-decision decoding can use the output of <code class="function">convenc</code>
+                    directly, without additional processing. This example extends the previous
+                    example and implements hard-decision decoding.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>Define <span style="color:var(--mw-color-matlabString)">a</span> <span style="color:var(--mw-color-matlabString)">trellis.</span>
+
+t = poly2trellis([4 3],[4 5 17;7 4 2]);
+Encode <span style="color:var(--mw-color-matlabString)">a</span> <span style="color:var(--mw-color-matlabString)">vector</span> <span style="color:var(--mw-color-matlabString)">of</span> <span style="color:var(--mw-color-matlabString)">ones.</span>
+
+code = convenc(ones(100,1),t);
+Set <span style="color:var(--mw-color-matlabString)">the</span> <span style="color:var(--mw-color-matlabString)">traceback</span> <span style="color:var(--mw-color-matlabString)">length</span> <span style="color:var(--mw-color-matlabString)">for</span> <span style="color:var(--mw-color-matlabString)">decoding</span> <span style="color:var(--mw-color-matlabString)">and</span> <span style="color:var(--mw-color-matlabString)">decode</span> <span style="color:var(--mw-color-matlabString)">using</span> <span style="color:var(--mw-color-matlabString)">vitdec.</span>
+
+tb = 2;
+decoded = vitdec(code,t,tb,<span style="color:var(--mw-color-matlabString)">&#39;trunc&#39;</span>,<span style="color:var(--mw-color-matlabString)">&#39;hard&#39;</span>);
+Verify <span style="color:var(--mw-color-matlabString)">that</span> <span style="color:var(--mw-color-matlabString)">the</span> <span style="color:var(--mw-color-matlabString)">decoded</span> <span style="color:var(--mw-color-matlabString)">data</span> <span style="color:var(--mw-color-matlabString)">is</span> <span style="color:var(--mw-color-matlabString)">a</span> <span style="color:var(--mw-color-matlabString)">vector</span> <span style="color:var(--mw-color-matlabString)">of</span> <span style="color:var(--mw-color-matlabString)">100</span> <span style="color:var(--mw-color-matlabString)">ones.</span>
+
+isequal(decoded,ones(100,1))
+</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeoutput"><pre>ans = logical
+   1</pre></div></div></div></section><section><h4 class="title" id="fp7771">Soft-Decision Decoding</h4><p>To decode using soft decisions, use the <code class="function">vitdec</code> function
+                    with the flag <code class="literal">&#39;soft&#39;</code>. Specify the number,
+                        <code class="literal">nsdec</code>, of soft-decision bits and use input data
+                    consisting of integers between 0 and <code class="literal">2^nsdec-1</code>.</p><p>An input of 0 represents the most confident 0, while an input of
+                        <code class="literal">2^nsdec-1</code> represents the most confident 1. Other values
+                    represent less confident decisions. For example, the table below lists
+                    interpretations of values for 3-bit soft decisions.</p><p>
+                    </p>
+<div itemprop="content" id="fp7776" class="table_class"><p class="title"><strong class="title">Input Values for 3-bit Soft Decisions</strong></p><div class="table-responsive"><table class="table table-condensed" summary="Input Values for 3-bit Soft Decisions"><colgroup><col class="tcol1" width="50%"/><col class="tcol2" width="50%"/></colgroup><thead><tr><th>Input Value</th><th>Interpretation</th></tr></thead><tbody><tr><td>0</td><td>Most confident 0</td></tr><tr><td>1</td><td>Second most confident 0</td></tr><tr><td>2</td><td>Third most confident 0</td></tr><tr><td>3</td><td>Least confident 0</td></tr><tr><td>4</td><td>Least confident 1</td></tr><tr><td>5</td><td>Third most confident 1</td></tr><tr><td>6</td><td>Second most confident 1</td></tr><tr><td>7</td><td>Most confident 1</td></tr></tbody></table></div></div><p>
+
+                </p><span id="comm_softdecision" class="anchor_target"></span></section><section><h4 class="title" id="mw_e25a35a2-5c98-451d-9a23-028ecca17b35">Implement Soft-Decision Decoding Using MATLAB</h4><div class="examples_short_list hidden_ios_android" data-products="ML CM"><div data-pane="metadata" class="card metadata_container"><div class="card-body metadata_content"><div class="d-grid"><a class="btn btn_color_blue" data-ex-genre="Live Script" href="matlab:openExample(&#39;comm/ImplementSoftDecisionDecodingUsingMATLABExample&#39;)">Open Live Script</a></div></div></div></div><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "DigitalDocument",
+          "headline": "Implement Soft-Decision Decoding Using MATLAB",
+          "description": "Show decoding with 3-bit soft decisions.",
+          "thumbnailURL": "../../includes/product/images/doc_center/DefaultImage.png",
+          "genre": "Live Script",
+          "isPartOf": {
+          "@type": "CreativeWork",
+          "url": "convolutional-codes.html"
+
+        },
+          "identifier": "comm.ImplementSoftDecisionDecodingUsingMATLABExample",
+          "name": "ImplementSoftDecisionDecodingUsingMATLABExample",
+          "url": "convolutional-codes.html#mw_e25a35a2-5c98-451d-9a23-028ecca17b35"
+
+        }</script><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "PropertyValue",
+          "name": "open_command",
+          "value": "matlab:openExample('comm/ImplementSoftDecisionDecodingUsingMATLABExample')"
+
+        }</script><script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "ItemList",
+          "name": "ExampleSourceFiles",
+
+        "itemListElement":
+        [
+        "ImplementSoftDecisionDecodingUsingMATLABExample.m"
+        ],
+        "itemListOrder": "http://schema.org/ItemListOrderAscending"
+        }
+        </script><div itemscope="" itemtype="http://www.mathworks.com/help/schema/MathWorksDocPage/Example" itemprop="example" class="em_example"><meta itemprop="exampleid" content="comm-ImplementSoftDecisionDecodingUsingMATLABExample"/><meta itemprop="exampletitle" content="Implement SoftDecision Decoding Using MATLAB"/></div><span id="ImplementSoftDecisionDecodingUsingMATLABExample" class="anchor_target"></span><p class="shortdesc">Show decoding with 3-bit soft decisions. </p><p>Create a convolutional code with <a class="a" data-docid="comm_ref#fp1307338" href="../ref/convenc.html"><code class="olink">convenc</code></a> and add white Gaussian noise to the code with <a class="a" data-docid="comm_ref#fp1221678" href="../ref/awgn.html"><code class="olink">awgn</code></a>. Then, to prepare for soft-decision decoding, use <a class="a" data-docid="comm_ref#fp1109658" href="../ref/quantiz.html"><code class="olink">quantiz</code></a> to map the noisy data values to appropriate decision-value integers in the range [0, 7]. The second argument in <code class="literal">quantiz</code> is a partition vector that determines which data values map to 0, 1, 2, ..., 7. The partition is chosen so that values near 0 map to 0, and values near 1 map to 7. You can refine the partition to obtain better decoding performance if your application requires it. Finally, the example decodes the code and computes the bit error rate. The continuous operation mode of <a class="a" data-docid="comm_ref#fp1004653" href="../ref/vitdec.html"><code class="olink">vitdec</code></a> causes a delay equal to the traceback length, so <code class="literal">msg(1)</code> corresponds to <code class="literal">decoded(tblen+1)</code> rather than to <code class="literal">decoded(1)</code>. When comparing the decoded data with the original message, the <a class="a" data-docid="comm_ref#bsnan5l_3" href="../ref/comm.errorrate-system-object.html"><code class="olink">comm.ErrorRate</code></a> System object™ accounts for the decoding delay caused by the Viterbi decoder. </p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>s = RandStream.create(<span style="color:var(--mw-color-matlabString)">&#39;mt19937ar&#39;</span>, seed=94384);
+prevStream = RandStream.setGlobalStream(s);
+msg = randi([0 1], 4000, 1); <span style="color:var(--mw-color-matlabComment)">% Random data</span>
+t = poly2trellis(7, [171 133]); <span style="color:var(--mw-color-matlabComment)">% Define trellis.</span>
+tblen = 48; <span style="color:var(--mw-color-matlabComment)">% Traceback length (also use for rx delay)</span>
+nsdec = 3;
+
+<span style="color:var(--mw-color-matlabComment)">% Create an ErrorRate Calculator System object.</span>
+errorCalc = comm.ErrorRate(ReceiveDelay=tblen);
+ber = zeros(3, 1); <span style="color:var(--mw-color-matlabComment)">% Store BER values</span>
+code = convenc(msg,t);
+ncode = awgn(code, 6, <span style="color:var(--mw-color-matlabString)">&#39;measured&#39;</span>); <span style="color:var(--mw-color-matlabComment)">% Add noise.</span>
+
+<span style="color:var(--mw-color-matlabComment)">% Quantize to prepare for soft-decision decoding.</span>
+qcode = quantiz(ncode, [0.001,.1,.3,.5,.7,.9,.999]);
+<span style="color:var(--mw-color-matlabComment)">% Apply soft-decision decoding by using a Viterbi decoder.</span>
+decoded = vitdec(qcode,t,tblen,<span style="color:var(--mw-color-matlabString)">&#34;cont&#34;</span>,<span style="color:var(--mw-color-matlabString)">&#34;soft&#34;</span>,nsdec);
+<span style="color:var(--mw-color-matlabComment)">% Compute bit error rate.</span>
+ber = errorCalc(msg, decoded);
+ratio = ber(1)</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeoutput"><pre>ratio = 
+0.0013
+</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>number = ber(2)</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeoutput"><pre>number = 
+5
+</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>RandStream.setGlobalStream(prevStream); </pre></div></div></div><div class="procedure"></div></section><section><h4 class="title" id="fp88369a">Implement Soft-Decision Decoding Using <span class="trademark entity">Simulink</span></h4><p>This example creates a rate 1/2 convolutional code using the model described
+                    in <a class="intrnllnk" href="convolutional-codes.html#fp81765">Overview of
+                        the Simulation</a>. It uses a quantizer and the Viterbi Decoder block to
+                    perform soft-decision decoding. </p><p><strong class="emphasis bold">Defining the Convolutional Code</strong></p><p>The feedforward convolutional encoder in this example is depicted
+                    below.</p><div class="informalfigure"><div id="d127e8165" class="mediaobject"><p><img src="rate12code.png" alt="Feedforward convolutional encoder with one input, two outputs and six registers." height="171" width="461"/></p></div></div><p>The encoder&#39;s constraint length is a scalar since the encoder has one input.
+                    The value of the constraint length is the number of bits stored in the shift
+                    register, including the current input. There are six memory registers, and the
+                    current input is one bit. Thus the constraint length of the code is 7.</p><p>The code generator is a 1-by-2 matrix of octal numbers because the encoder has
+                    one input and two outputs. The first element in the matrix indicates which input
+                    values contribute to the first output, and the second element in the matrix
+                    indicates which input values contribute to the second output.</p><p>For example, the first output in the encoder diagram is the modulo-2 sum of
+                    the rightmost and the four leftmost elements in the diagram&#39;s array of input
+                    values. The seven-digit binary number 1111001 captures this information, and is
+                    equivalent to the octal number 171. The octal number 171 thus becomes the first
+                    entry of the code generator matrix. Here, each triplet of bits uses the leftmost
+                    bit as the most significant bit. The second output corresponds to the binary
+                    number 1011011, which is equivalent to the octal number 133. The code generator
+                    is therefore [171 133].</p><p>The <strong class="guilabel">Trellis structure</strong> parameter in the Convolutional
+                    Encoder block tells the block which code to use when processing data. In this
+                    case, the <a href="../ref/poly2trellis.html"><code class="function">poly2trellis</code></a> function, in
+                        Communications Toolbox, converts the constraint length and the pair of octal numbers into
+                    a valid trellis structure.</p><p>While the message data entering the Convolutional Encoder block is a scalar
+                    bit stream, the encoded data leaving the block is a stream of binary vectors of
+                    length 2.</p><p><strong class="emphasis bold">Mapping the Received Data</strong></p><p>The received data, that is, the output of the AWGN Channel block, consists of
+                    complex numbers that are close to -1 and 1. In order to reconstruct the original
+                    binary message, the receiver part of the model must decode the convolutional
+                    code. The Viterbi Decoder block in this model expects its input data to be
+                    integers between 0 and 7. The demodulator, a custom subsystem in this model,
+                    transforms the received data into a format that the Viterbi Decoder block can
+                    interpret properly. More specifically, the demodulator subsystem</p><div class="itemizedlist"><ul><li><p>Converts the received data signal to a real signal by removing its
+                            imaginary part. It is reasonable to assume that the imaginary part of
+                            the received data does not contain essential information, because the
+                            imaginary part of the transmitted data is zero (ignoring small roundoff
+                            errors) and because the channel noise is not very powerful.</p></li><li><p>Normalizes the received data by dividing by the standard deviation of
+                            the noise estimate and then multiplying by -1.</p></li><li><p>Quantizes the normalized data using three bits.</p></li></ul></div><p>The combination of this mapping and the Viterbi Decoder block&#39;s decision
+                    mapping reverses the BPSK modulation that the BPSK Modulator Baseband block
+                    performs on the transmitting side of this model. To examine the demodulator
+                    subsystem in more detail, double-click the icon labeled Soft-Output BPSK
+                    Demodulator.</p><p><strong class="emphasis bold">Decoding the Convolutional Code</strong></p><span id="decode_convolutional_code" class="anchor_target"></span><p>After the received data is properly mapped to length-2 vectors of 3-bit
+                    decision values, the Viterbi Decoder block decodes it. The block uses a
+                    soft-decision algorithm with 2<sup>3</sup> different input
+                    values because the <strong class="guilabel">Decision type</strong> parameter is
+                        <code class="guidropdown">Soft Decision</code> and the <strong class="guilabel">Number of soft
+                        decision bits</strong> parameter is <code class="literal">3</code>.</p><p><strong class="emphasis bold">Soft-Decision Interpretation of Data</strong></p><p>When the <strong class="guilabel">Decision type</strong> parameter is set to
+                        <code class="guidropdown">Soft Decision</code>, the Viterbi Decoder block requires
+                    input values between 0 and 2<sup>b</sup>-1, where
+                        <span class="emphasis"><em>b</em></span> is the <strong class="guilabel">Number of soft decision
+                        bits</strong> parameter. The block interprets 0 as the most confident
+                    decision that the codeword bit is a 0 and interprets
+                        2<sup>b</sup>-1 as the most confident decision that the
+                    codeword bit is a 1. The values in between these extremes represent less
+                    confident decisions. The following table lists the interpretations of the eight
+                    possible input values for this example.</p><div class="table-responsive"><table class="table table-condensed"><colgroup><col class="tcol1" width="50%"/><col class="tcol2" width="50%"/></colgroup><thead><tr><th>Decision Value</th><th>Interpretation</th></tr></thead><tbody><tr><td>0 </td><td>Most confident 0 </td></tr><tr><td>1 </td><td>Second most confident 0 </td></tr><tr><td>2 </td><td>Third most confident 0 </td></tr><tr><td>3 </td><td>Least confident 0 </td></tr><tr><td>4 </td><td>Least confident 1 </td></tr><tr><td>5 </td><td>Third most confident 1 </td></tr><tr><td>6 </td><td>Second most confident 1 </td></tr><tr><td>7 </td><td>Most confident 1 </td></tr></tbody></table></div><p><strong class="emphasis bold">Traceback and Decoding Delay</strong></p><p class="shortdesc">The traceback depth influences the decoding delay. The decoding delay is the number of zero symbols that precede the first decoded symbol in the output.</p><div class="itemizedlist"><ul><li><p>For the continuous operating mode, the decoding delay is equal to the number of
+                traceback depth symbols.</p></li><li><p>For the truncated or terminated operating mode, the decoding delay is zero. In
+                this case, the traceback depth must be less than or equal to the number of symbols
+                in each input.</p></li></ul></div><p><strong class="emphasis bold">Traceback Depth Estimate</strong></p><p class="shortdesc">As a general estimate, a typical traceback depth value is approximately two
+        to three times <span class="inlineequation">(<em class="varname">ConstraintLength</em> – 1) / (1 –
+                <em class="varname">coderate</em>)</span>. The constraint length of the code, <em class="varname">ConstraintLength</em>,
+        is equal to <span class="inlineequation">(log2(<code class="argument">trellis</code>.<code class="argument">numStates</code>) +
+                1)</span>. The <em class="varname">coderate</em> is equal to <span class="inlineequation">(<em class="varname">K</em> / <em class="varname">N</em>) ×
+                    (length(<em class="varname">PuncturePattern</em>) /
+                    sum(<em class="varname">PuncturePattern</em>)</span>. </p><p class="shortdesc"><em class="varname">K</em> is the number of input symbols, <em class="varname">N</em>
+        is the number of output symbols, and <em class="varname">PuncturePattern</em> is the puncture
+        pattern vector.</p><p class="shortdesc">For example, applying this general estimate, results in these approximate
+        traceback depths.</p><div class="itemizedlist"><ul><li><p>A rate 1/2 code has a traceback depth of <span class="inlineequation">5 × (<em class="varname">ConstraintLength</em> – 1)</span>.</p></li><li><p>A rate 2/3 code has a traceback depth of <span class="inlineequation">7.5 × (<em class="varname">ConstraintLength</em> – 1)</span>.</p></li><li><p>A rate 3/4 code has a traceback depth of <span class="inlineequation">10 × (<em class="varname">ConstraintLength</em> – 1)</span>.</p></li><li><p>A rate 5/6 code has a traceback depth of <span class="inlineequation">15 × (<em class="varname">ConstraintLength</em> – 1)</span>.</p></li></ul></div><p>The <strong class="guilabel">Traceback depth</strong> parameter in the <a href="../ref/viterbidecoder.html"><span class="block">Viterbi Decoder</span></a> block represents the
+                    length of the decoding delay. Some hardware implementations offer options of 48
+                    and 96. This example chooses 48 because that is closer to the estimated target
+                    for a rate ½ code with a constraint length of 7.</p><p><strong class="emphasis bold">Delay in Received Data</strong></p><p>The <strong class="guilabel">Receive delay</strong> parameter of the <a href="../ref/errorratecalculation.html"><span class="block">Error Rate Calculation</span></a> block is
+                    nonzero because a given message bit and its corresponding recovered bit are
+                    separated in time by a nonzero amount of simulation time. The <strong class="guilabel">Receive
+                        delay</strong> parameter tells the block which elements of its input
+                    signals to compare when checking for errors.</p><p>In this case, the Receive delay value is equal to the Traceback depth value
+                    (48).</p><p><strong class="emphasis bold">Comparing Simulation Results with Theoretical
+                        Results</strong></p><p>This section describes how to compare the bit error rate in this simulation
+                    with the bit error rate that would theoretically result from unquantized
+                    decoding. The process includes these steps</p>
+<div class="itemizedlist"><ul><li><p><strong class="emphasis bold">Computing Theoretical Bounds for the Bit
+                                    Error Rate</strong></p><p>To calculate theoretical bounds for the bit error rate
+                                    <span class="emphasis"><em>P</em></span><sub>b</sub> of the
+                                convolutional code in this model, you can use this estimate based on
+                                unquantized-decision decoding:</p><div id="d127e8416" class="mediaobject"><div class="code_responsive"><p class="listprogramlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" altimg-valign="-20px" display="block"><mrow><msub><mi>P</mi><mi>b</mi></msub><mo>&lt;</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mi>f</mi></mrow><mi>∞</mi></munderover><mrow><msub><mi>c</mi><mi>d</mi></msub><msub><mi>P</mi><mi>d</mi></msub></mrow></mstyle></mrow></math></p></div></div><p>In this estimate, <span class="emphasis"><em>c</em></span><sub>d</sub>
+                                is the sum of bit errors for error events of distance
+                                    <span class="emphasis"><em>d</em></span>, and <span class="emphasis"><em>f</em></span> is the free
+                                distance of the code. The quantity
+                                    <span class="emphasis"><em>P</em></span><sub>d</sub> is the pairwise
+                                error probability, given by </p><div id="d127e8432" class="mediaobject"><div class="code_responsive"><p class="listprogramlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" altimg-valign="-23px" display="block"><mrow><msub><mi>P</mi><mi>d</mi></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>erfc</mi><mrow><mo>(</mo><mrow><msqrt><mrow><mi>d</mi><mi>R</mi><mfrac><mrow><msub><mi>E</mi><mi>b</mi></msub></mrow><mrow><msub><mi>N</mi><mn>0</mn></msub></mrow></mfrac></mrow></msqrt></mrow><mo>)</mo></mrow></mrow></math></p></div></div><p>where <span class="emphasis"><em>R</em></span> is the code rate of 1/2, and
+                                    <a href="../../matlab/ref/erfc.html"><code class="function">erfc</code></a> is the
+                                    MATLAB complementary error function, defined by</p><div id="d127e8446" class="mediaobject"><div class="code_responsive"><p class="listprogramlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" altimg-valign="-21px" display="block"><mrow><mi>erfc</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>2</mn><mrow><msqrt><mi>π</mi></msqrt></mrow></mfrac><mstyle displaystyle="true"><mrow><munderover><mo>∫</mo><mi>x</mi><mi>∞</mi></munderover><mrow><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msup><mi>d</mi><mi>t</mi></mrow></mrow></mstyle></mrow></math></p></div></div><p>Values for the coefficients
+                                    <span class="emphasis"><em>c</em></span><sub>d</sub> and the free
+                                distance <span class="emphasis"><em>f</em></span> are in published articles such as
+                                &#34;Convolutional Codes with Optimum Distance Spectrum&#34; <a class="intrnllnk" href="convolutional-codes.html#rand83056">[3]</a>. The free distance for this code is
+                                <span class="emphasis"><em>f</em></span> = 10.</p><p>The following commands calculate the values of
+                                    <span class="emphasis"><em>P</em></span><sub>b</sub> for
+                                    <span class="emphasis"><em>E</em></span><sub>b</sub><span class="emphasis"><em>/N</em></span><sub>0</sub>
+                                values in the range from 1 to 4, in increments of 0.5:</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>EbNoVec = [1:0.5:4.0];
+R = 1/2;
+<span style="color:var(--mw-color-matlabComment)">% Errs is the vector of sums of bit errors for</span>
+<span style="color:var(--mw-color-matlabComment)">% error events at distance d, for d from 10 to 29.</span>
+Errs = [36 0 211 0 1404 0 11633 0 77433 0 502690 0,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+        3322763 0 21292910 0 134365911 0 843425871 0]; 
+<span style="color:var(--mw-color-matlabComment)">% P is the matrix of pairwise error probilities, for</span>
+<span style="color:var(--mw-color-matlabComment)">% Eb/No values in EbNoVec and d from 10 to 29.</span>
+P = zeros(20,7); <span style="color:var(--mw-color-matlabComment)">% Initialize.</span>
+<span style="color:var(--mw-color-matlabKeyword)">for</span> d = 10:29
+   P(d-9,:) = (1/2)*erfc(sqrt(d*R*10.^(EbNoVec/10)));
+<span style="color:var(--mw-color-matlabKeyword)">end</span>
+<span style="color:var(--mw-color-matlabComment)">% Bounds is the vector of upper bounds for the bit error</span>
+<span style="color:var(--mw-color-matlabComment)">% rate, for Eb/No values in EbNoVec.</span>
+Bounds = Errs*P;</pre></div></div></div></li><li><p><strong class="emphasis bold">Simulating Multiple Times to Collect Bit
+                                    Error Rates</strong></p><p>You can efficiently vary the simulation parameters by using the
+                                    <a href="../../simulink/slref/sim.html"><code class="function">sim</code></a><span role="cross_prod"> (Simulink)</span> function to run
+                                the simulation from the MATLAB command line. For example, the following code
+                                calculates the bit error rate at bit energy-to-noise ratios ranging
+                                from 1 dB to 4 dB, in increments of 0.5 dB. It collects all bit
+                                error rates from these simulations in the matrix
+                                    <code class="literal">BERVec</code>. It also plots the bit error rates in
+                                a figure window along with the theoretical bounds computed in the
+                                preceding code fragment.</p><p>This example simulates a rate 1/2 convolutional code using the
+                                model described in <a class="intrnllnk" href="convolutional-codes.html#fp81765">Overview of the Simulation</a>. In the code sample below,
+                                the model name <code class="literal">doc_softdecision</code> represents the
+                                model described in <a class="intrnllnk" href="convolutional-codes.html#fp81765">Overview of the Simulation</a>.</p><div class="code_responsive" translate="no"><pre class="programlisting">% Plot theoretical bounds and set up figure.
+figure;
+semilogy(EbNoVec,Bounds,&#39;bo&#39;,1,NaN,&#39;r*&#39;);
+xlabel(&#39;Eb/No (dB)&#39;); ylabel(&#39;Bit Error Rate&#39;);
+title(&#39;Bit Error Rate (BER)&#39;);
+l = legend(&#39;Theoretical bound on BER&#39;,&#39;Actual BER&#39;);
+l.AutoUpdate = &#39;off&#39;;
+axis([1 4 1e-5 1]);
+hold on;
+
+BERVec = [];
+% Make the noise level variable.
+set_param(&#39;doc_softdecision/AWGN Channel&#39;,...
+    &#39;EsNodB&#39;,&#39;EbNodB+10*log10(1/2)&#39;);
+% Simulate multiple times.
+for n = 1:length(EbNoVec)
+    EbNodB = EbNoVec(n);
+    sim(&#39;doc_softdecision&#39;,5000000);
+    BERVec(n,:) = BER_Data;
+    semilogy(EbNoVec(n),BERVec(n,1),&#39;r*&#39;); % Plot point.
+    drawnow;
+end
+hold off;</pre></div><div class="alert alert-info d-inline-block"><span class="alert_icon icon-alert-info-reverse"></span><p class="alert_heading"><strong>Note</strong></p><p>The estimate for
+                                        <span class="emphasis"><em>P</em></span><sub>b</sub> assumes that
+                                    the decoder uses unquantized data, that is, an infinitely fine
+                                    quantization. By contrast, the simulation in this example uses
+                                    8-level (3-bit) quantization. Because of this quantization, the
+                                    simulated bit error rate is not quite as low as the bound when
+                                    the signal-to-noise ratio is high.</p></div><p>The plot of bit error rate against signal-to-noise ratio follows.
+                                The locations of your actual BER points might vary because the
+                                simulation involves random numbers.</p><div class="informalfigure"><div id="d127e8513" class="mediaobject"><p class="listimage"><img src="convplot.png" alt="Plot of BER versus Eb/N0 curves to compare theoretical bound to actual BERs." height="495" width="568"/></p></div></div></li></ul></div><p>
+</p></section></section><section><h3 class="title" id="fp7855">Design a Rate-2/3 Feedforward Encoder Using MATLAB</h3><span id="comm_rate23" class="anchor_target"></span><p>The example below uses the rate 2/3 feedforward encoder depicted in this
+                schematic. The accompanying description explains how to determine the trellis
+                structure parameter from a schematic of the encoder and then how to perform coding
+                using this encoder.</p><div class="informalfigure"><div id="d127e8523" class="mediaobject"><p><img src="rate23code.png" alt="A block diagram of a rate 2/3 convolutional encoder with two inputs (labeled &#39;First Input&#39; and &#39;Second Input&#39; on the left side) and three outputs (labeled &#39;First Input&#39;, &#39;Second Output&#39; and &#39;Third Output&#39; on the right side). The first input passes through four delay elements labeled z^{-1}, with binary coefficients (1, 0, 1) along the branches. The second input passes through three delay elements labeled z^{-1}, also with binary coefficients (0, 1, 0, 1). The outputs are formed by summing selected branches: the first output combines paths from the first input, the second output combines paths from both inputs, and the third output combines paths from the second input. Each summation node is represented by a circle with a plus sign inside." height="348" width="610"/></p></div></div><section><h4 class="title" id="fp7929">Determining Coding Parameters</h4><p>The <a href="../ref/convenc.html"><code class="function">convenc</code></a> and <a href="../ref/vitdec.html"><code class="function">vitdec</code></a> functions can implement
+                    this code if their parameters have the appropriate values.</p><p>The encoder&#39;s constraint length is a vector of length 2 because the encoder
+                    has two inputs. The elements of this vector indicate the number of bits stored
+                    in each shift register, including the current input bits. Counting memory spaces
+                    in each shift register in the diagram and adding one for the current inputs
+                    leads to a constraint length of [5 4].</p><p>To determine the code generator parameter as a 2-by-3 matrix of octal numbers,
+                    use the element in the ith row and jth column to indicate how the ith input
+                    contributes to the jth output. For example, to compute the element in the second
+                    row and third column, the leftmost and two rightmost elements in the second
+                    shift register of the diagram feed into the sum that forms the third output.
+                    Capture this information as the binary number 1011, which is equivalent to the
+                    octal number 13. The full value of the code generator matrix is [23 35 0; 0 5
+                    13].</p><p>To use the constraint length and code generator parameters in the
+                        <code class="function">convenc</code> and <code class="function">vitdec</code> functions, use
+                    the <code class="function">poly2trellis</code> function to convert those parameters into
+                    a trellis structure. The command to do this is below.</p><div class="code_responsive" translate="no"><pre class="programlisting">trel = poly2trellis([5 4],[23 35 0;0 5 13]); % Define trellis.
+</pre></div></section><section><h4 class="title" id="fp7936">Using the Encoder</h4><p>Below is a script that uses this encoder.</p><div class="code_responsive" translate="no"><pre class="programlisting">len = 1000;
+
+msg = randi([0 1],2*len,1); <span style="color:var(--mw-color-matlabComment)">% Random binary message of 2-bit symbols</span>
+trel = poly2trellis([5 4],[23 35 0;0 5 13]); <span style="color:var(--mw-color-matlabComment)">% Trellis</span>
+<span style="color:var(--mw-color-matlabComment)">% Create a ConvolutionalEncoder System object</span>
+hConvEnc = comm.ConvolutionalEncoder(trel);
+<span style="color:var(--mw-color-matlabComment)">% Create a ViterbiDecoder System object</span>
+hVitDec = comm.ViterbiDecoder(trel, <span style="color:var(--mw-color-matlabString)">&#39;InputFormat&#39;</span>, <span style="color:var(--mw-color-matlabString)">&#39;hard&#39;</span>, <span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;TracebackDepth&#39;</span>, 34, <span style="color:var(--mw-color-matlabString)">&#39;TerminationMethod&#39;</span>, <span style="color:var(--mw-color-matlabString)">&#39;Continuous&#39;</span>);
+<span style="color:var(--mw-color-matlabComment)">% Create a ErrorRate Calculator System object. Since each symbol represents</span>
+<span style="color:var(--mw-color-matlabComment)">% two bits, the receive delay for this object is twice the traceback length</span>
+<span style="color:var(--mw-color-matlabComment)">% of the viterbi decoder.</span>
+hErrorCalc = comm.ErrorRate(<span style="color:var(--mw-color-matlabString)">&#39;ReceiveDelay&#39;</span>, 68);
+ber = zeros(3,1); <span style="color:var(--mw-color-matlabComment)">% Store BER values</span>
+code = step(hConvEnc,msg); <span style="color:var(--mw-color-matlabComment)">% Encode the message.</span>
+ncode = rem(code + randerr(3*len,1,[0 1;.96 .04]),2); <span style="color:var(--mw-color-matlabComment)">% Add noise.</span>
+decoded = step(hVitDec, ncode); <span style="color:var(--mw-color-matlabComment)">% Decode.</span>
+ber = step(hErrorCalc, msg, decoded);</pre></div><p><code class="function">convenc</code> accepts a vector containing 2-bit symbols and
+                    produces a vector containing 3-bit symbols, while <code class="function">vitdec</code>
+                    does the opposite. Also notice that <code class="function">biterr</code> ignores the
+                    first 68 elements of <code class="literal">decoded</code>. That is, the decoding delay is
+                    68, which is the number of bits per symbol (2) of the recovered message times
+                    the traceback depth value (34) in the <code class="function">vitdec</code> function. The
+                    first 68 elements of <code class="literal">decoded</code> are 0s, while subsequent
+                    elements represent the decoded messages.</p></section></section><section><h3 class="title" id="fp74876">Design a Rate 2/3 Feedforward Encoder Using <span class="trademark entity">Simulink</span></h3><span id="doc_convcoding" class="anchor_target"></span><p>This example uses the rate 2/3 feedforward convolutional encoder depicted in the
+                following figure. The description explains how to determine the coding blocks&#39;
+                parameters from a schematic of a rate 2/3 feedforward encoder. This example also
+                illustrates the use of the <a href="../ref/errorratecalculation.html"><span class="block">Error Rate Calculation</span></a> block with a
+                receive delay.</p><div class="informalfigure"><div id="d127e8579" class="mediaobject"><p><img src="rate23code.png" alt="Rate 2/3 feedforward convolutional encoder with four registers." height="348" width="610"/></p></div></div><section><h4 class="title" id="fp74952">How to Determine Coding Parameters</h4><p>The <a href="../ref/convolutionalencoder.html"><span class="block">Convolutional Encoder</span></a> and <a href="../ref/viterbidecoder.html"><span class="block">Viterbi Decoder</span></a> blocks can implement
+                    this code if their parameters have the appropriate values.</p><p>The encoder&#39;s constraint length is a vector of length 2 since the encoder has
+                    two inputs. The elements of this vector indicate the number of bits stored in
+                    each shift register, including the current input bits. Counting memory spaces in
+                    each shift register in the diagram and adding one for the current inputs leads
+                    to a constraint length of [5 4].</p><p>To determine the code generator parameter as a 2-by-3 matrix of octal numbers,
+                    use the element in the ith row and jth column to indicate how the ith input
+                    contributes to the jth output. For example, to compute the element in the second
+                    row and third column, notice that the leftmost and two rightmost elements in the
+                    second shift register of the diagram feed into the sum that forms the third
+                    output. Capture this information as the binary number 1011, which is equivalent
+                    to the octal number 13. The full value of the code generator matrix is [27 33 0;
+                    0 5 13].</p><p>To use the constraint length and code generator parameters in the
+                    Convolutional Encoder and Viterbi Decoder blocks, use the
+                        <code class="literal">poly2trellis</code> function to convert those parameters into a
+                    trellis structure.</p></section><section><h4 class="title" id="fp74957">How to Simulate the Encoder</h4><p>The following model simulates this encoder.</p><div class="informalfigure"><div id="d127e8607" class="mediaobject"><p><img src="convcoding_extut.png" alt="Simulink model showing convolutional encoding and Viterbi decoding impaired in a binary symmetric channel." height="135" width="811"/></p></div></div><p>To build the model, gather and
+                    configure these blocks:</p><div class="itemizedlist"><ul><li><p><a href="../ref/bernoullibinarygenerator.html"><span class="block">Bernoulli Binary Generator</span></a>,
+                            with these updates to parameter settings:</p><div class="itemizedlist"><ul><li><p>Set <strong class="guilabel">Probability of a zero</strong> to
+                                        <code class="literal">.5</code>.</p></li><li><p>Set <strong class="guilabel">Initial seed</strong> to any positive integer
+                                    scalar, preferably the output of the <a href="../../matlab/ref/double.randn.html"><code class="function">randn</code></a>
+                                    function.</p></li><li><p>Set <strong class="guilabel">Sample time</strong> to
+                                    <code class="literal">.5</code>.</p></li><li><p>Check the <strong class="guilabel">Frame-based outputs</strong> check
+                                    box.</p></li><li><p>Set <strong class="guilabel">Samples per frame</strong> to
+                                        <code class="literal">2</code>.</p></li></ul></div></li><li><p><a href="../ref/convolutionalencoder.html"><span class="block">Convolutional Encoder</span></a>, with
+                            these updates to parameter settings:</p><div class="itemizedlist"><ul><li><p>Set <strong class="guilabel">Trellis structure</strong> to
+                                        <code class="literal">poly2trellis([5 4],[23 35 0; 0 5
+                                    13])</code>.</p></li></ul></div></li><li><p><a href="../ref/binarysymmetricchannel.html"><span class="block">Binary Symmetric Channel</span></a>, in
+                            the Channels library</p><div class="itemizedlist"><ul><li><p>Set <strong class="guilabel">Error probability</strong> to
+                                        <code class="literal">0.02</code>.</p></li><li><p>Set <strong class="guilabel">Initial seed</strong> to any positive integer
+                                    scalar, preferably the output of the <a href="../../matlab/ref/double.randn.html"><code class="function">randn</code></a>
+                                    function.</p></li><li><p>Clear the <strong class="guilabel">Output error vector </strong>check
+                                    box.</p></li></ul></div></li><li><p><a href="../ref/viterbidecoder.html"><span class="block">Viterbi Decoder</span></a>, with these
+                            updates to parameter settings:</p><div class="itemizedlist"><ul><li><p>Set <strong class="guilabel">Trellis structure</strong> to
+                                        <code class="literal">poly2trellis([5 4],[23 35 0; 0 5
+                                    13])</code>.</p></li><li><p>Set <strong class="guilabel">Decision type</strong> to <code class="guidropdown">Hard
+                                        decision</code>.</p></li></ul></div></li><li><p><a href="../ref/errorratecalculation.html"><span class="block">Error Rate Calculation</span></a>, with
+                            these updates to parameter settings:</p><div class="itemizedlist"><ul><li><p>Set <strong class="guilabel">Receive delay</strong> to
+                                        <code class="literal">68</code>.</p></li><li><p>Set <strong class="guilabel">Output data</strong> to
+                                        <code class="guidropdown">Port</code>.</p></li><li><p>Check the <strong class="guilabel">Stop simulation</strong> check
+                                    box.</p></li><li><p>Set <strong class="guilabel">Target number of errors</strong> to
+                                        <code class="literal">100</code>.</p></li></ul></div></li><li><p><a href="../../simulink/slref/display.html"><span class="block">Display</span></a><span role="cross_prod"> (Simulink)</span></p><div class="itemizedlist"><ul><li><p>Drag the bottom edge of the icon to make the display big
+                                    enough for three entries.</p></li></ul></div></li></ul></div><p>Connect the blocks as shown in the preceding figure. On the
+                        <strong class="guimenuitem">Simulation</strong> tab, in the
+                        <strong class="guimenuitem">Simulate</strong> section, set <strong class="guilabel">Stop
+                        time</strong> to <code class="literal">inf</code>. The
+                        <strong class="guimenuitem">Simulate</strong> section appears on multiple tabs.</p></section><section><h4 class="title" id="fp74986">Notes on the Model</h4><p>You can display the matrix size of signals in your model. On the
+                        <strong class="guimenuitem">Debug</strong> tab, expand <strong class="guimenuitem">Information
+                        Overlays</strong>. In the <strong class="guimenuitem">Signals</strong> section,
+                    select <strong class="guimenuitem">Signal Dimensions</strong>.</p><p>The encoder accepts a 2-by-1 column vector and produces a 3-by-1 column
+                    vector, while the decoder does the opposite. The <strong class="guilabel">Samples per
+                        frame</strong> parameter in the Bernoulli Binary Generator block is 2
+                    because the block must generate a message word of length 2.</p><p>The <strong class="guilabel">Receive delay</strong> parameter in the Error Rate Calculation
+                    block is 68, which is the vector length (2) of the recovered message times the
+                        <strong class="guilabel">Traceback depth</strong> value (34) in the Viterbi Decoder
+                    block. If you examine the transmitted and received signals as matrices in the
+                        MATLAB workspace, you see that the first 34 rows of the recovered message
+                    consist of zeros, while subsequent rows are the decoded messages. Thus the delay
+                    in the received signal is 34 vectors of length 2, or 68 samples.</p><p>Running the model produces display output consisting of three numbers: the
+                    error rate, the total number of errors, and the total number of comparisons that
+                    the Error Rate Calculation block makes during the simulation. (The first two
+                    numbers vary depending on your <strong class="guilabel">Initial seed</strong> values in the
+                    Bernoulli Binary Generator and Binary Symmetric Channel blocks.) The simulation
+                    stops after 100 errors occur, because <strong class="guilabel">Target number of
+                        errors</strong> is set to <code class="literal">100</code> in the Error Rate
+                    Calculation block. The error rate is much less than <code class="literal">0.02</code>, the
+                        <strong class="guilabel">Error probability</strong> in the Binary Symmetric Channel
+                    block.</p></section></section><section><h3 class="title" id="fp7950">Puncture a Convolutional Code Using MATLAB</h3><p>This example processes a punctured convolutional code. It begins by generating
+                30,000 random bits and encoding them using a rate-3/4 convolutional encoder with a
+                puncture pattern of [1 1 1 0 0 1]. The resulting vector contains 40,000 bits, which
+                are mapped to values of -1 and 1 for transmission. The punctured code,
+                    <code class="literal">punctcode</code>, passes through an additive white Gaussian noise
+                channel. Then <code class="function">vitdec</code> decodes the noisy vector using the
+                    <code class="literal">&#39;unquant&#39;</code> decision type.</p><p>Finally, the example computes the bit error rate and the number of bit
+                errors.</p><div class="code_responsive" translate="no"><pre class="programlisting">len = 30000; msg = randi([0 1], len, 1); <span style="color:var(--mw-color-matlabComment)">% Random data</span>
+t = poly2trellis(7, [133 171]); <span style="color:var(--mw-color-matlabComment)">% Define trellis.</span>
+<span style="color:var(--mw-color-matlabComment)">% Create a ConvolutionalEncoder System object</span>
+hConvEnc = comm.ConvolutionalEncoder(t, <span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;PuncturePatternSource&#39;</span>, <span style="color:var(--mw-color-matlabString)">&#39;Property&#39;</span>, <span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;PuncturePattern&#39;</span>, [1;1;1;0;0;1]);
+<span style="color:var(--mw-color-matlabComment)">% Create a ViterbiDecoder System object</span>
+hVitDec = comm.ViterbiDecoder(t, <span style="color:var(--mw-color-matlabString)">&#39;InputFormat&#39;</span>, <span style="color:var(--mw-color-matlabString)">&#39;Unquantized&#39;</span>, <span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;TracebackDepth&#39;</span>, 96, <span style="color:var(--mw-color-matlabString)">&#39;TerminationMethod&#39;</span>, <span style="color:var(--mw-color-matlabString)">&#39;Truncated&#39;</span>, <span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;PuncturePatternSource&#39;</span>, <span style="color:var(--mw-color-matlabString)">&#39;Property&#39;</span>, <span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;PuncturePattern&#39;</span>, [1;1;1;0;0;1]);
+<span style="color:var(--mw-color-matlabComment)">% Create a ErrorRate Calculator System object.</span>
+hErrorCalc = comm.ErrorRate;
+berP = zeros(3,1); berPE = berP; <span style="color:var(--mw-color-matlabComment)">% Store BER values</span>
+punctcode = step(hConvEnc,msg); <span style="color:var(--mw-color-matlabComment)">% Length is (2*len)*2/3.</span>
+tcode = 1-2*punctcode; <span style="color:var(--mw-color-matlabComment)">% Map &#34;0&#34; bit to 1 and &#34;1&#34; bit to -1</span>
+ncode = awgn(tcode,3,<span style="color:var(--mw-color-matlabString)">&#39;measured&#39;</span>); <span style="color:var(--mw-color-matlabComment)">% Add noise.</span>
+
+<span style="color:var(--mw-color-matlabComment)">% Decode the punctured code</span>
+decoded = step(hVitDec,ncode); <span style="color:var(--mw-color-matlabComment)">% Decode.</span>
+berP = step(hErrorCalc, msg, decoded);<span style="color:var(--mw-color-matlabComment)">% Bit error rate</span>
+<span style="color:var(--mw-color-matlabComment)">% Erase the least reliable 100 symbols, then decode</span>
+release(hVitDec); reset(hErrorCalc)
+hVitDec.ErasuresInputPort = true;
+[dummy idx] = sort(abs(ncode));
+erasures =  zeros(size(ncode)); erasures(idx(1:100)) = 1;
+decoded = step(hVitDec,ncode, erasures); <span style="color:var(--mw-color-matlabComment)">% Decode.</span>
+berPE = step(hErrorCalc, msg, decoded);<span style="color:var(--mw-color-matlabComment)">% Bit error rate</span>
+
+fprintf(<span style="color:var(--mw-color-matlabString)">&#39;Number of errors with puncturing: %d\n&#39;</span>, berP(2))
+fprintf(<span style="color:var(--mw-color-matlabString)">&#39;Number of errors with puncturing and erasures: %d\n&#39;</span>, berPE(2))</pre></div></section><section><h3 class="title" id="fp88262">Implement a Systematic Encoder with Feedback Using <span class="trademark entity">Simulink</span></h3><p>This section explains how to use the Convolutional Encoder block to implement a
+                systematic encoder with feedback. A code is <span class="emphasis"><em>systematic</em></span> if the
+                actual message words appear as part of the codewords. The following diagram shows an
+                example of a systematic encoder.</p><div class="informalfigure"><div id="d127e8832" class="mediaobject"><p><img src="feedbackconvcode.png" alt="Systematic encoder diagram with one input, two outputs and four registers." height="161" width="416"/></p></div></div><p>To implement this encoder, set the <strong class="guilabel">Trellis structure</strong>
+                parameter in the Convolutional Encoder block to <code class="literal">poly2trellis(5, [37 33],
+                    37)</code>. This setting corresponds to</p><div class="itemizedlist"><ul><li><p>Constraint length: <code class="literal">5</code></p></li><li><p>Generator polynomial pair: <code class="literal">[37 33]</code></p></li><li><p>Feedback polynomial: <code class="literal">37</code></p></li></ul></div><p>The feedback polynomial is represented by the binary vector [1 1 1 1 1],
+                corresponding to the upper row of binary digits. These digits indicate connections
+                from the outputs of the registers to the adder. The initial 1 corresponds to the
+                input bit. The octal representation of the binary number 11111 is 37. </p><p>To implement a systematic code, set the first generator polynomial to be the same
+                as the feedback polynomial in the <strong class="guilabel">Trellis structure</strong> parameter
+                of the Convolutional Encoder block. In this example, both polynomials have the octal
+                representation 37.</p><p>The second generator polynomial is represented by the binary vector [1 1 0 1 1],
+                corresponding to the lower row of binary digits. The octal number corresponding to
+                the binary number 11011 is 33.</p><p>For more information on setting the mask parameters for the Convolutional Encoder
+                block, see <a class="intrnllnk" href="convolutional-codes.html#fp7431">Polynomial Description
+                    of a Convolutional Code</a>.</p></section><section><h3 class="title" id="fp88369">Soft-Decision Decoding</h3><span id="doc_softdecision" class="anchor_target"></span><span id="getting_started_example" class="anchor_target"></span><p>This example creates a rate 1/2 convolutional code. It uses a quantizer and the
+                Viterbi Decoder block to perform soft-decision decoding. This description covers
+                these topics:</p><section><h4 class="title" id="fp81765">Overview of the Simulation</h4><p> The simulation creates a random binary
+                    message signal, encodes the message into a convolutional code, modulates the
+                    code using the binary phase shift keying (BPSK) technique, and adds white
+                    Gaussian noise to the modulated data in order to simulate a noisy channel. Then,
+                    the simulation prepares the received data for the decoding block and decodes.
+                    Finally, the simulation compares the decoded information with the original
+                    message signal in order to compute the bit error rate. The Convolutional encoder
+                    is configured as a rate 1/2 encoder. For every 2 bits, the encoder adds another
+                    2 redundant bits. To accommodate this, and add the correct amount of noise, the
+                        <strong class="guilabel">Eb/No (dB)</strong> parameter of the AWGN block is in effect
+                    halved by subtracting 10*log10(2). The simulation ends after processing 100 bit
+                    errors or 10<sup>7</sup> message bits, whichever comes
+                    first.</p><div class="informalfigure"><div id="d127e8891" class="mediaobject"><p><img src="softdecisionmodel.png" alt="Simulink model of a BPSK-modulated with convolutional encoding and Viterbi decoding for forward error correction." height="298" width="610"/></p></div></div></section><section><h4 class="title" id="fp81778">Defining the Convolutional Code</h4><p>The feedforward convolutional encoder in this example is depicted
+                    below.</p><div class="informalfigure"><div id="d127e8899" class="mediaobject"><p><img src="rate12code.png" alt="Rate ½ feedforward convolutional encoder with six registers." height="171" width="461"/></p></div></div><p>The encoder&#39;s constraint length is a scalar since the encoder has one input.
+                    The value of the constraint length is the number of bits stored in the shift
+                    register, including the current input. There are six memory registers, and the
+                    current input is one bit. Thus the constraint length of the code is 7.</p><p>The code generator is a 1-by-2 matrix of octal numbers because the encoder has
+                    one input and two outputs. The first element in the matrix indicates which input
+                    values contribute to the first output, and the second element in the matrix
+                    indicates which input values contribute to the second output.</p><p>For example, the first output in the encoder diagram is the modulo-2 sum of
+                    the rightmost and the four leftmost elements in the diagram&#39;s array of input
+                    values. The seven-digit binary number 1111001 captures this information, and is
+                    equivalent to the octal number 171. The octal number 171 thus becomes the first
+                    entry of the code generator matrix. Here, each triplet of bits uses the leftmost
+                    bit as the most significant bit. The second output corresponds to the binary
+                    number 1011011, which is equivalent to the octal number 133. The code generator
+                    is therefore [171 133].</p><p>The <strong class="guilabel">Trellis structure</strong> parameter in the Convolutional
+                    Encoder block tells the block which code to use when processing data. In this
+                    case, the <a href="../ref/poly2trellis.html"><code class="function">poly2trellis</code></a> function, in
+                        Communications Toolbox, converts the constraint length and the pair of octal numbers into
+                    a valid trellis structure.</p><p>While the message data entering the Convolutional Encoder block is a scalar
+                    bit stream, the encoded data leaving the block is a stream of binary vectors of
+                    length 2.</p></section><section><h4 class="title" id="fp81912">Mapping the Received Data</h4><p>The received data, that is, the output of the AWGN Channel block, consists of
+                    complex numbers that are close to -1 and 1. In order to reconstruct the original
+                    binary message, the receiver part of the model must decode the convolutional
+                    code. The Viterbi Decoder block in this model expects its input data to be
+                    integers between 0 and 7. The demodulator, a custom subsystem in this model,
+                    transforms the received data into a format that the Viterbi Decoder block can
+                    interpret properly. More specifically, the demodulator subsystem</p><div class="itemizedlist"><ul><li><p>Converts the received data signal to a real signal by removing its
+                            imaginary part. It is reasonable to assume that the imaginary part of
+                            the received data does not contain essential information, because the
+                            imaginary part of the transmitted data is zero (ignoring small roundoff
+                            errors) and because the channel noise is not very powerful.</p></li><li><p>Normalizes the received data by dividing by the standard deviation of
+                            the noise estimate and then multiplying by -1.</p></li><li><p>Quantizes the normalized data using three bits.</p></li></ul></div><p>The combination of this mapping and the Viterbi Decoder block&#39;s decision
+                    mapping reverses the BPSK modulation that the BPSK Modulator Baseband block
+                    performs on the transmitting side of this model. To examine the demodulator
+                    subsystem in more detail, double-click the icon labeled Soft-Output BPSK
+                    Demodulator.</p></section><section><h4 class="title" id="fp81957">Decoding the Convolutional Code</h4><span id="decoding_convolutional_code" class="anchor_target"></span><p>After the received data is properly mapped to length-2 vectors of 3-bit
+                    decision values, the Viterbi Decoder block decodes it. The block uses a
+                    soft-decision algorithm with 2<sup>3</sup> different input
+                    values because the <strong class="guilabel">Decision type</strong> parameter is
+                        <code class="guidropdown">Soft Decision</code> and the <strong class="guilabel">Number of soft
+                        decision bits</strong> parameter is <code class="literal">3</code>.</p><p><strong class="emphasis bold">Soft-Decision Interpretation of Data</strong></p><p>When the <strong class="guilabel">Decision type</strong> parameter is set to
+                        <code class="guidropdown">Soft Decision</code>, the Viterbi Decoder block requires
+                    input values between 0 and 2<sup>b</sup>-1, where
+                        <span class="emphasis"><em>b</em></span> is the <strong class="guilabel">Number of soft decision
+                        bits</strong> parameter. The block interprets 0 as the most confident
+                    decision that the codeword bit is a 0 and interprets
+                        2<sup>b</sup>-1 as the most confident decision that the
+                    codeword bit is a 1. The values in between these extremes represent less
+                    confident decisions. The following table lists the interpretations of the eight
+                    possible input values for this example.</p><div class="table-responsive"><table class="table table-condensed"><colgroup><col class="tcol1" width="50%"/><col class="tcol2" width="50%"/></colgroup><thead><tr><th>Decision Value</th><th>Interpretation</th></tr></thead><tbody><tr><td>0 </td><td>Most confident 0 </td></tr><tr><td>1 </td><td>Second most confident 0 </td></tr><tr><td>2 </td><td>Third most confident 0 </td></tr><tr><td>3 </td><td>Least confident 0 </td></tr><tr><td>4 </td><td>Least confident 1 </td></tr><tr><td>5 </td><td>Third most confident 1 </td></tr><tr><td>6 </td><td>Second most confident 1 </td></tr><tr><td>7 </td><td>Most confident 1 </td></tr></tbody></table></div><p><strong class="emphasis bold">Traceback and Decoding Delay</strong></p><p>The <strong class="guilabel">Traceback depth</strong> parameter in the Viterbi Decoder
+                    block represents the length of the decoding delay. Typical values for a
+                    traceback depth are about five or six times the constraint length, which would
+                    be 35 or 42 in this example. However, some hardware implementations offer
+                    options of 48 and 96. This example chooses 48 because that is closer to the
+                    targets (35 and 42) than 96 is.</p></section><section><h4 class="title" id="fp82190">Delay in Received Data</h4><p>The <strong class="guilabel">Receive delay</strong> parameter of the <a href="../ref/errorratecalculation.html"><span class="block">Error Rate Calculation</span></a> block is
+                    nonzero because a given message bit and its corresponding recovered bit are
+                    separated in time by a nonzero amount of simulation time. The <strong class="guilabel">Receive
+                        delay</strong> parameter tells the block which elements of its input
+                    signals to compare when checking for errors.</p><p>In this case, the Receive delay value is equal to the Traceback depth value
+                    (48).</p></section><section><h4 class="title" id="fp82333">Comparing Simulation Results with Theoretical Results</h4><p>This section describes how to compare the bit error rate in this simulation
+                    with the bit error rate that would theoretically result from unquantized
+                    decoding. The process includes a few steps, described in these sections:</p><p><strong class="emphasis bold">Computing Theoretical Bounds for the Bit Error
+                        Rate</strong></p><p>To calculate theoretical bounds for the bit error rate
+                        <span class="emphasis"><em>P</em></span><sub>b</sub> of the convolutional code in
+                    this model, you can use this estimate based on unquantized-decision
+                    decoding:</p><div id="d127e9043" class="mediaobject"><div class="code_responsive"><p class="programlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" altimg-valign="-20px" display="block"><mrow><msub><mi>P</mi><mi>b</mi></msub><mo>&lt;</mo><mstyle displaystyle="true"><munderover><mo>∑</mo><mrow><mi>d</mi><mo>=</mo><mi>f</mi></mrow><mi>∞</mi></munderover><mrow><msub><mi>c</mi><mi>d</mi></msub><msub><mi>P</mi><mi>d</mi></msub></mrow></mstyle></mrow></math></p></div></div><p>In this estimate, <span class="emphasis"><em>c</em></span><sub>d</sub> is the sum of
+                    bit errors for error events of distance <span class="emphasis"><em>d</em></span>, and
+                        <span class="emphasis"><em>f</em></span> is the free distance of the code. The quantity
+                        <span class="emphasis"><em>P</em></span><sub>d</sub> is the pairwise error
+                    probability, given by </p><div id="d127e9059" class="mediaobject"><div class="code_responsive"><p class="programlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" altimg-valign="-23px" display="block"><mrow><msub><mi>P</mi><mi>d</mi></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>erfc</mi><mrow><mo>(</mo><mrow><msqrt><mrow><mi>d</mi><mi>R</mi><mfrac><mrow><msub><mi>E</mi><mi>b</mi></msub></mrow><mrow><msub><mi>N</mi><mn>0</mn></msub></mrow></mfrac></mrow></msqrt></mrow><mo>)</mo></mrow></mrow></math></p></div></div><p>where <span class="emphasis"><em>R</em></span> is the code rate of 1/2, and <a href="../../matlab/ref/erfc.html"><code class="function">erfc</code></a> is the MATLAB complementary error function, defined by</p><div id="d127e9073" class="mediaobject"><div class="code_responsive"><p class="programlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" altimg-valign="-21px" display="block"><mrow><mi>erfc</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>2</mn><mrow><msqrt><mi>π</mi></msqrt></mrow></mfrac><mstyle displaystyle="true"><mrow><munderover><mo>∫</mo><mi>x</mi><mi>∞</mi></munderover><mrow><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></msup><mi>d</mi><mi>t</mi></mrow></mrow></mstyle></mrow></math></p></div></div><p>Values for the coefficients <span class="emphasis"><em>c</em></span><sub>d</sub> and
+                    the free distance <span class="emphasis"><em>f</em></span> are in published articles such as
+                    &#34;Convolutional Codes with Optimum Distance Spectrum&#34; <a class="intrnllnk" href="convolutional-codes.html#rand83056">[3]</a>. The free distance for this code is <span class="emphasis"><em>f</em></span> = 10.</p><p>The following commands calculate the values of
+                        <span class="emphasis"><em>P</em></span><sub>b</sub> for
+                        <span class="emphasis"><em>E</em></span><sub>b</sub><span class="emphasis"><em>/N</em></span><sub>0</sub>
+                    values in the range from 1 to 4, in increments of 0.5:</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>EbNoVec = [1:0.5:4.0];
+R = 1/2;
+<span style="color:var(--mw-color-matlabComment)">% Errs is the vector of sums of bit errors for</span>
+<span style="color:var(--mw-color-matlabComment)">% error events at distance d, for d from 10 to 29.</span>
+Errs = [36 0 211 0 1404 0 11633 0 77433 0 502690 0,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+        3322763 0 21292910 0 134365911 0 843425871 0]; 
+<span style="color:var(--mw-color-matlabComment)">% P is the matrix of pairwise error probilities, for</span>
+<span style="color:var(--mw-color-matlabComment)">% Eb/No values in EbNoVec and d from 10 to 29.</span>
+P = zeros(20,7); <span style="color:var(--mw-color-matlabComment)">% Initialize.</span>
+<span style="color:var(--mw-color-matlabKeyword)">for</span> d = 10:29
+   P(d-9,:) = (1/2)*erfc(sqrt(d*R*10.^(EbNoVec/10)));
+<span style="color:var(--mw-color-matlabKeyword)">end</span>
+<span style="color:var(--mw-color-matlabComment)">% Bounds is the vector of upper bounds for the bit error</span>
+<span style="color:var(--mw-color-matlabComment)">% rate, for Eb/No values in EbNoVec.</span>
+Bounds = Errs*P;</pre></div></div></div><p><strong class="emphasis bold">Simulating Multiple Times to Collect Bit Error
+                        Rates</strong></p><p>You can efficiently vary the simulation parameters by using the <a href="../../simulink/slref/sim.html"><code class="function">sim</code></a><span role="cross_prod"> (Simulink)</span> function to run the
+                    simulation from the MATLAB command line. For example, the following code calculates the bit
+                    error rate at bit energy-to-noise ratios ranging from 1 dB to 4 dB, in
+                    increments of 0.5 dB. It collects all bit error rates from these simulations in
+                    the matrix <code class="literal">BERVec</code>. It also plots the bit error rates in a
+                    figure window along with the theoretical bounds computed in the preceding code
+                    fragment.</p><p>In the code sample below, the model name <code class="literal">doc_softdecision</code>
+                    represents the model described in <a class="intrnllnk" href="convolutional-codes.html#fp81765">Overview of
+                        the Simulation</a>.</p><div class="code_responsive" translate="no"><pre class="programlisting">% Plot theoretical bounds and set up figure.
+figure;
+semilogy(EbNoVec,Bounds,&#39;bo&#39;,1,NaN,&#39;r*&#39;);
+xlabel(&#39;Eb/No (dB)&#39;); ylabel(&#39;Bit Error Rate&#39;);
+title(&#39;Bit Error Rate (BER)&#39;);
+l = legend(&#39;Theoretical bound on BER&#39;,&#39;Actual BER&#39;);
+l.AutoUpdate = &#39;off&#39;;
+axis([1 4 1e-5 1]);
+hold on;
+
+BERVec = [];
+% Make the noise level variable.
+set_param(&#39;doc_softdecision/AWGN Channel&#39;,...
+    &#39;EsNodB&#39;,&#39;EbNodB+10*log10(1/2)&#39;);
+% Simulate multiple times.
+for n = 1:length(EbNoVec)
+    EbNodB = EbNoVec(n);
+    sim(&#39;doc_softdecision&#39;,5000000);
+    BERVec(n,:) = BER_Data;
+    semilogy(EbNoVec(n),BERVec(n,1),&#39;r*&#39;); % Plot point.
+    drawnow;
+end
+hold off;</pre></div><div class="alert alert-info d-inline-block"><span class="alert_icon icon-alert-info-reverse"></span><p class="alert_heading"><strong>Note</strong></p><p>The estimate for <span class="emphasis"><em>P</em></span><sub>b</sub> assumes
+                        that the decoder uses unquantized data, that is, an infinitely fine
+                        quantization. By contrast, the simulation in this example uses 8-level
+                        (3-bit) quantization. Because of this quantization, the simulated bit error
+                        rate is not quite as low as the bound when the signal-to-noise ratio is
+                        high.</p></div><p>The plot of bit error rate against signal-to-noise ratio follows. The
+                    locations of your actual BER points might vary because the simulation involves
+                    random numbers.</p><div class="informalfigure"><div id="d127e9134" class="mediaobject"><p><img src="convplot.png" alt="Plot of BER versus Eb/N0 curves to compare theoretical bound to actual BERs." height="495" width="568"/></p></div></div></section></section><section><h3 class="title" id="bruue2m"><span id="tailbiting_example" class="anchor_target"></span>Tailbiting Encoding Using Feedback 
+                Encoders</h3><p>This example demonstrates Tailbiting encoding using feedback encoders. For
+                feedback encoders, the ending state depends on the entire block of data. To
+                accomplish tailbiting, you must calculate for a given information vector (of N
+                bits), the initial state, that leads to the same ending state after the block of
+                data is encoded. </p><p>This is achieved in two steps: </p>
+<div class="itemizedlist"><ul><li><p>The first step is to determine the zero-state response for a given
+                            block of data. The encoder starts in the all-zeros state. The whole
+                            block of data is input and the output bits are ignored. After N bits,
+                            the encoder is in a state
+                                <em class="varname">X</em><sub>N</sub><sup>[zs]</sup>.
+                            From this state, we calculate the corresponding initial state
+                                <em class="varname">X</em><sub>0</sub> and initialize the
+                            encoder with <em class="varname">X</em><sub>0</sub>. </p></li><li><p>The second step is the actual encoding. The encoder starts with the
+                            initial state <em class="varname">X</em><sub>0</sub>, the data
+                            block is input and a valid codeword is output which conforms to the same
+                            state boundary condition.</p></li></ul></div><p>
+</p><p> Refer to [8] for a theoretical calculation of the initial state
+                        <em class="varname">X<sub>0</sub></em> from
+                    <em class="varname">X</em><sub>N</sub><sup>[zs]</sup>
+                using state-space formulation. This is a one-time calculation which depends on the
+                block length and in practice could be implemented as a look-up table. Here we
+                determine this mapping table by simulating all possible entries for a chosen trellis
+                and block length.</p><div class="informalfigure"><div id="d127e9176" class="mediaobject"><p><img src="tailbiting_docexample.png" alt="Tailbiting encoding using feedback convolutional encoders." height="219" width="795"/></p></div></div><p>Assemble blocks to build the model. In the code sample below, the model name
+                    <code class="literal">doc_mtailbiting_wfeedback</code> represents the model described in
+                the figure.</p><div class="code_responsive" translate="no"><pre class="programlisting">function mapStValues = getMapping(blkLen, trellis)
+% The function returns the mapping value for the given block
+length and trellis to be used for determining the initial
+state from the zero-state response.
+
+% All possible combinations of the mappings
+mapStValuesTab = perms(0:trellis.numStates-1);
+
+% Loop over all the combinations of the mapping entries:
+for i = 1:length(mapStValuesTab)
+mapStValues = mapStValuesTab(i,:);
+
+% Model parameterized for the Block length
+sim(&#39;mtailbiting_wfeedback&#39;);
+
+% Check the boundary condition for each run
+% if ending and starting states match, choose that mapping set
+if unique(out)==0
+        return
+    end
+end</pre></div><p>Selecting the returned <code class="literal">mapStValues</code> for the <strong class="guilabel">Table
+                    data</strong> parameter of the <code class="literal"> Direct Lookup Table (n-D)</code>
+                block in the Lookup subsystem will perform tailbiting encoding for the chosen block
+                length and trellis.</p></section><section><h3 class="title" id="fp7977dup4">Selected Bibliography for Convolutional Coding</h3><div class="bibliography"><div id="fp7978" class="bibliomixed"><p>[1] <span>Clark, George C., and J. Bibb Cain. <em class="citetitle">Error-Correction
+        Coding for Digital Communications</em>. Applications of Communications Theory. New
+    York: Plenum Press, 1981.</span></p></div><div id="fp7979" class="bibliomixed"><p>[2] <span>Gitlin, Richard D., Jeremiah F. Hayes, and Stephen B.
+    Weinstein. <em class="citetitle">Data Communications Principles. Applications of Communications
+        Theory</em>. New York: Plenum Press, 1992.</span></p></div><div id="rand83056" class="bibliomixed"><p>[3] <span>Frenger, P., P. Orten, and T. Ottosson. “Convolutional Codes
+    with Optimum Distance Spectrum.” <em class="citetitle italic">IEEE<sup>®</sup> Communications Letters</em> 3, no. 11 (November 1999): 317–19. <a href="https://doi.org/10.1109/4234.803468" target="_blank">https://doi.org/10.1109/4234.803468</a>.</span></p></div></div></section>
+            
+            <h2 id="seealsoref">See Also</h2><h3 id="d127e9228">Topics</h3><ul class="list-unstyled"><li><a class="a" href="error-detection-and-correction.html">Error Detection and Correction</a></li><li><a class="a" href="cyclic-redundancy-check-codes.html">Cyclic Redundancy Check Codes</a></li><li><a class="a" href="block-codes.html">Block Codes</a></li><li><a class="a" href="galois-fields.html">Galois Fields</a></li></ul>
+        </section>
+    </div></section><div class="clearfix"></div>
+<div align="center" class="feedbackblock" id="mw_docsurvey"><script src="/help/includes/shared/docsurvey/docfeedback.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script nonce="214+w+Nx5E46c3qhx9ni3YkM">loadSurveyHidden();</script>
+<link rel="stylesheet" href="/help/includes/shared/docsurvey/release/index-css.css" type="text/css"/>
+<script src="/help/includes/shared/docsurvey/release/bundle.index.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script nonce="214+w+Nx5E46c3qhx9ni3YkM">initDocSurvey();</script></div>
+
+
+
+
+<div class="modal fade" id="matlab-command-dialog" tabindex="-1" role="dialog" aria-labelledby="matlabCommandDialogLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">MATLAB Command</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="dialog-body">
+        <p>You clicked a link that corresponds to this MATLAB command: </p>
+        <pre id="dialog-matlab-command"></pre>
+        <p>Run the command by entering it in the MATLAB Command Window.
+        Web browsers do not support MATLAB commands.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_color_blue" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+	<div><div class="targetContent parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row  ">
+
+	
+		<div class=" col-12 "><div class="2420e633-83fe-4c2d-9b62-4248985f27d2 parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+</div></div>
+
+</div>
+</section>
+	
+	
+	
+		
+
+<div><div class="modalParsys parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+
+		
+
+
+	<div id="location_content" style="display:none;"></div>
+
+	<div class="modal fade" id="country-unselected" tabindex="-1" aria-labelledby="domain_selector_label" style="padding-left: 0px; display:none;" aria-modal="true" role="dialog">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<img src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo.20260806155224309.svg" class="mw_logo theme_light" alt="MathWorks" width="173" height="35"/>
+					<img src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo-rev.20260806155224309.svg" class="mw_logo theme_dark" alt="MathWorks" width="173" height="35" style="display:none;"/>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+
+					<p class="h1 icon-globe" id="domain_selector_label">Select a Web Site</p>
+					<p>Choose a web site to get translated content where available and see local events and offers. Based on your location, we recommend that you select: <strong class="recommended-country"></strong>.</p>
+					<div class="default-recommendation">
+						<p><a class="btn btn_color_blue" data-lang="en" href="#" id="recommended_domain_button"><span class="recommended-country"></span></a></p>
+					</div>
+
+					<div class="ch-recommendation" style="display:none;">
+						<ul class="list-inline">
+							<li class="list-inline-item add_margin_5 d-block d-md-inline-block"><a class="recommendation-button btn btn-outline btn_color_blue" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Switzerland" data-subdomain="ch" href="//ch.mathworks.com"><strong class="recommended-country"></strong> (English)</a></li>
+							<li class="list-inline-item add_margin_5 d-block d-md-inline-block"><a class="recommendation-button btn btn-outline btn_color_blue" data-do-not-rewrite="true" data-lang="de" data-recommended-text="Schweiz" data-subdomain="ch" href="//ch.mathworks.com"><strong class="recommended-country"></strong> (Deutsch)</a></li>
+							<li class="list-inline-item add_margin_5 d-block d-md-inline-block"><a class="recommendation-button btn btn-outline btn_color_blue" data-do-not-rewrite="true" data-lang="fr" data-recommended-text="Suisse" data-subdomain="ch" href="//ch.mathworks.com"><strong class="recommended-country"></strong> (Français)</a></li>
+						</ul>
+					</div>
+					<div class="zh-recommendation" style="display:none;">
+						<ul class="list-inline">
+							<li class="list-inline-item"><a class="recommendation-button btn btn-outline btn_color_blue" data-default-lang="true" data-do-not-rewrite="true" data-lang="zh" data-recommended-text="中国" data-subdomain="ww2" href="//ww2.mathworks.cn"><strong class="recommended-country"></strong>（简体中文）</a></li>
+							<li class="list-inline-item"><a class="recommendation-button btn btn-outline btn_color_blue" data-do-not-rewrite="true" data-lang="en" data-recommended-text="China" data-subdomain="ww2" href="//ww2.mathworks.cn"><strong class="recommended-country"></strong> (English)</a></li>
+						</ul>
+					</div>
+
+					<p>You can also select a web site from the following list</p>
+					<div class="alert alert-warning" role="alert" id="china_performance_alert" style="display:none;"> <span class="alert_icon icon-alert-warning"></span>
+						<p class="alert_heading"><strong>How to Get Best Site Performance</strong></p>
+						<p>Select the China site (in Chinese or English) for best site performance. Other MathWorks country sites are not optimized for visits from your location.</p>
+					</div>
+					<div class="row add_margin_30">
+						<div class="col-12 col-sm-4 col-lg-3">
+							<p class="h3 add_bottom_rule">Americas</p>
+							<ul class="list-unstyled">
+								<li><a class="domain_selector_link" data-country-code="LA" data-default-lang="true" data-do-not-rewrite="true" data-lang="es" data-recommended-text="América Latina" data-selected-text="América Latina" data-subdomain="la" href="//la.mathworks.com">América Latina</a> (Español)</li>
+								<li><a class="domain_selector_link" data-country-code="CA" data-do-not-rewrite="true" data-lang="en" data-subdomain="www" href="//www.mathworks.com">Canada</a> (English)</li>
+								<li><a class="domain_selector_link" data-country-code="US" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="United States" data-selected-text="United States" data-subdomain="www" href="//www.mathworks.com">United States</a> (English)</li>
+							</ul>
+						</div>
+						<div class="col-12 col-sm-4 col-lg-6">
+							<p class="h3 add_bottom_rule">Europe</p>
+							<div class="row">
+								<div class="col-6 col-sm-12 col-lg-6">
+									<ul class="list-unstyled">
+										<li><a class="domain_selector_link" data-country-code="BE" data-do-not-rewrite="true" data-lang="en" data-subdomain="nl" href="//nl.mathworks.com">Belgium</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="DK" data-do-not-rewrite="true" data-lang="en" data-subdomain="se" href="//se.mathworks.com">Denmark</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="DE" data-default-lang="true" data-do-not-rewrite="true" data-lang="de" data-recommended-text="Deutschland" data-selected-text="Deutschland" data-subdomain="de" href="//de.mathworks.com">Deutschland</a> (Deutsch)</li>
+										<li><a class="domain_selector_link" data-country-code="ES" data-default-lang="true" data-do-not-rewrite="true" data-lang="es" data-recommended-text="España" data-selected-text="España" data-subdomain="es" href="//es.mathworks.com">España</a> (Español)</li>
+										<li><a class="domain_selector_link" data-country-code="FI" data-do-not-rewrite="true" data-lang="en" data-subdomain="se" href="//se.mathworks.com">Finland</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="FR" data-default-lang="true" data-do-not-rewrite="true" data-lang="fr" data-recommended-text="France" data-selected-text="France" data-subdomain="fr" href="//fr.mathworks.com">France</a> (Français)</li>
+										<li><a class="domain_selector_link" data-country-code="IE" data-do-not-rewrite="true" data-lang="en" data-subdomain="uk" href="//uk.mathworks.com">Ireland</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="IT" data-default-lang="true" data-do-not-rewrite="true" data-lang="it" data-recommended-text="Italia" data-selected-text="Italia" data-subdomain="it" href="//it.mathworks.com">Italia</a> (Italiano)</li>
+										<li><a class="domain_selector_link" data-country-code="LU" data-do-not-rewrite="true" data-lang="en" data-subdomain="nl" href="//nl.mathworks.com">Luxembourg</a> (English)</li>
+									</ul>
+								</div>
+								<div class="col-6 col-sm-12 col-lg-6">
+									<ul class="list-unstyled">
+										<li><a class="domain_selector_link" data-country-code="NL" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Netherlands" data-selected-text="Benelux" data-subdomain="nl" href="//nl.mathworks.com">Netherlands</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="NO" data-do-not-rewrite="true" data-lang="en" data-subdomain="se" href="//se.mathworks.com">Norway</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="AT" data-do-not-rewrite="true" data-lang="de" data-subdomain="de" href="//de.mathworks.com">Österreich</a> (Deutsch)</li>
+										<li><a class="domain_selector_link" data-country-code="PT" data-do-not-rewrite="true" data-lang="en" data-subdomain="www" href="//www.mathworks.com">Portugal</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="SE" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Sweden" data-selected-text="Nordic" data-subdomain="se" href="//se.mathworks.com">Sweden</a> (English)</li>
+										<li>Switzerland
+											<ul class="list-unstyled add_indent_20">
+												<li><a class="domain_selector_link" data-country-code="CH" data-do-not-rewrite="true" data-lang="de" data-recommended-text="Schweiz" data-selected-text="Schweiz" data-subdomain="ch" href="//ch.mathworks.com">Deutsch</a></li>
+												<li><a class="domain_selector_link" data-country-code="CH" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Switzerland" data-selected-text="Switzerland" data-subdomain="ch" href="//ch.mathworks.com" id="swiss_english">English</a></li>
+												<li><a class="domain_selector_link" data-country-code="CH" data-do-not-rewrite="true" data-lang="fr" data-recommended-text="Suisse" data-selected-text="Suisse" data-subdomain="ch" href="//ch.mathworks.com">Français</a></li>
+											</ul>
+										</li>
+										<li><a class="domain_selector_link" data-country-code="GB" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="United Kingdom" data-selected-text="United Kingdom" data-subdomain="uk" href="//uk.mathworks.com">United Kingdom</a> (English)</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-sm-4 col-lg-3">
+							<p class="h3 add_bottom_rule">Asia Pacific</p>
+							<ul class="list-unstyled">
+								<li><a class="domain_selector_link" data-country-code="AU" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Australia" data-selected-text="Australia" data-subdomain="au" href="//au.mathworks.com">Australia</a> (English)</li>
+								<li><a class="domain_selector_link" data-country-code="IN" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="India" data-selected-text="India" data-subdomain="in" href="//in.mathworks.com">India</a> (English)</li>
+								<li><a class="domain_selector_link" data-country-code="NZ" data-do-not-rewrite="true" data-lang="en" data-subdomain="au" href="//au.mathworks.com">New Zealand</a> (English)</li>
+								<li>中国
+									<ul class="list-unstyled add_indent_20">
+										<li><a class="domain_selector_link" data-country-code="CN" data-default-lang="true" data-do-not-rewrite="true" data-lang="zh" data-recommended-text="中国" data-selected-text="中国" data-subdomain="ww2" href="//ww2.mathworks.cn">简体中文</a></li>
+										<li><a class="domain_selector_link" data-country-code="CN" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="China" data-selected-text="China" data-subdomain="ww2" href="//ww2.mathworks.cn">English</a></li>
+									</ul>
+								</li>
+								<li><a class="domain_selector_link" data-country-code="JP" data-default-lang="true" data-do-not-rewrite="true" data-lang="ja" data-recommended-text="日本" data-selected-text="日本" data-subdomain="jp" href="//jp.mathworks.com">日本</a> (日本語)</li>
+								<li><a class="domain_selector_link" data-country-code="KR" data-default-lang="true" data-do-not-rewrite="true" data-lang="ko" data-recommended-text="한국" data-selected-text="한국" data-subdomain="kr" href="//kr.mathworks.com">한국</a> (한국어)</li>
+							</ul>
+						</div>
+					</div>
+					<p class="text-center"><a class="worldwide_link" data-do-not-rewrite="true" href="#">Contact your local office</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+    
+
+
+
+
+
+
+
+
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/domainselector.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+	
+</main>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+<footer id="footer">
+	
+		<div class="primary_footer" id="primary_footer">
+			<div class="container-fluid container-lg">
+				<div class="row align-items-start">
+					<div class="col-12 col-md-9">
+						<nav>
+							
+							<div class="footerNavigation footernavigation containsResourceName resourceClass-footernavigation">
+
+
+
+	<ul class="list-inline " id="footernav" data-privacy="Your Privacy Choices">
+		<li class="list-inline-item" id="footernav_footernav_patents">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center.html?s_tid=gf_tc">
+
+		
+
+		
+			
+			Trust Center</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_trademarks">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center/trademarks.html?s_tid=gf_trd">
+
+		
+
+		
+			
+			Trademarks</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_privacy">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center/privacy-policy.html?s_tid=gf_priv">
+
+		
+
+		
+			
+			Privacy Policy</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_piracy">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center/piracy.html?s_tid=gf_pir">
+
+		
+
+		
+			
+			Preventing Piracy</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_status">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="https://status.mathworks.com/?s_tid=gf_application">
+
+		
+
+		
+			
+			Application Status</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_contactus">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/aboutus/contact_us.html?s_tid=gf_contact">
+
+		
+
+		
+			
+			Contact Us</a>
+
+		
+		
+	
+
+		</li>
+	</ul>
+
+
+
+
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/footernavigation.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+</div>
+
+						</nav>
+						<p class="copyright">© 1994-2026 The MathWorks, Inc.</p>
+					</div>
+					<div class="col-12 col-md-3">
+						<div id="countrynav" class="d-flex justify-content-end">
+							<button class="btn btn-outline btn_countrynav companion_btn add_margin_20" id="domainButton" data-toggle="modal" data-bs-toggle="modal" data-target="#country-unselected" data-bs-target="#country-unselected">
+								<span class="visually-hidden sr-only">Select a Web Site</span>
+								<span class="icon-globe"></span>
+								<span id="countrySelectorButtonText">United States</span>
+							</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	
+	
+</footer>
+
+
+		</div>
+	</div>
+</div>
+
+		
+		
+		
+
+		
+			
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/button.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/downsize.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/upsize.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/tags.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/bs5-footer.min.20260806155224309.css" type="text/css"/>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/substitutepricing.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/tags.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+
+			
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/domainredirect.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+
+			
+    
+
+
+
+
+			
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/bootstrap5.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+			
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/signinanalytics.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/spotlight.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/bs5.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+			
+			
+				
+    
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/corporatenav.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+				<div class="modal-backdrop fade show" id="corporate_nav_modal"></div>
+			
+			
+
+			
+			<a aria-hidden="true" aria-label="Back to top" class="btn btn_color_mediumgray" href="#" id="go-top" tabindex="0"><span class="icon-arrow-open-up icon_24"></span></a>
+			<div id="web-application-footer-assets"></div>
+
+			
+    
+<link rel="stylesheet" href="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/matrixmenu.min.20260806155224309.css" type="text/css"/>
+<script src="https://www.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/matrixmenu.min.20260806155224309.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+
+
+
+
+			
+
+		
+
+	
+
+
+
+
+<script src="/help/releases/R2026b/includes/shared/scripts/saxonjs/SaxonJS2.rt.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script src="/help/releases/R2026b/includes/shared/scripts/product_group.js" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script>
+<script nonce="214+w+Nx5E46c3qhx9ni3YkM">
+        window.history.replaceState(window.location.href, null, ""); // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+        mystylesheetLocation = "/help/releases/R2026b/includes/shared/scripts/product_group-sef.json";
+        mysourceLocation = "/help/releases/R2026b/docset.xml";
+        product_help_location = "comm";
+        pagetype = "module";
+        doccentertype = "web";
+        langcode = "";
+        getProductFilteredList(mystylesheetLocation, mysourceLocation, product_help_location, pagetype, doccentertype, langcode);
+        });
+      </script>
+<script src="/help/includes/web/scripts/livecontrolpopoverhandler.js?202409" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script><script src="/help/includes/web/scripts/livetaskpopoverhandler.js?202409" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script><script src="https://matlab.mathworks.com/open/openwith.js?202403" nonce="214+w+Nx5E46c3qhx9ni3YkM"></script><style>.examples_short_list a.btn {display: none;}</style><script type="text/javascript" nonce="e0d36cf9ff285780c574b6b8e6027b02" src="/1jhIj7YQ_x/fvlsKP/IW9E/YL9N0tQJVNbkpJ/E1svAgoxHgE/SlZsOj9/9Czg"></script></body></html>

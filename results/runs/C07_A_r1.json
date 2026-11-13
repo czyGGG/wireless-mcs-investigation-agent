@@ -1,0 +1,199 @@
+{
+  "timestamp": "2026-11-13T10:36:22.276217+08:00",
+  "case_id": "C07",
+  "group": "A",
+  "model": "deepseek-flash",
+  "thinking": false,
+  "temperature": 0,
+  "seed": 20271713,
+  "max_requests": 16,
+  "max_tool_calls": 24,
+  "frame_budget": 16384,
+  "skill_loaded": false,
+  "skill_sha256": null,
+  "prompt_sha256": "b906e5fc4a23e147eb1efbbe579eb71f13543f86164a10bfdc9b350fc31a37cb",
+  "case": {
+    "target_user": "无线链路测试与优化工程师",
+    "candidate_mcs": [
+      "qpsk_r12",
+      "qpsk_r34",
+      "qam16_r12",
+      "qam16_r34",
+      "qam64_r12",
+      "qam64_r34"
+    ],
+    "bandwidth_mhz": 1.2,
+    "symbol_rate_msps": 1.0,
+    "payload_bits": 192,
+    "header_bits": 32,
+    "preamble_symbols": 16,
+    "bler_limit": 0.1,
+    "min_goodput_mbps": 0.0,
+    "model_description": "归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。",
+    "id": "C07",
+    "title": "现场信息尚不完整",
+    "incident": "现场仅发回一个标记为 12 dB 的读数和吞吐下降描述。请调查当前证据能支持什么结论，并列出需要补充的信息。",
+    "current_mcs": "qam64_r34",
+    "channel": null,
+    "metric_value_db": 12.0,
+    "metric_kind": null,
+    "observations": [
+      {
+        "id": "obs.missing",
+        "text": "读数定义、信道类型、帧间衰落统计尚未提供。"
+      }
+    ]
+  },
+  "status": "completed",
+  "output": {
+    "decision": "insufficient_evidence",
+    "recommended_mcs": null,
+    "normalized_esn0_db": null,
+    "summary": "工单 C07 仅提供单一“12 dB”读数与“吞吐下降”描述，且 obs.missing 明确说明读数定义、信道类型、帧间衰落统计均未提供。该 12 dB 无法判定是 SNR、Es/N0、RSRP 还是其他量纲，也无法确定是否已归一化到符号能量比，因此不能映射到本链路模型（1.2 MHz、1 Msps、192+32 比特、K=3 (7,5) 卷积码、3/4 串行穿孔、max-log 软解调 + Viterbi、瑞利块衰落）下的 BLER 与有效吞吐。无先导样本，pilot_sufficient 记为 null。当前证据不足以在 qpsk_r12…qam64_r34 六个候选中做出满足 BLER≤0.1 且有效吞吐最大的选择，故不推荐 MCS。",
+    "hypotheses": [
+      {
+        "explanation": "12 dB 是归一化符号能量比（Es/N0 或等效 SNR），在瑞利块衰落、无分集、1 Msps/1.2 MHz 条件下，qam64_r34 的链路 BLER 远高于 0.1，吞吐下降由当前 MCS 过高（阶数与码率均偏激进）导致，应降阶降码率。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.missing"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "12 dB 并非归一化 Es/N0，而是接收功率/RSRP 或含实现损耗的 SNR 读数；真实符号能量比可能显著更低或更高，吞吐下降可能源于信道条件（深衰落、干扰）或同步/实现问题，而非 MCS 选择不当。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.missing"
+        ],
+        "opposing_evidence": []
+      },
+      {
+        "explanation": "吞吐下降与 MCS 无关，而是帧结构开销（16 前导符号 + 32 比特帧头参与编码）在 192 比特短包下占比过高，或帧间衰落统计导致重传，使有效吞吐受限。",
+        "status": "undetermined",
+        "supporting_evidence": [
+          "obs.missing"
+        ],
+        "opposing_evidence": []
+      }
+    ],
+    "evidence_ids": [
+      "obs.missing"
+    ],
+    "pilot_sufficient": null,
+    "uncertainty": "核心不确定性在于 12 dB 的物理含义与量纲未知，且缺少信道类型与帧间衰落统计，无法把该读数换算为固定物理条件下的 normalized_esn0_db，也无法据此推算任一候选 MCS 的 BLER 与有效吞吐。此外“吞吐下降”缺少基线（原吞吐、对比时段、重传率），无法判断下降幅度与归因。",
+    "missing_information": [
+      "12 dB 读数的定义与量纲（SNR / Es/N0 / RSRP / SINR，是否已归一化到符号能量比，测量带宽与噪声系数）",
+      "信道类型与帧间衰落统计（是否瑞利块衰落、多普勒/相关时间、是否含直射径、有无分集）",
+      "吞吐下降的基线与量化数据（原/现有效吞吐、统计窗口、BLER 与重传次数、HARQ 是否启用）",
+      "当前 qam64_r34 的实际测量 BLER 与误块分布，以及是否伴随同步失败或译码异常",
+      "是否存在干扰、邻区或实现损耗等非信道因素",
+      "是否有可用的先导/探测样本（各候选 MCS 的短探测结果）"
+    ],
+    "next_actions": [
+      "向现场确认 12 dB 的测量定义、量纲、测量带宽与是否已归一化为 Es/N0，并要求提供原始测量文件",
+      "要求补充信道类型与帧间衰落统计（多普勒、相关时间、是否含直射径），以便按瑞利块衰落模型复算",
+      "要求提供吞吐下降前后的有效吞吐、BLER、重传次数与统计窗口，建立基线",
+      "在明确量纲后，按本链路模型对六个候选 MCS 做 BLER 与有效吞吐仿真/查表，筛选满足 BLER≤0.1 且有效吞吐最大的方案",
+      "若现场可操作，安排短时先导探测：以 qam16_r34、qam16_r12、qpsk_r34 依次试探，采集每档 BLER 与有效吞吐，再决定最终 MCS"
+    ]
+  },
+  "usage": {
+    "requests": 1,
+    "input_tokens": 1223,
+    "output_tokens": 1118
+  },
+  "elapsed_seconds": 7.974721000000045,
+  "frames_used": 0,
+  "evidence": {},
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "请完成这次调查。以下为本次实验全部原始公开数据。\n{\"target_user\": \"无线链路测试与优化工程师\", \"candidate_mcs\": [\"qpsk_r12\", \"qpsk_r34\", \"qam16_r12\", \"qam16_r34\", \"qam64_r12\", \"qam64_r34\"], \"bandwidth_mhz\": 1.2, \"symbol_rate_msps\": 1.0, \"payload_bits\": 192, \"header_bits\": 32, \"preamble_symbols\": 16, \"bler_limit\": 0.1, \"min_goodput_mbps\": 0.0, \"model_description\": \"归一化方形 Gray QAM，K=3、(7,5) 八进制卷积码，零状态终止。3/4 采用串行穿孔 [1,1,1,0,0,1]。接收端 max-log 软解调、Viterbi 译码，理想同步和已知信道。每帧独立，瑞利信道每帧内恒定。帧头参与编码，前导计入时间。\", \"id\": \"C07\", \"title\": \"现场信息尚不完整\", \"incident\": \"现场仅发回一个标记为 12 dB 的读数和吞吐下降描述。请调查当前证据能支持什么结论，并列出需要补充的信息。\", \"current_mcs\": \"qam64_r34\", \"channel\": null, \"metric_value_db\": 12.0, \"metric_kind\": null, \"observations\": [{\"id\": \"obs.missing\", \"text\": \"读数定义、信道类型、帧间衰落统计尚未提供。\"}]}",
+          "timestamp": "2026-11-13T02:36:22.277905Z",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "timestamp": "2026-11-13T02:36:22.278063Z",
+      "instructions": "你是无线链路测试工程师的调查助手。根据给定工单调查原因并选择配置。\n目标是在满足工单 BLER 和最低有效吞吐约束的候选中选择高有效吞吐方案。\n使用中文说明，提出至少两个有意义的候选解释，区分支持证据、反面证据和仍待确认的问题。\n引用原始数据时使用 obs.case 或工单 observations 中已有的 id。工具证据使用其返回的 evidence_id。\n输出证据编号应与实际可获得的材料对应。pilot_sufficient 表示原始先导样本本身是否足以保证业务约束，\n工单无先导样本时填 null。normalized_esn0_db 表示固定物理条件下的符号能量比，信息不足时填 null。\n如缺少形成结论的必要证据，请说明具体缺口及下一步行动。",
+      "kind": "request",
+      "run_id": "01a1d2c3-6184-774e-a3e6-ddd15f3e2cc1",
+      "conversation_id": "01a1d2c3-6184-774e-a3e6-ddd2b5ca8cc0",
+      "metadata": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "args": "{\"decision\": \"insufficient_evidence\", \"recommended_mcs\": null, \"normalized_esn0_db\": null, \"summary\": \"工单 C07 仅提供单一“12 dB”读数与“吞吐下降”描述，且 obs.missing 明确说明读数定义、信道类型、帧间衰落统计均未提供。该 12 dB 无法判定是 SNR、Es/N0、RSRP 还是其他量纲，也无法确定是否已归一化到符号能量比，因此不能映射到本链路模型（1.2 MHz、1 Msps、192+32 比特、K=3 (7,5) 卷积码、3/4 串行穿孔、max-log 软解调 + Viterbi、瑞利块衰落）下的 BLER 与有效吞吐。无先导样本，pilot_sufficient 记为 null。当前证据不足以在 qpsk_r12…qam64_r34 六个候选中做出满足 BLER≤0.1 且有效吞吐最大的选择，故不推荐 MCS。\", \"hypotheses\": [{\"explanation\": \"12 dB 是归一化符号能量比（Es/N0 或等效 SNR），在瑞利块衰落、无分集、1 Msps/1.2 MHz 条件下，qam64_r34 的链路 BLER 远高于 0.1，吞吐下降由当前 MCS 过高（阶数与码率均偏激进）导致，应降阶降码率。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.missing\"], \"opposing_evidence\": []}, {\"explanation\": \"12 dB 并非归一化 Es/N0，而是接收功率/RSRP 或含实现损耗的 SNR 读数；真实符号能量比可能显著更低或更高，吞吐下降可能源于信道条件（深衰落、干扰）或同步/实现问题，而非 MCS 选择不当。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.missing\"], \"opposing_evidence\": []}, {\"explanation\": \"吞吐下降与 MCS 无关，而是帧结构开销（16 前导符号 + 32 比特帧头参与编码）在 192 比特短包下占比过高，或帧间衰落统计导致重传，使有效吞吐受限。\", \"status\": \"undetermined\", \"supporting_evidence\": [\"obs.missing\"], \"opposing_evidence\": []}], \"evidence_ids\": [\"obs.missing\"], \"pilot_sufficient\": null, \"uncertainty\": \"核心不确定性在于 12 dB 的物理含义与量纲未知，且缺少信道类型与帧间衰落统计，无法把该读数换算为固定物理条件下的 normalized_esn0_db，也无法据此推算任一候选 MCS 的 BLER 与有效吞吐。此外“吞吐下降”缺少基线（原吞吐、对比时段、重传率），无法判断下降幅度与归因。\", \"missing_information\": [\"12 dB 读数的定义与量纲（SNR / Es/N0 / RSRP / SINR，是否已归一化到符号能量比，测量带宽与噪声系数）\", \"信道类型与帧间衰落统计（是否瑞利块衰落、多普勒/相关时间、是否含直射径、有无分集）\", \"吞吐下降的基线与量化数据（原/现有效吞吐、统计窗口、BLER 与重传次数、HARQ 是否启用）\", \"当前 qam64_r34 的实际测量 BLER 与误块分布，以及是否伴随同步失败或译码异常\", \"是否存在干扰、邻区或实现损耗等非信道因素\", \"是否有可用的先导/探测样本（各候选 MCS 的短探测结果）\"], \"next_actions\": [\"向现场确认 12 dB 的测量定义、量纲、测量带宽与是否已归一化为 Es/N0，并要求提供原始测量文件\", \"要求补充信道类型与帧间衰落统计（多普勒、相关时间、是否含直射径），以便按瑞利块衰落模型复算\", \"要求提供吞吐下降前后的有效吞吐、BLER、重传次数与统计窗口，建立基线\", \"在明确量纲后，按本链路模型对六个候选 MCS 做 BLER 与有效吞吐仿真/查表，筛选满足 BLER≤0.1 且有效吞吐最大的方案\", \"若现场可操作，安排短时先导探测：以 qam16_r34、qam16_r12、qpsk_r34 依次试探，采集每档 BLER 与有效吞吐，再决定最终 MCS\"]}",
+          "tool_call_id": "call_00_3o0t146fuqhBDyfw7MKW7277",
+          "tool_kind": null,
+          "id": null,
+          "provider_name": null,
+          "provider_details": null,
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1223,
+        "cache_write_tokens": 0,
+        "cache_write_1h_tokens": 0,
+        "cache_read_tokens": 128,
+        "output_tokens": 1118,
+        "output_reasoning_tokens": 0,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "audio_seconds": 0.0,
+        "details": {
+          "prompt_cache_hit_tokens": 128,
+          "prompt_cache_miss_tokens": 1095
+        },
+        "cost": "0.001670868"
+      },
+      "model_name": "deepseek-flash",
+      "model_id": "deepseek:deepseek-flash",
+      "timestamp": "2026-11-13T02:36:30.246935Z",
+      "kind": "response",
+      "provider_name": "deepseek",
+      "provider_url": "https://api.deepseek.com",
+      "canonical_system": null,
+      "provider_details": {
+        "finish_reason": "tool_calls",
+        "timestamp": "2026-11-13T02:36:18Z"
+      },
+      "provider_response_id": "794dfeb5-2c4a-4f0e-bed7-89204653ab44",
+      "finish_reason": "tool_call",
+      "run_id": "01a1d2c3-6184-774e-a3e6-ddd15f3e2cc1",
+      "conversation_id": "01a1d2c3-6184-774e-a3e6-ddd2b5ca8cc0",
+      "metadata": null,
+      "workspace_ref": null,
+      "history_digest": null,
+      "failed_attempts": null,
+      "state": "complete"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "final_result",
+          "content": "Final result processed.",
+          "tool_call_id": "call_00_3o0t146fuqhBDyfw7MKW7277",
+          "tool_kind": null,
+          "metadata": null,
+          "timestamp": "2026-11-13T02:36:30.249926Z",
+          "outcome": "success",
+          "retry": null,
+          "part_kind": "tool-return"
+        }
+      ],
+      "timestamp": "2026-11-13T02:36:30.250047Z",
+      "instructions": null,
+      "kind": "request",
+      "run_id": "01a1d2c3-6184-774e-a3e6-ddd15f3e2cc1",
+      "conversation_id": "01a1d2c3-6184-774e-a3e6-ddd2b5ca8cc0",
+      "metadata": null,
+      "state": "complete"
+    }
+  ]
+}
